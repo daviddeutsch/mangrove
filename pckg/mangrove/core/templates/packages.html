@@ -1,0 +1,16 @@
+<div ng-controller="PackageListCtrl">
+	<div class="headerbar" id="mangrove-header">
+		<img src="media/images/mangrove-logo-small.png" />
+		<input type="text" class="input-xlarge form-inline" placeholder="Let me know what to install" ng-model="search" autofocus/>
+	</div>
+	<div class="centerpiece" id="mangrove-starter">
+		<img src="media/images/mangrove-logo.png" />
+		<br /><br /><br />
+		<input type="text" class="input-xlarge" placeholder="Let me know what to install" ng-model="search" ng-change="switchup()" autofocus/>
+	</div>
+	<ul>
+		<li ng-repeat="package in packages | filter:packageSearch | orderBy:'name' | limitTo:10">
+			<package></package>
+		</li>
+	</ul>
+</div>

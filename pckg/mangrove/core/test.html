@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>mangrove</title>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular-resource.js"></script>
+	<script src="/media/js/angular-ui.min.js"></script>
+	<script src="/media/js/angular-ui-states.min.js"></script>
+	<script src="/media/js/ui-bootstrap-tpls-0.2.0.min.js"></script>
+	<script src="/media/js/mangroveApp.js"></script>
+	<style type="text/css">
+			body {
+				background-image: url("media/images/paper_fibers.png");
+			}
+			.mangroveApp {
+				height: auto !important;
+			}
+			.mangroveApp > .container {
+				background: rgba(255,255,255,0.5);
+				box-shadow: 0 4px 10px rgba(127,127,127,0.2), 0 -1px 3px rgba(127,127,127,0.6) inset;
+				min-height: 500px;
+				margin: 4% auto;
+				overflow: hidden;
+			}
+			.centerpiece {
+				margin-top: 15%;
+				text-align: center;
+			}
+			.headerbar {
+				margin: 0 auto;
+				max-width: 612px; 
+			}
+			.headerbar input {
+				margin: 10px 0; 
+			}
+			.container {
+				padding: 20px;
+			}
+			.footer {
+				height: 100px;
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+			}
+			.footer .nav-pills > li {
+				float:none;
+				display:inline-block;
+				*display:inline; /* ie7 fix */
+				zoom:1; /* hasLayout ie7 trigger */
+			}
+			
+			.footer .nav-pills {
+				text-align:center;
+			}
+		</style>
+</head>
+<body>
+
+	<div class="mangrove-overlay"></div>
+	<div ng-app="mangroveApp" class="mangroveApp">
+		<div class="container">
+			<div ui-view></div>
+		</div>
+		<div ng-include src="'templates/footer.html'"></div>
+	</div>
+</body>
+</html>

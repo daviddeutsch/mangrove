@@ -1,0 +1,6 @@
+<table ng-controller="RepositoryListCtrl">
+	<tr ng-repeat="repository in repositories | filter:search | orderBy:'name' | limitTo:5">
+		<td>{{ repository.vendor }}</td>
+		<td>{{ repository.source }}</td>
+	</tr>
+</table>
