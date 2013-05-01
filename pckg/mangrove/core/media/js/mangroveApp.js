@@ -2,9 +2,12 @@ var mangroveApp = angular.module("mangroveApp", ['ui.compat','mangroveServices']
 
 mangroveApp
 .config(
-	['$stateProvider',
-	function ($stateProvider) {
-	$stateProvider
+	['$stateProvider', '$urlRouterProvider',
+	function ($stateProvider, $urlRouterProvider) {
+	 $urlRouterProvider
+	 	.otherwise('/packages');
+
+	 $stateProvider
 		.state('repository', {
 			abstract:true,
 			templateUrl:"templates/repositories.html",
@@ -28,6 +31,9 @@ mangroveApp
 		})
 		.state('package.list', {
 			url:'/packages'
+		})
+		.state('package.search', {
+			url:'/packages/:search'
 		})
 		.state('package.detail', {
 			url:'/package/:packageId',
@@ -58,8 +64,8 @@ mangroveApp
 )
 
 .controller('PackageListCtrl',
-	['$scope', 'Package',
-	function ($scope, Package) {
+	['$scope', '$stateParams', 'Package',
+	function ($scope, $stateParams, Package) {
 		$scope.search = '';
 
 		$scope.searchStart = true;
@@ -71,26 +77,32 @@ mangroveApp
 			} else if ( (newVal.length == 0) && !$scope.searchStart ) {
 				$scope.searchStart = true;
 
-				angular.element("#mangrove-starter input").focus();
-
-				angular.element("#mangrove-starter").animate({opacity: 1, height: '100%'}, 300, 'swing', function(){
-					angular.element("#mangrove-header").show().animate({opacity: 0, height: 0}, 100, 'swing', function(){
+				angular.element("#mangrove-starter").animate({opacity: 'show', height: 'show'}, 200, 'swing', function(){
+					angular.element("#mangrove-header").css('display', 'block').animate({opacity: 'hide', height: 'hide'}, 300, 'swing', function(){
 						angular.element("#mangrove-starter input").focus();
 					});
 				});
 			} else if ( newVal.length > 0 && $scope.searchStart ) {
 				$scope.searchStart = false;
 
-				angular.element("#mangrove-header input").focus();
-
-				angular.element("#mangrove-header").show().animate({opacity: 1, height: '100%'}, 300, 'swing', function(){
-					angular.element("#mangrove-starter").animate({opacity: 0, height: 0}, 100, 'swing', function(){
+				angular.element("#mangrove-header").css('display', 'block').animate({opacity: 'show', height: 'show'}, 200, 'swing', function(){
+					angular.element("#mangrove-starter").animate({opacity: 'hide', height: 'hide'}, 300, 'swing', function(){
 						angular.element("#mangrove-header input").focus();
 					});
 				});
 				;
 			}
 		});
+
+		if ( ($stateParams.search != null) && ($scope.search == '') ) {
+			$scope.search = $stateParams.search;
+			
+			angular.element("#mangrove-starter input").val($scope.search);
+			angular.element("#mangrove-header input").val($scope.search);
+			
+			$scope.emit('search');
+
+		}
 
 		$scope.repositories = Package.query();
 		
