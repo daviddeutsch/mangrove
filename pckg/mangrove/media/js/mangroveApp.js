@@ -77,20 +77,25 @@ mangroveApp
 			} else if ( (newVal.length == 0) && !$scope.searchStart ) {
 				$scope.searchStart = true;
 
-				angular.element("#mangrove-starter").animate({opacity: 'show', height: 'show'}, 200, 'swing', function(){
-					angular.element("#mangrove-header").css('display', 'block').animate({opacity: 'hide', height: 'hide'}, 300, 'swing', function(){
-						angular.element("#mangrove-starter input").focus();
+				angular.element("#mangrove-starter")
+					.animate({opacity: 'show', height: 'show'}, 200, 'swing', function(){
+						angular.element("#mangrove-header")
+							.css('display', 'block')
+							.animate({opacity: 'hide', height: 'hide'}, 300, 'swing', function(){
+							angular.element("#mangrove-starter input").focus();
+						});
 					});
-				});
 			} else if ( newVal.length > 0 && $scope.searchStart ) {
 				$scope.searchStart = false;
 
-				angular.element("#mangrove-header").css('display', 'block').animate({opacity: 'show', height: 'show'}, 200, 'swing', function(){
-					angular.element("#mangrove-starter").animate({opacity: 'hide', height: 'hide'}, 300, 'swing', function(){
-						angular.element("#mangrove-header input").focus();
+				angular.element("#mangrove-header")
+					.css('display', 'block')
+					.animate({opacity: 'show', height: 'show'}, 200, 'swing', function(){
+						angular.element("#mangrove-starter")
+							.animate({opacity: 'hide', height: 'hide'}, 300, 'swing', function(){
+								angular.element("#mangrove-header input").focus();
+							});
 					});
-				});
-				;
 			}
 		});
 
