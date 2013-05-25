@@ -22,7 +22,7 @@ if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
 		{
 			$app = JFactory::getApplication();
 
-			$app->redirect( 'index.php?option=com_mangrove', $msg, $class );
+			$app->redirect( 'index.php?option=com_mangrove' );
 		}
 	}
 }

@@ -1,8 +1,0 @@
-{
-	"prefix":"valanx/",
-	"require":[
-		"angular/angular":"1.*",
-		"angular-ui/angular-ui":"0.*",
-		"angular-ui/ui-bootstrap":"0.*"
-	]
-}

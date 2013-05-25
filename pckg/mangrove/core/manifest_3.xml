@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.0.0" method="upgrade">
-	<name>mangrove</name>
-	<creationDate>2013.04.28</creationDate>
-	<author>David Deutsch</author>
-	<authorEmail>skore@valanx.org</authorEmail>
-	<copyright>Copyright (C) 2013 David Deutsch</copyright>
-	<license>GNU/GPL 3.0 or later</license>
-	<authorUrl>http://valanx.org</authorUrl>
-	<version>1.0</version>
-	<description>A package manager that is not just a faster horse.</description>
-	<administration>
-		<menu link="option=com_acctexp&amp;task=showCentral" img="../media/com_acctexp/images/admin/icons/aec_logo_tiny.png">ACCTEXP_MENU</menu>
-		<files folder="administrator/components/com_acctexp">
-			<file>acctexp.php</file>
-			<file>admin.acctexp.php</file>
-			<file>admin.acctexp.class.php</file>
-			<file>admin.acctexp.html.php</file>
-			<file>toolbar.acctexp.php</file>
-			<folder>install</folder>
-		</files>
-		<languages folder="administrator/language">
-			<language tag="en-GB">en-GB/en-GB.com_mangrove.ini</language>
-		</languages>
-	</administration>
-	<media destination="com_acctexp" folder="media/com_acctexp">
-		<folder>css</folder>
-		<folder>images</folder>
-		<folder>js</folder>
-	</media>
-	<installfile>install.php</installfile>
-	<scriptfile>install.php</scriptfile>
+    <name>mangrove</name>
+    <creationDate>2013.04.28</creationDate>
+    <author>David Deutsch</author>
+    <authorEmail>skore@valanx.org</authorEmail>
+    <copyright>Copyright (C) 2013 David Deutsch</copyright>
+    <license>GNU/GPL 3.0 or later</license>
+    <authorUrl>http://valanx.org</authorUrl>
+    <version>1.0</version>
+    <description>A package manager that is not just a faster horse.</description>
+    <files>
+    </files>
+    <administration>
+        <menu>mangrove</menu>
+        <files>
+            <file>mangrove.php</file>
+            <folder>payload</folder>
+            <folder>templates</folder>
+        </files>
+    </administration>
+    <media destination="com_mangrove" folder="media">
+        <folder>css</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+    </media>
+    <installfile>install.php</installfile>
+    <scriptfile>install.php</scriptfile>
 </extension>

@@ -1,0 +1,65 @@
+body {
+	margin: 10px;
+}
+
+#element-box {
+	background-image: url("../images/arches.png");
+	margin-bottom: 0;
+	border-radius: 0 0 10px 10px;
+}
+
+#element-box,
+#toolbar-box,
+#submenu-box {
+	font-size: 14px;
+}
+
+.mangroveApp {
+	padding: 4%;
+}
+
+.mangroveApp > .container {
+	background: rgba(255, 255, 255, 0.7);
+	box-shadow: 0 4px 10px rgba(127, 127, 127, 0.2), 0 -1px 3px rgba(127, 127, 127, 0.6) inset;
+	min-height: 500px;
+	overflow: hidden;
+	border-radius: 2px;
+}
+
+.centerpiece {
+	margin-top: 15%;
+	text-align: center;
+}
+
+.headerbar {
+	margin: 0 auto;
+	max-width: 612px;
+}
+
+.headerbar input {
+	margin: 10px 0;
+}
+
+.container {
+	padding: 20px;
+}
+
+.footer {
+	margin: 20px 0 4px;
+}
+
+.footer .nav-pills > li {
+	float: none;
+	display: inline-block;
+	*display: inline; /* ie7 fix */
+	zoom: 1; /* hasLayout ie7 trigger */
+}
+
+.footer .nav-pills {
+	text-align: center;
+}
+
+#toolbar-box {
+	display: none;
+	height: 0;
+}
