@@ -1,6 +1,6 @@
 [
 	{
-		"type":"mangrove",
+		"type":"mangrove-server",
 		"url":"https://packages.valanx.org"
 	}
 ]

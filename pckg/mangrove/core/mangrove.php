@@ -65,7 +65,7 @@ class Mangrove
 			$document->addScript( JURI::root(true).'/media/com_mangrove/js/'.$file.'.js' );
 		}
 
-		return include dirname(__FILE__).'/templates/test.html';
+		return include dirname(__FILE__).'/templates/main.html';
 	}
 
 	function getPackages()
