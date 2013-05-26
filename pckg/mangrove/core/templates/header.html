@@ -1,0 +1,13 @@
+<div class="header" id="mangrove-header">
+	<div class="mangrove-logo"
+		 ng-show="search"></div>
+	<div class="mangrove-logo-big"
+		 ng-hide="search"></div>
+	<input type="text"
+		   class="input-xlarge form-inline"
+		   placeholder="What do you want to install?"
+		   ng-model="search"
+		   ng-show="ready"
+		   autofocus/>
+	<hr ng-show="search" />
+</div>

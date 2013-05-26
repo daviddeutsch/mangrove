@@ -1,10 +1,10 @@
-<div class="footer">
-		<div ng-controller="AlertCtrl">
-			<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-		</div>
-		<ul class="nav nav-pills" ng-controller="MenuCtrl">
-			<li ng-repeat="pane in panes" ng-class="{active:pane.selected}">
-				<a href="#{{pane.title}}" ng-click="select(pane)">{{pane.title}}</a>
-			</li>
-		</ul>
+<div class="footer"
+	 ng-controller="MenuCtrl">
+	<ul class="nav nav-pills">
+		<li ng-repeat="pane in panes"
+			ng-class="{active:pane.selected}">
+			<a href="#{{pane.title}}"
+			   ng-click="select(pane)">{{pane.title}}</a>
+		</li>
+	</ul>
 </div>

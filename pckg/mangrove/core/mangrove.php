@@ -56,8 +56,8 @@ class Mangrove
 			'angular.min',
 			'angular-resource',
 			'angular-ui.min',
-			'angular-ui-states.min',
-			'ui-bootstrap-tpls-0.2.0.min',
+			'angular-ui-router.min',
+			//'ui-bootstrap-tpls-0.2.0.min',
 			'mangroveApp'
 		);
 

@@ -1,7 +1,8 @@
-<div class="mangrove-overlay"></div>
 <div ng-app="mangroveApp" class="mangroveApp">
-	<div class="container">
+	<div class="container" ng-animate="{enter:'fade-enter'}">
+		<div ui-view="header"></div>
+		<div ui-view="main"></div>
 		<div ui-view></div>
 	</div>
-	<div ng-include src="'components/com_mangrove/templates/footer.html'"></div>
+	<div ui-view="footer"></div>
 </div>

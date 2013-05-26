@@ -26,22 +26,52 @@ body {
 	border-radius: 2px;
 }
 
+.mangrove-logo-big {
+	position: relative;
+	width: 100%;
+	height: 140px;
+	background: url(../images/mangrove-logo.png) center center no-repeat;
+	margin: 60px 0 20px;
+}
+
+.mangrove-logo {
+	width: 260px;
+	height: 80px;
+	background: url(../images/mangrove-logo-small.png) center center no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -4px;
+	margin-left: 24px;
+}
+
+.valanx-logo {
+	width: 100%;
+	height: 140px;
+	background: url(../images/valanx-logo.png) center center no-repeat;
+	margin: 40px 0 20px;
+}
+
 .centerpiece {
 	margin-top: 15%;
 	text-align: center;
 }
 
-.headerbar {
-	margin: 0 auto;
+.header {
+	margin: 24px auto;
 	max-width: 612px;
+	text-align: center;
 }
 
-.headerbar input {
+.header input {
 	margin: 10px 0;
 }
 
-.container {
-	padding: 20px;
+.mangrove-header-big {
+	text-align: center;
+}
+
+#mangrove-credits {
+	text-align: center;
 }
 
 .footer {
@@ -62,4 +92,76 @@ body {
 #toolbar-box {
 	display: none;
 	height: 0;
+}
+
+.element-show, .element-hide {
+	-webkit-transition: all linear 0.5s;
+	-moz-transition: all linear 0.5s;
+	-ms-transition: all linear 0.5s;
+	-o-transition: all linear 0.5s;
+	transition: all linear 0.5s;
+}
+
+.element-show {
+	line-height: 0;
+	opacity: 0;
+}
+
+.element-show-active.element-show-active {
+	line-height: 100%;
+	opacity: 1;
+}
+
+.element-hide {
+	top: 20px;
+	opacity: 1;
+}
+
+.element-hide-active.element-hide-active {
+	top: -140px;
+	opacity: 0;
+}
+
+.install-show, .install-hide {
+	-webkit-transition: all linear 0.5s;
+	-moz-transition: all linear 0.5s;
+	-ms-transition: all linear 0.5s;
+	-o-transition: all linear 0.5s;
+	transition: all linear 0.5s;
+}
+
+.install-show {
+	line-height: 0;
+	opacity: 0;
+	padding: 0 10px;
+}
+
+.install-show-active.install-show-active {
+	line-height: 20px;
+	opacity: 1;
+	padding: 10px;
+}
+
+.install-hide {
+	line-height: 20px;
+	opacity: 1;
+	padding: 10px;
+}
+
+.install-hide-active.install-hide-active {
+	line-height: 0;
+	opacity: 0;
+	padding: 0 10px;
+}
+
+.fade-enter-setup, .fade-leave-setup {
+	transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+}
+.fade-enter-setup,
+.fade-leave-setup.fade-leave-start {
+	opacity: 0;
+}
+.fade-leave-setup,
+.fade-enter-setup.fade-enter-start {
+	opacity: 1;
 }
