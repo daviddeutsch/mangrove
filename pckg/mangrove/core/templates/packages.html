@@ -1,9 +1,11 @@
 <div ng-controller="PackageListCtrl">
 	<div class="header">
 		<div class="mangrove-logo"
-			 ng-show="search"></div>
+			 ng-show="search"
+			 ng-animate="'fade-opacity'"></div>
 		<div class="mangrove-logo-big"
-			 ng-hide="search"></div>
+			 ng-hide="search"
+			 ng-animate="'fade-opacity'"></div>
 		<div class="spinwrapper">
 			<div id="spinner"
 				 ng-show="inprogress"
