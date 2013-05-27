@@ -41,7 +41,7 @@ body {
 	display: inline-block;
 	vertical-align: middle;
 	margin-top: -4px;
-	margin-left: 24px;
+	margin-left: -12px;
 }
 
 .valanx-logo {
@@ -58,8 +58,19 @@ body {
 
 .header {
 	margin: 24px auto;
-	max-width: 612px;
 	text-align: center;
+}
+
+.header hr {
+	margin: 20px 5%;
+}
+
+.spinwrapper {
+	display: inline-block;
+	margin-top: 3px;
+	vertical-align: middle;
+	margin-left: -16px;
+	width: 28px;
 }
 
 .header input {
@@ -72,6 +83,16 @@ body {
 
 #mangrove-credits {
 	text-align: center;
+}
+
+.packagelist {
+	padding: 0 10%;
+}
+
+.package {
+	position: relative;
+	overflow: hidden;
+	height: 60px;
 }
 
 .footer {
@@ -154,8 +175,40 @@ body {
 	padding: 0 10px;
 }
 
+.fade-opacity-show {
+	-webkit-transition: all linear 0.2s;
+	-moz-transition: all linear 0.2s;
+	-ms-transition: all linear 0.2s;
+	-o-transition: all linear 0.2s;
+	transition: all linear 0.2s;
+}
+
+.fade-opacity-hide {
+	-webkit-transition: all linear 0.1s;
+	-moz-transition: all linear 0.1s;
+	-ms-transition: all linear 0.1s;
+	-o-transition: all linear 0.1s;
+	transition: all linear 0.1s;
+}
+
+.fade-opacity-show {
+	opacity: 0;
+}
+
+.fade-opacity-show-active.fade-opacity-show-active {
+	opacity: 1;
+}
+
+.fade-opacity-hide {
+	opacity: 1;
+}
+
+.fade-opacity-hide-active.fade-opacity-hide-active {
+	opacity: 0;
+}
+
 .fade-enter-setup, .fade-leave-setup {
-	transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+	transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s;
 }
 .fade-enter-setup,
 .fade-leave-setup.fade-leave-start {
@@ -164,4 +217,54 @@ body {
 .fade-leave-setup,
 .fade-enter-setup.fade-enter-start {
 	opacity: 1;
+}
+
+.repeat-enter.repeat-enter-active {
+	height: 60px;
+	opacity: 1;
+}
+
+.repeat-leave {
+	height: 60px;
+	left: 0;
+	opacity: 1;
+	position: relative;
+	-webkit-transition: all linear 0.2s;
+	-moz-transition: all linear 0.2s;
+	-ms-transition: all linear 0.2s;
+	-o-transition: all linear 0.2s;
+	transition: all linear 0.2s;
+}
+
+.repeat-leave.repeat-leave-active {
+	height: 0;
+	opacity: 0;
+}
+
+.repeat-show, .repeat-hide {
+	-webkit-transition: all linear 0.2s;
+	-moz-transition: all linear 0.2s;
+	-ms-transition: all linear 0.2s;
+	-o-transition: all linear 0.2s;
+	transition: all linear 0.2s;
+}
+
+.repeat-show {
+	opacity: 0;
+	top: -60px;
+}
+
+.repeat-show-active {
+	opacity: 1;
+	top: 0;
+}
+
+.repeat-hide {
+	opacity: 1;
+	top: 0;
+}
+
+.repeat-hide-active {
+	opacity: 0;
+	top: -60px;
 }

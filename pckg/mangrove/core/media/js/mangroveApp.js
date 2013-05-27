@@ -1,9 +1,4 @@
-// Fix for Joomla 2.5 language modal
-jQuery(document).ready(function (jQuery) {
-	jQuery('#module-status span.multilanguage a').removeClass('modal');
-});
-
-var mangroveApp = angular.module("mangroveApp", ['ui.compat', 'mangroveServices']);
+var mangroveApp = angular.module("mangroveApp", ['ui.compat', 'ui.bootstrap', 'ngResource']);
 
 jurl = function (name) {
 	return "components/com_mangrove/templates/" + name + ".html";
@@ -17,17 +12,12 @@ mangroveApp
 					.otherwise('/packages');
 
 				$stateProvider
-					.state('base', {
-						abstract: true,
-						views: {
-							'footer': { templateUrl: jurl('footer') },
-							'header': { templateUrl: jurl('header') }
-						}
-					})
 					.state('repository', {
 						abstract: true,
-						parent: 'base',
-						templateUrl: jurl('repositories')
+						templateUrl: jurl('repositories'),
+						views: {
+							'footer': { templateUrl: jurl('footer') }
+						}
 					})
 					.state('repository.list', {
 						url: '/repositories'
@@ -38,15 +28,13 @@ mangroveApp
 					})
 					.state('package', {
 						abstract: true,
-						parent: 'base',
-						data: {
-							search: '',
-							ready: true
+						views: {
+							'footer': { templateUrl: jurl('footer') },
+							'main': { templateUrl: jurl('packages') }
 						}
 					})
 					.state('package.list', {
-						url: '/packages',
-						templateUrl: jurl('packages')
+						url: '/packages'
 					})
 					.state('package.search', {
 						url: '/packages/:search'
@@ -57,7 +45,6 @@ mangroveApp
 					})
 					.state('credits', {
 						url: '/credits',
-						templateUrl: jurl('credits'),
 						views: {
 							'footer': { templateUrl: jurl('footer') },
 							'main': { templateUrl: jurl('credits') }
@@ -90,12 +77,44 @@ mangroveApp
 )
 
 	.controller('PackageListCtrl',
-		['$scope', '$stateParams', 'Package',
-			function ($scope, $stateParams, Package) {
+		['$scope', '$timeout', '$filter', 'Package',
+			function ($scope, $timeout, $filter, Package) {
+				var spinner = Spinners.create('#spinner', {
+					radius: 2,
+					height: 4,
+					width: 14,
+					dashes: 3,
+					opacity: 0.49,
+					padding: 0,
+					rotation: 250,
+					color: '#080'
+				}).play();
+
 				$scope.search = '';
 
-				$scope.repositories = Package.query();
+				//$scope.repositories = Package.query();
+				allpackages = [
+					{name:"aec", description: "AEC Membership Management by Valanx"},
+					{name:"mangrove", description: "mangrove package manager by Valanx"},
+					{name:"ninjaboard", description: "Ninjaboard Forum by Ninjaforge"},
+					{name:"stupid", description: "stupid Membership Management"},
+					{name:"cake", description: "cake Membership Management"}
 
+				];
+
+				$scope.packages = [];
+
+				$scope.installList = [];
+
+				filter = $filter('filter');
+
+				$scope.filter = function(q) {
+					$scope.inprogress = true;
+					$scope.packages = filter(allpackages, q);
+					$timeout(function(){
+						$scope.inprogress = false;
+					}, 100);
+				};
 			}
 		]
 	)
@@ -124,21 +143,27 @@ mangroveApp
 		]
 	);
 
-angular.module('mangroveServices', ['ngResource'])
+mangroveApp
 	.factory('Repository',
 	function ($resource) {
 		return $resource('index.php?option=com_mangrove&task=repository', {}, {
 			query: {method: 'GET', params: {}, isArray: true}
 		});
-	}
-)
+	})
 	.factory('Package',
 	function ($resource) {
 		return $resource('index.php?option=com_mangrove&task=package', {}, {
 			query: {method: 'GET', params: {}, isArray: true}
 		});
-	}
-)
+	})
+	.factory('globalState',
+	function () {
+		var inprogress=false;
+
+		return {
+			inprogress: true
+		};
+	})
 ;
 
 
@@ -159,3 +184,8 @@ function AlertCtrl($scope) {
 		$scope.alerts.splice(index, 1);
 	};
 }
+
+// Fix for Joomla 2.5 language modal
+jQuery(document).ready(function (jQuery) {
+	jQuery('#module-status span.multilanguage a').removeClass('modal');
+});
