@@ -1,0 +1,24 @@
+{
+    "vendor":"valanx",
+	"description":"A package manager that is not just a faster horse.",
+    "author":"David Deutsch",
+    "author-url":"http://valanx.org",
+    "author-email":"skore@valanx.org",
+    "copyright":"Copyright (C) 2013 David Deutsch",
+    "license":"GNU/GPL Version 3.0 or later - http://www.gnu.org/copyleft/gpl.html",
+	"type":"joomla-component",
+	"version":"1.0",
+	"require":
+		[
+			"redbean/redbean-tiny",
+			"valanx/mangrove/core",
+			"valanx/mangrove/installers/joomla",
+			"angularjs/angularjs",
+			"angular-ui/angular-ui",
+			"angular-ui/angular-ui-router",
+			"angular-ui/angular-ui-bootstrap",
+			"mgonto/restangular",
+			"jquery/jquery"
+		],
+	"payload": "require-payload"
+}

@@ -1,4 +1,4 @@
-var mangroveApp = angular.module("mangroveApp", ['ui.compat', 'ui.bootstrap', 'ngResource']);
+var mangroveApp = angular.module("mangroveApp", ['ui.compat', 'ui.bootstrap', 'Restangular']);
 
 jurl = function (name) {
 	return "components/com_mangrove/templates/" + name + ".html";
@@ -6,8 +6,10 @@ jurl = function (name) {
 
 mangroveApp
 	.config(
-		['$stateProvider', '$urlRouterProvider',
-			function ($stateProvider, $urlRouterProvider) {
+		['$stateProvider', '$urlRouterProvider', 'RestangularProvider', '$httpProvider',
+			function ($stateProvider, $urlRouterProvider, RestangularProvider, $httpProvider) {
+				RestangularProvider.setBaseUrl('index.php?option=com_mangrove');
+
 				$urlRouterProvider
 					.otherwise('/packages');
 
@@ -77,8 +79,8 @@ mangroveApp
 )
 
 	.controller('PackageListCtrl',
-		['$scope', '$timeout', '$filter', 'Package',
-			function ($scope, $timeout, $filter, Package) {
+		['$scope', '$timeout', '$filter', 'Restangular',
+			function ($scope, $timeout, $filter, Restangular) {
 				var spinner = Spinners.create('#spinner', {
 					radius: 2,
 					height: 4,
@@ -92,15 +94,7 @@ mangroveApp
 
 				$scope.search = '';
 
-				//$scope.repositories = Package.query();
-				allpackages = [
-					{name:"aec", description: "AEC Membership Management by Valanx"},
-					{name:"mangrove", description: "mangrove package manager by Valanx"},
-					{name:"ninjaboard", description: "Ninjaboard Forum by Ninjaforge"},
-					{name:"stupid", description: "stupid Membership Management"},
-					{name:"cake", description: "cake Membership Management"}
-
-				];
+				allpackages = Restangular.all("packages").getList();
 
 				$scope.packages = [];
 
@@ -142,48 +136,6 @@ mangroveApp
 			}
 		]
 	);
-
-mangroveApp
-	.factory('Repository',
-	function ($resource) {
-		return $resource('index.php?option=com_mangrove&task=repository', {}, {
-			query: {method: 'GET', params: {}, isArray: true}
-		});
-	})
-	.factory('Package',
-	function ($resource) {
-		return $resource('index.php?option=com_mangrove&task=package', {}, {
-			query: {method: 'GET', params: {}, isArray: true}
-		});
-	})
-	.factory('globalState',
-	function () {
-		var inprogress=false;
-
-		return {
-			inprogress: true
-		};
-	})
-;
-
-
-function repositoryDetailCtrl($scope, $routeParams, Repository) {
-	$scope.repository = Repository.get({}, function (repository) {
-		$scope.mainImageUrl = repository.images[0];
-	});
-}
-
-function AlertCtrl($scope) {
-	$scope.alerts = [];
-
-	$scope.addAlert = function () {
-		$scope.alerts.push({msg: "Another alert!"});
-	};
-
-	$scope.closeAlert = function (index) {
-		$scope.alerts.splice(index, 1);
-	};
-}
 
 // Fix for Joomla 2.5 language modal
 jQuery(document).ready(function (jQuery) {

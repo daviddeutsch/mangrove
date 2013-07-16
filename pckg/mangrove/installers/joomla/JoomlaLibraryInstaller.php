@@ -1,14 +1,12 @@
 <?php
 
-class JoomlaInstaller
+class JoomlaLibraryInstaller extends JoomlaInstaller
 {
 	public function install( $path )
 	{
-		jimport('joomla.installer.installer');
+		// Copy media files to library directory, if they don't exist yet
 
-		$installer = new JInstaller();
-
-		return $installer->install( $path );
+		return true;
 	}
 
 	public function afterInstall( $path )

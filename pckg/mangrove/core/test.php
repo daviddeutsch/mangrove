@@ -7,6 +7,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script src="media/js/angular.min.js"></script>
 	<script src="media/js/angular-resource.js"></script>
+	<script src="media/js/restangular.min.js"></script>
 	<script src="media/js/angular-ui.min.js"></script>
 	<script src="media/js/angular-ui-router.min.js"></script>
 	<script src="media/js/spinners.min.js"></script>

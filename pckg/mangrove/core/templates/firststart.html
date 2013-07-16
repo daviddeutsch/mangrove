@@ -3,20 +3,25 @@
 	<p>Just a heads up: To deliver the right packages to you, mangrove needs to tell our server a little bit about your setup.</p>
 	<p>This data is collected <strong>anonymously</strong> and is used so we can run statistics on it.</p>
 	<p>Of course, mangrove <em>can</em> function without a connection, so if you'd rather not share anything, or have decided against connecting to our server for some other reason, that's fine - it's just a little more work for you (you have to download and upload packages yourself).</p>
-	<p>We also offer you the option to send us a little more data which helps us make better decisions in the future (for instance on what software to integrate with). If you're willing to help us out there, you will get a month of access to valanx.org in return.</p>
+	<p>We also offer you the option to send us a little more data which helps us make better decisions in the future (for instance on what software to integrate with). If you're willing to help us out there, you will get one or two months of access to valanx.org in return.</p>
 
-	<h4><input type="radio" name="sharing" value="none" />Share nothing</h4>
-	<p>I don't want mangrove to connect to any server. Only install from files that I upload or which are included in this package.</p>
+	<form name="sharingForm" ng-submit="post()" ng-controller="configCtrl">
+		<h4><input type="radio" name="sharing" value="none" />Share nothing</h4>
+		<p>I don't want mangrove to connect to any server. Only install from files that I upload or which are included in this package.</p>
 
-	<h4><input type="radio" name="sharing" value="yes" checked="checked"/>Share a little</h4>
-	<p>I want to connect to the Valanx.org servers for latest updates and features directly. I'm alright with sharing minimal information.</p>
+		<h4><input type="radio" name="sharing" value="min" checked="checked"/>Share a little</h4>
+		<p>I want to connect to the Valanx.org servers for latest updates and features directly. I'm alright with sharing minimal information.</p>
 
-	<h4><input type="radio" name="sharing" value="all" />Share a little more (+1 month access for free)</h4>
-	<p>I'm alright with sharing more information, including how much I u (plus, I'd like a month of access for free).</p>
+		<h4><input type="radio" name="sharing" value="more" />Share a little more (+1 month access for free)</h4>
+		<p>I'm alright with sharing more information, including rough usage estimates (plus, I'd like a month of access for free).</p>
+
+		<h4><input type="radio" name="sharing" value="max" />Share a crazy amount (+2 month access for free)</h4>
+		<p>I'm alright with sharing very detailed information, including detailed usage data (plus, I'd like two months of access for free).</p>
+	</form>
 	<h3>More about why we do this</h3>
 	<p>There are two major reasons why we collect data:</p>
 	<p>First, the joomla landscape is quite diverse. Different versions of the main CMS, of components and of server software are in use. So we collect data get a tap on trends and figure out the state of technological development (like: "How many people have switched to Joomla 3.0 yet?", or "Is it safe to require PHP 5.3?").</p>
 	<p>Second, nothing beats knowing <em>how</em> people use applications and in which combination. That helps us, for instance, to make decisions on which components to integrate with next.</p>
 	<h3>More about security</h3>
-	<p>When you connect to our servers, </p>
+	<p>When you connect to our servers, all data you send over is made completely anonymous. A unique key is generated on your end and we accept that as a reference. There is no way to know about your server from reading our data.</p>
 </div>

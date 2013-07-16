@@ -1,4 +1,13 @@
 {
-    "type":"joomla-component",
-	"version":"1.0"
+	"type":"joomla-component",
+	"version":"1.0",
+	"require":
+		[
+			"angularjs/angularjs",
+			"angular-ui/angular-ui",
+			"angular-ui/angular-ui-router",
+			"angular-ui/angular-ui-bootstrap",
+			"mgonto/restangular",
+			"jquery/jquery"
+		]
 }
