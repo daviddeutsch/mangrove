@@ -16,7 +16,6 @@
 		<files>
 			<file>install.php</file>
 			<folder>payload</folder>
-			<folder>templates</folder>
 		</files>
 	</administration>
 	<media destination="com_mangrove" folder="media">
