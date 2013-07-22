@@ -19,6 +19,20 @@ if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
  */
 class Com_MangroveInstallerScript
 {
+	var $temp_directory;
+	var $has_db;
+
+	function __construct()
+	{
+		$this->temp_directory = JPATH_ROOT.'/tmp/mangrove';
+
+		if ( !is_dir($this->temp_directory) ) {
+			mkdir($this->temp_directory);
+		}
+
+		$this->has_db = false;
+	}
+
 	function postflight( $type, $parent )
 	{
 		$this->install();
@@ -92,12 +106,32 @@ class Com_MangroveInstallerScript
 				break;
 		}
 
+		if ( strpos('redbean', $path) ) {
+			$this->has_redbean = true;
+		}
+
 		$this->registerPackage( $info );
 	}
 
 	function registerPackage( $info )
 	{
+		if ( !$this->has_db ) {
+			$this->db();
+		}
+	}
 
+	private static function db()
+	{
+		R::addDatabase(
+			self::$config->database->name,
+			'mysql:host='.self::$config->database->host.';'
+			.'dbname='.self::$config->database->name,
+			self::$config->database->user,
+			self::$config->database->password
+		);
+
+		R::selectDatabase( self::$config->database->name );
+		//R::$writer->setUseCache(true);
 	}
 
 	static function getJSON( $path )
@@ -114,5 +148,3 @@ if ( !function_exists( 'com_install' ) ) {
 		$installer->install();
 	}
 }
-
-?>

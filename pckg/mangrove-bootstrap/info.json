@@ -11,6 +11,7 @@
 	"require":
 		[
 			"redbean/redbean-tiny",
+			"valanx/jredbean",
 			"valanx/mangrove/core",
 			"valanx/mangrove/installers/joomla",
 			"angularjs/angularjs",
