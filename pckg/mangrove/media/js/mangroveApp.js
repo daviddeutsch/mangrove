@@ -57,25 +57,27 @@ mangroveApp
 	)
 
 	.controller("MenuCtrl",
-	function ($scope, $location) {
-		$scope.panes = [
-			{ title: "packages", content: "components/com_mangrove/templates/packages.html" },
-			{ title: "repositories", content: "components/com_mangrove/templates/repositories.html" },
-			{ title: "settings", content: "components/com_mangrove/templates/settings.html" },
-			{ title: "credits", content: "components/com_mangrove/templates/credits.html" }
-		];
+	['$scope', '$location',
+		function ($scope, $location) {
+			$scope.panes = [
+				{ title: "packages", content: "components/com_mangrove/templates/packages.html" },
+				{ title: "repositories", content: "components/com_mangrove/templates/repositories.html" },
+				{ title: "settings", content: "components/com_mangrove/templates/settings.html" },
+				{ title: "credits", content: "components/com_mangrove/templates/credits.html" }
+			];
 
-		angular.forEach($scope.panes, function (pane) {
-			pane.selected = '/' + pane.title == $location.$$path;
-		});
-
-		$scope.select = function selectPane(pane) {
 			angular.forEach($scope.panes, function (pane) {
-				pane.selected = false;
+				pane.selected = '/' + pane.title == $location.$$path;
 			});
-			pane.selected = true;
-		};
-	}
+
+			$scope.select = function selectPane(pane) {
+				angular.forEach($scope.panes, function (pane) {
+					pane.selected = false;
+				});
+				pane.selected = true;
+			};
+		}
+	]
 )
 
 	.controller('PackageListCtrl',

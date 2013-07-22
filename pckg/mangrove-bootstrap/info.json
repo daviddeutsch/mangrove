@@ -14,6 +14,7 @@
 			"valanx/jredbean",
 			"valanx/mangrove/core",
 			"valanx/mangrove/installers/joomla",
+			"google/excanvas",
 			"angularjs/angularjs",
 			"angular-ui/angular-ui",
 			"angular-ui/angular-ui-router",
