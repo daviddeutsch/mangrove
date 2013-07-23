@@ -1,6 +1,6 @@
 <?php
 
-class JoomlaLibraryMediaInstaller extends JoomlaLibraryInstaller
+class JoomlaAssetInstaller extends JoomlaInstaller
 {
 
 }
