@@ -1,6 +1,6 @@
 <?php
 
-class JoomlaInstaller
+class JoomlaInstaller extends MangroveInstaller
 {
 	public function install( $path )
 	{

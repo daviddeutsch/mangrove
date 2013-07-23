@@ -3,6 +3,10 @@
 	"version":"1.0",
 	"require":
 		[
+			"redbean/redbean-tiny",
+			"valanx/jredbean",
+			"valanx/mangrove/installers/joomla",
+			"google/excanvas",
 			"angularjs/angularjs",
 			"angular-ui/angular-ui",
 			"angular-ui/angular-ui-router",
