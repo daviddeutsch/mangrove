@@ -9,8 +9,8 @@
 			"google/excanvas",
 			"angularjs/angularjs",
 			"angular-ui/angular-ui",
-			"angular-ui/angular-ui-router",
-			"angular-ui/angular-ui-bootstrap",
+			"angular-ui/router",
+			"angular-ui/bootstrap",
 			"mgonto/restangular",
 			"jquery/jquery"
 		]
