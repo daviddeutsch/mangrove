@@ -1,8 +1,12 @@
 {
     "vendor":"valanx",
-    "author":"David Deutsch",
-    "author-url":"http://valanx.org",
-    "author-email":"skore@valanx.org",
+	"authors":[
+		{
+			"name":"David Deutsch",
+			"email":"skore@valanx.org",
+			"homepage":"http://valanx.org"
+		}
+	],
     "copyright":"Copyright (C) 2013 David Deutsch",
     "license":"GNU/GPL Version 3.0 or later - http://www.gnu.org/copyleft/gpl.html"
 }
