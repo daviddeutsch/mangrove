@@ -1,5 +1,9 @@
 {
 	"type":"joomla-component",
+	"joomla":{
+		"name":"com_mangrove",
+		"admin":true
+	},
 	"version":"1.0",
 	"require":
 		[
