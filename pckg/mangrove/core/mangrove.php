@@ -83,6 +83,24 @@ class Mangrove
 
 	}
 
+	/**
+	 * Make a unique hash for this site.
+	 *
+	 * Uses the URI root of the server as a unique identifier and
+	 * the dbprefix as a salt to make it harder to bruteforce
+	 *
+	 * dbprefix was chosen because it's unlikely to change unless the
+	 * site is done over (in which case it's a "new" site anyhow)
+	 *
+	 * @return string
+	 */
+	private function makeSiteHash()
+	{
+		$app = JFactory::getApplication();
+
+		return sha1( JURI::root().$app->getCfg('dbprefix') );
+	}
+
 	static function getJSON( $path )
 	{
 		return json_decode( file_get_contents( $path ) );
