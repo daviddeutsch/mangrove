@@ -142,3 +142,26 @@ class Mangrove
 		//R::$writer->setUseCache(true);
 	}
 }
+
+class mangroveConnector
+{
+	public function getToken( $sha )
+	{
+		$v = new JVersion();
+
+		$request = new stdClass();
+		$request->sha = $sha;
+		$request->client = new StdClass();
+		$request->client->php = PHP_VERSION;
+		$request->client->joomla = new stdClass();
+		$request->client->joomla->short = $v->getShortVersion();
+		$request->client->joomla->long = $v->getLongVersion();
+
+		return $request;
+	}
+
+	public function registerHook()
+	{
+		$request =
+	}
+}
