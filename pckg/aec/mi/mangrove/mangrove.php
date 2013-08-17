@@ -118,7 +118,7 @@ class mi_mangrove
 			return $settings;
 		}
 
-		
+
 	}
 
 	function expiration_action( $request )
