@@ -159,6 +159,5 @@ class mi_mangrove
 	{
 
 	}
-}
 
-?>
+}

@@ -26,7 +26,9 @@ class plgSystemTinyhook extends JPlugin
 
 		$hook = preg_replace( '`[^a-z0-9]+`', '', $uri->getVar( 'tinyhook' ) );
 
-		$hook = $this->get( $hook );
+		$utils = new TinyHookUtils();
+
+		$hook = $utils->get( $hook );
 
 		$secret = preg_replace( '`[^a-z0-9]+`', '', $_POST['secret'] );
 
@@ -36,7 +38,7 @@ class plgSystemTinyhook extends JPlugin
 		$payload = json_decode( $_POST['payload'] );
 
 		// Check if hook is callable
-		if ( !$this->check( $hook->path, $hook->callable ) ) return true;
+		if ( !$utils->check( $hook->path, $hook->callable ) ) return true;
 
 		// All Systems On Go
 		call_user_func( $hook->callable, $payload );
@@ -44,6 +46,11 @@ class plgSystemTinyhook extends JPlugin
 		return true;
 	}
 
+
+}
+
+class TinyHookUtils
+{
 	function get( $hash )
 	{
 		$db = &JFactory::getDBO();
@@ -76,7 +83,7 @@ class plgSystemTinyhook extends JPlugin
 			. '\'' . $path . '\','
 			. '\'' . $callable . '\''
 			. ')'
-			;
+		;
 
 		$db->setQuery($sql);
 

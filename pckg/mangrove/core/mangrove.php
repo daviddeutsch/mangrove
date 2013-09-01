@@ -141,6 +141,23 @@ class Mangrove
 		R::selectDatabase( self::$config->database->name );
 		//R::$writer->setUseCache(true);
 	}
+
+	public static function hook( $payload )
+	{
+
+	}
+
+	private function makeCallback()
+	{
+		include_once( 'path/to/plugin.php');
+
+		$utils = new TinyHookUtils();
+
+		$utils->create(
+			'path/to/mangrove.php',
+			'Mangrove::hook'
+		);
+	}
 }
 
 class mangroveConnector
@@ -149,19 +166,20 @@ class mangroveConnector
 	{
 		$v = new JVersion();
 
-		$request = new stdClass();
-		$request->sha = $sha;
-		$request->client = new StdClass();
-		$request->client->php = PHP_VERSION;
-		$request->client->joomla = new stdClass();
-		$request->client->joomla->short = $v->getShortVersion();
-		$request->client->joomla->long = $v->getLongVersion();
-
-		return $request;
+		return array(
+			'sha' => $sha,
+			'client' => array(
+				'php' => PHP_VERSION,
+				'joomla' => array(
+					'short' => $v->getShortVersion(),
+					'long' => $v->getLongVersion()
+				)
+			)
+		);
 	}
 
 	public function registerHook()
 	{
-		$request =
+
 	}
 }

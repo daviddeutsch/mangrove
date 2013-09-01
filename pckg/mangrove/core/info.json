@@ -10,6 +10,7 @@
 			"redbean/redbean-tiny",
 			"valanx/jredbean",
 			"valanx/mangrove/installers/joomla",
+			"valanx/plg-tinyhook",
 			"google/excanvas",
 			"angularjs/angularjs",
 			"angular-ui/angular-ui",
