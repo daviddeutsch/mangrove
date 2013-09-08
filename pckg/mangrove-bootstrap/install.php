@@ -43,7 +43,7 @@ class Com_MangroveInstallerScript
 		// Check whether mangrove already exists
 
 		// If it does exist, copy payload and redirect to mangrove
-		// Although we have to be careful - maybe we want to update here?
+		// Although we have to be careful - maybe we want to update mangrove here?
 
 		// Make sure we have the basic libraries in place
 
