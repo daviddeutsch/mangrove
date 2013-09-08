@@ -81,7 +81,8 @@ class Com_MangroveInstallerScript
 
 	function installPackage( $path )
 	{
-		$temp = 'JTEMP/mangrove';
+		// TODO: Replace with proper config var $tmp_path
+		$temp = JPATH_ROOT . '/tmp/mangrove';
 
 		// Copy to temp directory
 
