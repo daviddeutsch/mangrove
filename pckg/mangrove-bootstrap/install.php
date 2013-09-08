@@ -42,6 +42,8 @@ class Com_MangroveInstallerScript
 	{
 		// Check whether mangrove already exists
 
+		// If it does exist, copy payload and redirect to mangrove
+
 		// Make sure we have the basic libraries in place
 
 		// Load payload JSON
