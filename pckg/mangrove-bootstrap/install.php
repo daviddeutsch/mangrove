@@ -107,7 +107,6 @@ class Com_MangroveInstallerScript
 			case 'joomla-library':
 				break;
 			case 'mangrove-installer':
-
 				break;
 		}
 
