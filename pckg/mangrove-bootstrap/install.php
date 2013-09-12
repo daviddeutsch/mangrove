@@ -42,6 +42,8 @@ class Com_MangroveInstallerScript
 	{
 		// Check whether mangrove already exists
 
+		print_r("well, we got this far.");exit;
+
 		// If it does exist, copy payload and redirect to mangrove
 		// Although we have to be careful - maybe we want to update mangrove here?
 
