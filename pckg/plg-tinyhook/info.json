@@ -1,5 +1,4 @@
 {
-	"name":"Tinyhook Plugin",
 	"type":"joomla-plugin",
 	"joomla":{
 		"name":"plg_tinyhook"
