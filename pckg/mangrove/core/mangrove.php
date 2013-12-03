@@ -7,7 +7,7 @@ $mangrove = new Mangrove();
 if ( !empty( $_GET['task'] ) ) {
 	$mangrove->resolve($_GET['task']);
 } else {
-	$mangrove->resolve("");
+	$mangrove->resolve('app');
 }
 
 class Mangrove
@@ -115,31 +115,6 @@ class Mangrove
 				JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
 			)
 		);
-	}
-
-	private static function db()
-	{
-		if ( empty( R::$toolboxes ) ) {
-			R::setup(
-				'mysql:host='.self::$config->database->host.';'
-				.'dbname='.self::$config->database->name,
-				self::$config->database->user,
-				self::$config->database->password
-			);
-		}
-
-		if ( !isset( R::$toolboxes[self::$config->database->name] ) ) {
-			R::addDatabase(
-				self::$config->database->name,
-				'mysql:host='.self::$config->database->host.';'
-				.'dbname='.self::$config->database->name,
-				self::$config->database->user,
-				self::$config->database->password
-			);
-		}
-
-		R::selectDatabase( self::$config->database->name );
-		//R::$writer->setUseCache(true);
 	}
 
 	public static function hook( $payload )

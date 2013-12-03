@@ -22,3 +22,7 @@ That's not a smart use of resources.
 ### It uses JSON
 
 Because XML is serious overkill and makes unicorn ponies weep.
+
+## Some notes
+
+- The whole point of this package is to be extremely portable. That's why you won't find any fancy PHP anywhere, not even public/static method keywords.
