@@ -22,6 +22,10 @@ class Com_MangroveInstallerScript
 	var $temp_directory;
 	var $has_db;
 
+	var $payload_dir;
+
+	var $installers = array();
+
 	function __construct()
 	{
 		$this->temp_directory = JPATH_ROOT.'/tmp/mangrove';
@@ -31,6 +35,8 @@ class Com_MangroveInstallerScript
 		}
 
 		$this->has_db = false;
+
+		$this->payload_dir = dirname(__FILE__).'/payload';
 	}
 
 	function postflight( $type, $parent )
@@ -45,43 +51,35 @@ class Com_MangroveInstallerScript
 		print_r("well, we got this far.");exit;
 
 		// If it does exist, copy payload and redirect to mangrove
-		// Although we have to be careful - maybe we want to update mangrove here?
+		// Although we have to be careful - maybe we want to update ourselves?
 
 		// Make sure we have the basic libraries in place
 
 		// Load payload JSON
 		$payload = self::getJSON( __DIR__.'/info.json' );
 
-		// RedBean
-		$redbean = '';
-		foreach ( $payload->payload as $k => $v ) {
-			if ( strpos( $k, 'redbean/redbean' ) ) {
-				$redbean = $v;
-			}
+		$this->installPayload( $payload, 'redbean/redbean' );
+
+		if ( !$this->has_redbean ) {
+			// Try to acquire replacement package?
 		}
 
-		$this->installPackage( __DIR__.'/payload/'.$redbean.'.zip' );
+		$this->installPayload( $payload, 'installers/' );
 
-		// All Installers
-		foreach ( $payload->payload as $k => $v ) {
-			if ( strpos( $k, 'installers/' ) ) {
-				$this->installPackage( __DIR__.'/payload/'.$v.'.zip' );
-			}
-		}
-
-		// Mangrove
-		$mangrove = '';
-		foreach ( $payload->payload as $k => $v ) {
-			if ( strpos( $k, 'mangrove/core' ) ) {
-				$mangrove = $v;
-			}
-		}
-
-		$this->installPackage( __DIR__.'/payload/'.$mangrove.'.zip' );
+		$this->installPayload( $payload, 'mangrove/core' );
 
 		$app = JFactory::getApplication();
 
 		$app->redirect( 'index.php?option=com_mangrove' );
+	}
+
+	function installPayload( $payload, $key )
+	{
+		foreach ( $payload->payload as $k => $v ) {
+			if ( strpos( $k, $key ) !== false ) {
+				$this->installPackage( $this->payload_dir.'/'.$k.'.zip' );
+			}
+		}
 	}
 
 	function installPackage( $path )
@@ -153,4 +151,12 @@ if ( !function_exists( 'com_install' ) ) {
 		$installer = new Com_MangroveInstallerScript;
 		$installer->install();
 	}
+}
+
+/**
+ * Dummy Class that only installs a package, used to bootstrap other installers
+ */
+class DummyInstaller
+{
+
 }
