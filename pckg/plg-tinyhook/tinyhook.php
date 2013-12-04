@@ -90,8 +90,8 @@ class TinyHookUtils
 		if ( !$db->query() ) return false;
 
 		return array(
-			'url' => $url,
-			'hash' => $hash,
+			'url'    => $url,
+			'hash'   => $hash,
 			'secret' => $secret,
 		);
 	}
