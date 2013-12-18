@@ -1,4 +1,4 @@
-create table if not exists '#__plg_tinyhook_hooks' (
+create table if not exists '#__plg_tinyhook_hook' (
 	id           serial,
 	hash         varchar(255) null,
 	secret       varchar(255) null,

@@ -56,7 +56,7 @@ class TinyHookUtils
 		$db = &JFactory::getDBO();
 
 		$sql = 'SELECT *'
-			. ' FROM #__plg_tinyhook'
+			. ' FROM #__plg_tinyhook_hook'
 			. ' WHERE `hash` = \'' . $hash . '\'';
 
 		$db->setQuery($sql);
@@ -74,7 +74,7 @@ class TinyHookUtils
 
 		$url = JURI::root() . '/index.php?tinyhook=' . $hash;
 
-		$sql = 'INSERT INTO #__plg_tinyhook'
+		$sql = 'INSERT INTO #__plg_tinyhook_hook'
 			. ' (`created_date`, `hash`, `secret`, `path`, `callable`)'
 			. ' VALUES ('
 			. '\'' . date( 'Y-m-d H:i:s', ( (int) gmdate('U') ) ) . '\','
