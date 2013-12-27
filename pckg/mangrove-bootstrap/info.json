@@ -11,6 +11,10 @@
 	"copyright":"Copyright (C) 2013 David Deutsch",
 	"license":"GNU/GPL Version 3.0 or later - http://www.gnu.org/copyleft/gpl.html",
 	"type":"joomla-component",
+	"joomla":{
+		"name":"com_mangrove",
+		"admin":true
+	},
 	"version":"1.0",
 	"require":
 		[
