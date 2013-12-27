@@ -13,7 +13,8 @@
 	"type":"joomla-component",
 	"joomla":{
 		"name":"com_mangrove",
-		"admin":true
+		"admin":true,
+		"install":"install.php"
 	},
 	"version":"1.0",
 	"require":
