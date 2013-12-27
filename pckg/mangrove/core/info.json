@@ -13,7 +13,6 @@
 			"valanx/plg-tinyhook",
 			"google/excanvas",
 			"angularjs/angularjs",
-			"angular-ui/angular-ui",
 			"angular-ui/ui-router",
 			"angular-ui/bootstrap",
 			"mgonto/restangular",
