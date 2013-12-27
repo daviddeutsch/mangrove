@@ -1,4 +1,4 @@
-var mangroveApp = angular.module("mangroveApp", ['ui.compat', 'ui.bootstrap', 'Restangular']);
+var mangroveApp = angular.module("mangroveApp", ['ui.compat', 'ui.bootstrap', 'restangular']);
 
 jurl = function (name) {
 	return "components/com_mangrove/templates/" + name + ".html";
@@ -6,9 +6,9 @@ jurl = function (name) {
 
 mangroveApp
 	.config(
-		['$stateProvider', '$urlRouterProvider', 'RestangularProvider', '$httpProvider',
-			function ($stateProvider, $urlRouterProvider, RestangularProvider, $httpProvider) {
-				RestangularProvider.setBaseUrl('index.php?option=com_mangrove');
+		['$stateProvider', '$urlRouterProvider', 'Restangular', '$httpProvider',
+			function ($stateProvider, $urlRouterProvider, Restangular, $httpProvider) {
+				Restangular.setBaseUrl('index.php?option=com_mangrove');
 
 				$urlRouterProvider
 					.otherwise('/packages');
