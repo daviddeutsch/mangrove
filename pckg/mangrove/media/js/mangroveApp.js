@@ -6,7 +6,8 @@ jurl = function (name) {
 
 mangroveApp
 	.config(
-		['$stateProvider', '$urlRouterProvider', 'Restangular', '$httpProvider',
+		[
+			'$stateProvider', '$urlRouterProvider', 'Restangular', '$httpProvider',
 			function ($stateProvider, $urlRouterProvider, Restangular, $httpProvider) {
 				Restangular.setBaseUrl('index.php?option=com_mangrove');
 
@@ -57,7 +58,8 @@ mangroveApp
 	)
 
 	.controller("MenuCtrl",
-	['$scope', '$location',
+	[
+		'$scope', '$location',
 		function ($scope, $location) {
 			$scope.panes = [
 				{ title: "packages", content: "components/com_mangrove/templates/packages.html" },
@@ -81,7 +83,8 @@ mangroveApp
 )
 
 	.controller('PackageListCtrl',
-		['$scope', '$timeout', '$filter', 'Restangular',
+		[
+			'$scope', '$timeout', '$filter', 'Restangular',
 			function ($scope, $timeout, $filter, Restangular) {
 				var spinner = Spinners.create('#spinner', {
 					radius: 2,
@@ -116,7 +119,8 @@ mangroveApp
 	)
 
 	.controller('InstallListCtrl',
-		['$scope',
+		[
+			'$scope',
 			function ($scope) {
 				$scope.install = [];
 			}
@@ -124,7 +128,8 @@ mangroveApp
 	)
 
 	.controller('RepositoryListCtrl',
-		['$scope', 'Repository',
+		[
+			'$scope', 'Repository',
 			function ($scope, Repository) {
 				$scope.repositories = Repository.query();
 			}
@@ -132,7 +137,8 @@ mangroveApp
 	)
 
 	.controller('RepositoryDetailCtrl',
-		['$scope', 'Repository',
+		[
+			'$scope', 'Repository',
 			function ($scope, Repository) {
 				return Repository.get({task: 'repository'});
 			}
