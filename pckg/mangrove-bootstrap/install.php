@@ -99,7 +99,7 @@ class Com_MangroveInstallerScript
 		$this->installPayload($payload, 'installers/');
 
 		$this->installPayload($payload, 'mangrove/core');
-print_r($this);exit;
+var_dump($this);exit;
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
