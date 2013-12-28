@@ -87,6 +87,7 @@ class Com_MangroveInstallerScript
 			rename($this->base.'/payload/'.$zip, $this->mangrove.'/'.$zip);
 		}
 
+		// Cleanup
 		unlink($this->base);
 
 		$this->installPayload($payload, 'redbean/redbean');
