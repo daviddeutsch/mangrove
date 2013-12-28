@@ -56,11 +56,13 @@ class Com_MangroveInstallerScript
 	{
 		$this->base_path = dirname(__FILE__);
 
-		$this->temp_path = realpath($this->base_path . '/../mangrove');
+		$this->temp_path = $this->base_path . '/../mangrove';
 
 		if ( !is_dir($this->temp_path) ) {
 			mkdir($this->temp_path);
 		}
+
+		$this->temp_path = realpath($this->temp_path);
 
 		$this->payload_path = $this->base_path . '/payload';
 	}
@@ -117,7 +119,7 @@ class Com_MangroveInstallerScript
 		$target = $this->temp_path . '/' . $file['filename'];
 
 		$zip->extractTo($target);
-		print_r($path);print_r($target);exit;
+		var_dump($path);var_dump($target);exit;
 		// Load info.json
 		$info = self::getJSON($target . '/info.json');
 
