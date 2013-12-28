@@ -41,16 +41,11 @@ class Com_MangroveInstallerScript
 	private $mangrove;
 
 	/**
-	 * Flag showing if the database is booted up
+	 * List of installed items
 	 *
 	 * @var array
 	 */
-	private $boot = array(
-		'db' => false,
-		'redbean' => false
-	);
-
-	private $installers = array();
+	private $installed = array();
 
 	function __construct()
 	{
@@ -92,14 +87,16 @@ class Com_MangroveInstallerScript
 
 		$this->installPayload($payload, 'redbean/redbean');
 
-		if ( !$this->boot['redbean'] ) {
+		$this->installPayload($payload, 'valanx/jredbean');
+
+		if ( !$this->boot['jredbean'] ) {
 			// Try to acquire replacement package?
 		}
 
+		$this->installPayload($payload, 'mangrove/core');
+
 		$this->installPayload($payload, 'installers/');
 
-		$this->installPayload($payload, 'mangrove/core');
-		print_r($this);exit;
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
@@ -138,8 +135,8 @@ var_dump($path);var_dump($target);
 				break;
 		}
 
-		if ( strpos('redbean', $path) ) {
-			$this->boot['redbean'] = true;
+		if ( strpos('jredbean', $path) ) {
+			$this->boot['jredbean'] = true;
 		}
 
 		$this->registerPackage( $info );
@@ -179,12 +176,4 @@ if ( !function_exists( 'com_install' ) ) {
 		$installer = new Com_MangroveInstallerScript;
 		$installer->install();
 	}
-}
-
-/**
- * Dummy Class that only installs a package, used to bootstrap other installers
- */
-class DummyInstaller
-{
-
 }

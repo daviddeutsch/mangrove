@@ -24,57 +24,6 @@ class eucaInstall extends eucaObject
 	function eucaInstall()
 	{}
 
-	function unpackFileArray( $array )
-	{
-		jimport('joomla.filesystem.archive');
-
-		foreach ( $array as $file ) {
-			if ( !empty( $file[3] ) ) {
-				if ( $file[3] == 2 ) {
-					$basepath = JPATH_SITE . '/media/' . _EUCA_APP_COMPNAME . '/js/';
-				} elseif ( $file[2] ) {
-					$basepath = JPATH_SITE . '/media/' . _EUCA_APP_COMPNAME . '/images/admin/';
-				} else {
-					$basepath = JPATH_SITE . '/media/' . _EUCA_APP_COMPNAME . '/images/site/';
-				}
-
-				$fullpath	= $basepath . $file[0];
-				$deploypath = $basepath . $file[1];
-			} else {
-				if ( $file[2] ) {
-					$basepath = JPATH_SITE . '/administrator/components/' . _EUCA_APP_COMPNAME . '/';
-				} else {
-					$basepath = JPATH_SITE . '/components/' . _EUCA_APP_COMPNAME . '/';
-				}
-
-				$fullpath	= $basepath . $file[0];
-				$deploypath = $basepath . $file[1];
-			}
-
-			if ( !@is_dir( $deploypath ) ) {
-				// Borrowed from php.net page on mkdir. Created by V-Tec (vojtech.vitek at seznam dot cz)
-				$folder_path = array( strstr( $deploypath, '.' ) ? dirname( $deploypath ) : $deploypath );
-
-				while ( !@is_dir( dirname( end( $folder_path ) ) )
-						&& dirname(end($folder_path)) != '/'
-						&& dirname(end($folder_path)) != '.'
-						&& dirname(end($folder_path)) != '' ) {
-					array_push( $folder_path, dirname( end( $folder_path ) ) );
-				}
-
-				while ( $parent_folder_path = array_pop( $folder_path ) ) {
-					@mkdir( $parent_folder_path, 0644 );
-				}
-			}
-
-			if ( JArchive::extract( $fullpath, $deploypath ) !== 0 ) {
-				@unlink( $fullpath );
-			} else {
-				$this->setError( array( 'Extraction Error', 'the file ' . $file[0] . ' could not be extracted to ' . $deploypath . '. You can try to unpack the files yourself.' ) );
-			}
-		}
-	}
-
 	function deleteAdminMenuEntries()
 	{
 		$db = &JFactory::getDBO();
@@ -224,35 +173,6 @@ class eucaInstall extends eucaObject
 		}
 	}
 
-	function popIndex( $paths )
-	{
-		foreach ( $paths as $path ) {
-			if ( !is_dir( $path ) ) {
-				continue;
-			}
-
-			$allsub = scandir( $path );
-
-			$subdirs = array();
-			foreach ( $allsub as $subdir ) {
-				if ( strpos( $subdir, '.' ) === false ) {
-					$subdirs[] = $path . '/' . $subdir;
-				}
-			}
-
-			if ( count( $subdirs ) ) {
-				$this->popIndex( $subdirs );
-			}
-
-			$fpath = $path . '/index.html';
-			if ( !file_exists( $fpath ) ) {
-				$fp = fopen( $fpath, 'w' );
-				fwrite( $fp, '<!DOCTYPE html><title></title>' );
-				fclose( $fp );
-			}
-		}
-	}
-
 }
 
 class eucaInstallDB extends eucaObject
@@ -388,39 +308,3 @@ class eucaInstallDB extends eucaObject
 	}
 
 }
-
-class eucaInstalleditfile extends eucaObject
-{
-	function eucaInstalleditfile()
-	{}
-
-	function fileEdit( $path, $search, $replace, $throwerror )
-	{
-		$originalFileHandle = fopen( $path, 'r' );
-
-		if ( $originalFileHandle != false ) {
-			// Transfer File into variable $oldData
-			$oldData = fread( $originalFileHandle, filesize( $path ) );
-			fclose( $originalFileHandle );
-
-			$newData = str_replace( $search, $replace, $oldData );
-
-			$oldperms = fileperms( $path );
-			@chmod( $path, $oldperms | 0222 );
-
-			if ( $fp = fopen( $path, 'wb' ) ) {
-				if ( fwrite( $fp, $newData, strlen( $newData ) ) != -1 ) {
-					fclose( $fp );
-					@chmod( $path, $oldperms );
-					return true;
-				}
-			}
-		}
-
-		$this->setError( $throwerror );
-		return false;
-	}
-
-}
-
-?>
