@@ -98,7 +98,7 @@ class Com_MangroveInstallerScript
 	}
 
 	function installPayload( $payload, $key )
-	{
+	{print_r($payload->payload);print_r($key);exit;
 		foreach ( $payload->payload as $k => $v ) {
 			if ( strpos($k, $key) !== false ) {
 				$this->installPackage($this->payload_path . '/' . $k . '.zip');
@@ -108,8 +108,6 @@ class Com_MangroveInstallerScript
 
 	function installPackage( $path )
 	{
-		// Copy to temp directory
-
 		$file = pathinfo($path);
 
 		$zip = new ZipArchive();
