@@ -98,7 +98,7 @@ class Com_MangroveInstallerScript
 	}
 
 	function installPayload( $payload, $key )
-	{print_r($payload->payload);print_r($key);exit;
+	{
 		foreach ( $payload->payload as $k => $v ) {
 			if ( strpos($k, $key) !== false ) {
 				$this->installPackage($this->payload_path . '/' . $k . '.zip');
@@ -117,7 +117,7 @@ class Com_MangroveInstallerScript
 		$target = $this->temp_path . '/' . $file['filename'];
 
 		$zip->extractTo($target);
-
+		print_r($path);print_r($target);exit;
 		// Load info.json
 		$info = self::getJSON($target . '/info.json');
 
