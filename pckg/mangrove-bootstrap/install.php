@@ -78,7 +78,7 @@ class Com_MangroveInstallerScript
 		// Although we have to be careful - maybe we want to update ourselves?
 
 		// Make sure we have the basic libraries in place
-print_r($this);exit;
+
 		// Load payload JSON
 		$payload = self::getJSON($this->base . '/info.json');
 
@@ -99,7 +99,7 @@ print_r($this);exit;
 		$this->installPayload($payload, 'installers/');
 
 		$this->installPayload($payload, 'mangrove/core');
-
+print_r($this);exit;
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
