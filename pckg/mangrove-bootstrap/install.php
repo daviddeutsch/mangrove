@@ -61,7 +61,17 @@ class Com_MangroveInstallerScript
 			. array_pop( glob($this->temp.'/install*', GLOB_ONLYDIR) )
 		);
 
+		$test = array(
+			glob($this->temp.'/install_*', GLOB_ONLYDIR),
+			glob($this->temp.'/install*', GLOB_ONLYDIR),
+			glob($this->temp.'/*', GLOB_ONLYDIR)
+		); print_r($test);
+
 		$this->mangrove = $this->temp . '/mangrove';
+
+		if ( !is_dir($this->mangrove) ) {
+			mkdir($this->mangrove, 0744);
+		}
 	}
 
 	function postflight( $type, $parent )
