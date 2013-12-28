@@ -56,17 +56,8 @@ class Com_MangroveInstallerScript
 	{
 		$this->temp = JFactory::getApplication()->getCfg('tmp_path');
 
-		$this->base = realpath(
-			$this->temp
-			. array_pop( glob($this->temp.'/install*', GLOB_ONLYDIR) )
-		);
+		$this->base = array_pop( glob($this->temp.'/install*', GLOB_ONLYDIR) );
 
-		$test = array(
-			glob($this->temp.'/install_*', GLOB_ONLYDIR),
-			glob($this->temp.'/install*', GLOB_ONLYDIR),
-			glob($this->temp.'/*', GLOB_ONLYDIR)
-		);
-var_dump($test); // -_-
 		$this->mangrove = $this->temp . '/mangrove';
 
 		if ( !is_dir($this->mangrove) ) {
