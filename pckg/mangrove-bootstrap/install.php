@@ -20,25 +20,25 @@ if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
 class Com_MangroveInstallerScript
 {
 	/**
-	 * Path to bootstrap directory
-	 *
-	 * @var string
-	 */
-	private $base_path;
-
-	/**
 	 * Path to CMS temp directory
 	 *
 	 * @var string
 	 */
-	private $temp_path;
+	private $temp;
 
 	/**
-	 * Path to bootstrap payload directory
+	 * Path to bootstrap directory
 	 *
 	 * @var string
 	 */
-	private $payload_path;
+	private $base;
+
+	/**
+	 * Path to mangrove tmp directory
+	 *
+	 * @var string
+	 */
+	private $mangrove;
 
 	/**
 	 * Flag showing if the database is booted up
@@ -54,17 +54,14 @@ class Com_MangroveInstallerScript
 
 	function __construct()
 	{
-		$this->base_path = dirname(__FILE__);
+		$this->temp = JFactory::getApplication()->getCfg('tmp_path');
 
-		$this->temp_path = $this->base_path . '/../mangrove';
+		$this->base = realpath(
+			$this->temp
+			. array_pop( glob($this->temp.'/install*', GLOB_ONLYDIR) )
+		);
 
-		if ( !is_dir($this->temp_path) ) {
-			mkdir($this->temp_path);
-		}
-
-		$this->temp_path = realpath($this->temp_path);
-
-		$this->payload_path = $this->base_path . '/payload';
+		$this->mangrove = $this->temp . '/mangrove';
 	}
 
 	function postflight( $type, $parent )
@@ -82,7 +79,15 @@ class Com_MangroveInstallerScript
 		// Make sure we have the basic libraries in place
 
 		// Load payload JSON
-		$payload = self::getJSON( __DIR__.'/info.json' );
+		$payload = self::getJSON($this->base . '/info.json');
+
+		// Move payload to mangrove tmp
+		foreach ( glob($this->base.'/payload/*.zip') as $zip ) {
+			rename($this->base.'/payload/'.$zip, $this->mangrove.'/'.$zip);
+		}
+
+		// Cleanup
+		unlink($this->base);
 
 		$this->installPayload($payload, 'redbean/redbean');
 
@@ -94,16 +99,14 @@ class Com_MangroveInstallerScript
 
 		$this->installPayload($payload, 'mangrove/core');
 
-		$app = JFactory::getApplication();
-
-		$app->redirect( 'index.php?option=com_mangrove' );
+		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
 	function installPayload( $payload, $key )
 	{
 		foreach ( $payload->payload as $k => $v ) {
 			if ( strpos($k, $key) !== false ) {
-				$this->installPackage($this->payload_path . '/' . $k . '.zip');
+				$this->installPackage($this->mangrove.'/'.$v);
 			}
 		}
 	}
@@ -116,7 +119,7 @@ class Com_MangroveInstallerScript
 
 		$zip->open($path);
 
-		$target = $this->temp_path . '/' . $file['filename'];
+		$target = $this->mangrove . '/' . $file['filename'];
 
 		$zip->extractTo($target);
 		var_dump($path);var_dump($target);exit;
@@ -160,7 +163,7 @@ class Com_MangroveInstallerScript
 
 	static function getJSON( $path )
 	{
-		return json_decode( file_get_contents( $path ) );
+		return json_decode( file_get_contents($path) );
 	}
 }
 }
