@@ -65,7 +65,8 @@ class Com_MangroveInstallerScript
 			glob($this->temp.'/install_*', GLOB_ONLYDIR),
 			glob($this->temp.'/install*', GLOB_ONLYDIR),
 			glob($this->temp.'/*', GLOB_ONLYDIR)
-		); var_dump($test);
+		);
+var_dump($test);
 
 		$this->mangrove = $this->temp . '/mangrove';
 
