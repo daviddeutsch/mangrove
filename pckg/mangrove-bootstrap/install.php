@@ -122,8 +122,12 @@ var_dump($this);exit;
 
 		$target = $this->mangrove . '/' . $file['filename'];
 
+		if ( !is_dir($target) ) {
+			mkdir($target, 0744);
+		}
+
 		$zip->extractTo($target);
-		var_dump($path);var_dump($target);exit;
+
 		// Load info.json
 		$info = self::getJSON($target . '/info.json');
 
