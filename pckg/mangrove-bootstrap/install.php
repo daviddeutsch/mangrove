@@ -99,7 +99,7 @@ class Com_MangroveInstallerScript
 		$this->installPayload($payload, 'installers/');
 
 		$this->installPayload($payload, 'mangrove/core');
-var_dump($this);exit;
+		print_r($this);exit;
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
@@ -121,7 +121,7 @@ var_dump($this);exit;
 		$zip->open($path);
 
 		$target = $this->mangrove . '/' . $file['filename'];
-
+var_dump($path);var_dump($target);
 		if ( !is_dir($target) ) {
 			mkdir($target, 0744);
 		}
