@@ -19,24 +19,50 @@ if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
  */
 class Com_MangroveInstallerScript
 {
-	var $temp_directory;
-	var $has_db;
+	/**
+	 * Path to bootstrap directory
+	 *
+	 * @var string
+	 */
+	private $base_path;
 
-	var $payload_dir;
+	/**
+	 * Path to CMS temp directory
+	 *
+	 * @var string
+	 */
+	private $temp_path;
 
-	var $installers = array();
+	/**
+	 * Path to bootstrap payload directory
+	 *
+	 * @var string
+	 */
+	private $payload_path;
+
+	/**
+	 * Flag showing if the database is booted up
+	 *
+	 * @var array
+	 */
+	private $boot = array(
+		'db' => false,
+		'redbean' => false
+	);
+
+	private $installers = array();
 
 	function __construct()
 	{
-		$this->temp_directory = JPATH_ROOT.'/tmp/mangrove';
+		$this->base_path = dirname(__FILE__);
 
-		if ( !is_dir($this->temp_directory) ) {
-			mkdir($this->temp_directory);
+		$this->temp_path = realpath($this->base_path . '/../mangrove');
+
+		if ( !is_dir($this->temp_path) ) {
+			mkdir($this->temp_path);
 		}
 
-		$this->has_db = false;
-
-		$this->payload_dir = dirname(__FILE__).'/payload';
+		$this->payload_path = $this->base_path . '/payload';
 	}
 
 	function postflight( $type, $parent )
@@ -46,9 +72,7 @@ class Com_MangroveInstallerScript
 
 	function install()
 	{
-		// Check whether mangrove already exists
-
-		print_r("well, we got this far.");exit;
+		// TODO: Check whether mangrove already exists
 
 		// If it does exist, copy payload and redirect to mangrove
 		// Although we have to be careful - maybe we want to update ourselves?
@@ -58,15 +82,15 @@ class Com_MangroveInstallerScript
 		// Load payload JSON
 		$payload = self::getJSON( __DIR__.'/info.json' );
 
-		$this->installPayload( $payload, 'redbean/redbean' );
+		$this->installPayload($payload, 'redbean/redbean');
 
-		if ( !$this->has_redbean ) {
+		if ( !$this->boot['redbean'] ) {
 			// Try to acquire replacement package?
 		}
 
-		$this->installPayload( $payload, 'installers/' );
+		$this->installPayload($payload, 'installers/');
 
-		$this->installPayload( $payload, 'mangrove/core' );
+		$this->installPayload($payload, 'mangrove/core');
 
 		$app = JFactory::getApplication();
 
@@ -76,32 +100,28 @@ class Com_MangroveInstallerScript
 	function installPayload( $payload, $key )
 	{
 		foreach ( $payload->payload as $k => $v ) {
-			if ( strpos( $k, $key ) !== false ) {
-				$this->installPackage( $this->payload_dir.'/'.$k.'.zip' );
+			if ( strpos($k, $key) !== false ) {
+				$this->installPackage($this->payload_path . '/' . $k . '.zip');
 			}
 		}
 	}
 
 	function installPackage( $path )
 	{
-		$app = JFactory::getApplication();
-
-		$temp = $app->getCfg('tmp_path') . '/mangrove';
-
 		// Copy to temp directory
 
-		$file = pathinfo( $path );
+		$file = pathinfo($path);
 
 		$zip = new ZipArchive();
 
-		$zip->open( $path );
+		$zip->open($path);
 
-		$target = $temp.'/'.$file['filename'];
+		$target = $this->temp_path . '/' . $file['filename'];
 
-		$zip->extractTo( $target );
+		$zip->extractTo($target);
 
 		// Load info.json
-		$info = self::getJSON( $target.'/info.json' );
+		$info = self::getJSON($target . '/info.json');
 
 		switch ( $info->type ) {
 			case 'joomla-library':
@@ -111,7 +131,7 @@ class Com_MangroveInstallerScript
 		}
 
 		if ( strpos('redbean', $path) ) {
-			$this->has_redbean = true;
+			$this->boot['redbean'] = true;
 		}
 
 		$this->registerPackage( $info );
@@ -119,8 +139,8 @@ class Com_MangroveInstallerScript
 
 	function registerPackage( $info )
 	{
-		if ( !$this->has_db ) {
-			$this->db();
+		if ( !$this->boot['db'] ) {
+			//$this->db();
 		}
 	}
 
