@@ -84,11 +84,11 @@ class Com_MangroveInstallerScript
 
 		// Move payload to mangrove tmp
 		foreach ( glob($this->base.'/payload/*.zip') as $zip ) {
-			rename($this->base.'/payload/'.$zip, $this->mangrove.'/'.$zip);
+			rename($zip, $this->mangrove.'/'.basename($zip));
 		}
 
 		// Cleanup -_-
-		unlink($this->base);
+		//unlink($this->base);
 
 		$this->installPayload($payload, 'redbean/redbean');
 
