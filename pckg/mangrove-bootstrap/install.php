@@ -56,7 +56,7 @@ class Com_MangroveInstallerScript
 	 */
 	private $payload;
 
-	function __construct()
+	public function __construct()
 	{
 		// Establish path names
 		$this->temp = JFactory::getApplication()->getCfg('tmp_path');
@@ -73,29 +73,35 @@ class Com_MangroveInstallerScript
 		$this->payload = self::getJSON($this->base . '/info.json');
 	}
 
-	function postflight( $type, $parent )
+	public function postflight( $type, $parent )
 	{
 		$this->install();
 	}
 
-	function install()
+	public function install()
 	{
 		// Move payload to mangrove temp directory
 		foreach ( glob($this->base.'/payload/*.zip') as $zip ) {
 			rename($zip, $this->mangrove.'/'.basename($zip));
 		}
 
-		// Cleanup
 		self::rrmdir($this->base);
 
-		/**
-		 * TODO: Check whether mangrove already exists
-		 *
-		 * If it does exist, copy payload, write the json directive and
-		 * redirect to mangrove
-		 */
+		if ( !$this->detectMangrove() ) {
+			$this->installMangrove();
+		}
 
-		// Install core and dependencies
+		// Write payload.json so that the mangrove app can take it from there
+		self::putJSON( $this->mangrove.'/payload.json', $this->payload );
+
+		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
+	}
+
+	/**
+	 * Install Core and its dependencies
+	 */
+	private function installMangrove()
+	{
 		foreach (
 			array(
 				'mangrove/core',
@@ -104,67 +110,22 @@ class Com_MangroveInstallerScript
 				'valanx/jredbean'
 			) as $install
 		) {
-			$this->installPayload($install);
-		}
+			foreach ( $this->payload->payload as $k => $v ) {
+				if ( strpos($k, $install) === false ) continue;
 
-		// Write payload.json so that mangrove can take over
-		self::putJSON( $this->mangrove.'/payload.json', $this->payload );
-
-		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
-	}
-
-	function installPayload( $key )
-	{
-		foreach ( $this->payload->payload as $k => $v ) {
-			if ( strpos($k, $key) !== false ) {
 				$this->installPackage($this->mangrove.'/'.$v);
 			}
 		}
 	}
 
-	function installPackage( $path )
+	private function installPackage( $path )
 	{
-		$file = pathinfo($path);
-
-		$zip = new ZipArchive();
-
-		$zip->open($path);
-
-		$target = $this->mangrove . '/' . $file['filename'];
-
-		if ( !is_dir($target) ) mkdir($target, 0744);
-
-		$zip->extractTo($target);
+		$target = $this->unzip($path);
 
 		// Load info.json
 		$info = self::getJSON($target . '/info.json');
 
-		// Since we have no installers yet, we emulate their core behavior
-		switch ( $info->type ) {
-			case 'joomla-component':
-			case 'joomla-library':
-				$installer = new JInstaller();
-
-				$installer->install($target);
-				break;
-			case 'library':
-				$path = JPATH_ROOT . '/libraries/' . $info->name;
-
-				if ( !is_dir($path) ) mkdir($path, 0744, true);
-
-				rename($target, $path);
-				break;
-			case 'mangrove-installer':
-				$path = $this->com
-					. str_replace( 'valanx/mangrove', '', $info->name );
-
-				if ( !is_dir($path) ) mkdir($path, 0744, true);
-
-				rename($target, $path);
-				break;
-		}
-
-		self::rrmdir($target);
+		$this->mockInstaller($info, $target);
 
 		$info->payload = (object) array(
 			'installed_time' => (int) gmdate('U')
@@ -173,22 +134,89 @@ class Com_MangroveInstallerScript
 		$this->registerPackage( $info );
 	}
 
-	function registerPackage( $info )
+	private function unzip( $path )
+	{
+		$file = pathinfo($path);
+
+		$target = $this->mangrove . '/' . $file['filename'];
+
+		if ( !is_dir($target) ) mkdir($target, 0744);
+
+		$zip = new ZipArchive();
+
+		$zip->open($path);
+
+		$zip->extractTo($target);
+
+		return $target;
+	}
+
+	private function mockInstaller( $info, $source )
+	{
+		switch ( $info->type ) {
+			// Standard Joomla Installer
+			case 'joomla-component':
+			case 'joomla-library':
+				$installer = new JInstaller();
+
+				$installer->install($source);
+				break;
+
+			// Composer-style library in cms/libraries
+			case 'library':
+				$path = JPATH_ROOT . '/libraries/' . $info->name;
+
+				if ( !is_dir($path) ) mkdir($path, 0744, true);
+
+				rename($source, $path);
+				break;
+
+			//  Basic file copying
+			case 'mangrove-installer':
+				$path = $this->com
+					. str_replace( 'valanx/mangrove', '', $info->name );
+
+				if ( !is_dir($path) ) mkdir($path, 0744, true);
+
+				rename($source, $path);
+				break;
+		}
+
+		self::rrmdir($source);
+	}
+
+	private function registerPackage( $info )
 	{
 		$this->payload->payload[$info->name] = $info;
 	}
 
-	static function getJSON( $path )
+	private function detectMangrove()
+	{
+		foreach (
+			array(
+				'libraries/redbean/redbean',
+				'libraries/valanx/jredbean',
+				'administrator/components/com_mangrove',
+				'administrator/components/com_mangrove/installers'
+			) as $dir
+		) {
+			if ( is_dir(JPATH_ROOT.'/'.$dir) ) return true;
+		}
+
+		return false;
+	}
+
+	private static function getJSON( $path )
 	{
 		return json_decode( file_get_contents($path) );
 	}
 
-	static function putJSON( $data, $path )
+	private static function putJSON( $data, $path )
 	{
 		return file_put_contents( $path, json_encode($data) );
 	}
 
-	static function rrmdir( $path )
+	private static function rrmdir( $path )
 	{
 		if ( is_dir($path) ) {
 			foreach ( glob($path . '/*') as $item ) {
