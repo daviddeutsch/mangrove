@@ -170,7 +170,7 @@ class Com_MangroveInstallerScript
 				$path = JPATH_ROOT . '/libraries/' . $info->name;
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
-
+var_dump($source, $path);exit;
 				rename($source, $path);
 				break;
 
