@@ -105,17 +105,17 @@ class eucaInstall extends eucaObject
 	{
 		if ( defined( 'JPATH_MANIFESTS' ) ) {
 			$insert = array(
-							'menutype'			=> 'menu',
-							'title'				=> $entry[1],
-							'alias'				=> $entry[1],
-							'link'				=> 'index.php?option=' . _EUCA_APP_COMPNAME . '&task=' . $entry[0],
-							'type'				=> 'component',
-							'published'			=> 1,
-							'parent_id'			=> '',
-							'component_id'		=> $details['component_id'],
-							'img'				=> 'class:component',
-							'client_id'			=> 1
-							);
+				'menutype'     => 'menu',
+				'title'        => $entry[1],
+				'alias'        => $entry[1],
+				'link'         => 'index.php?option=' . _EUCA_APP_COMPNAME . '&task=' . $entry[0],
+				'type'         => 'component',
+				'published'    => 1,
+				'parent_id'    => '',
+				'component_id' => $details['component_id'],
+				'img'          => 'class:component',
+				'client_id'    => 1
+			);
 
 			$table = JTable::getInstance('menu');
 
@@ -125,16 +125,16 @@ class eucaInstall extends eucaObject
 			}
 		} else {
 			$insert = array(
-							'id'				=> '',
-							'name'				=> $entry[1],
-							'link'				=> $frontend ? ( 'option=' . _EUCA_APP_COMPNAME ) : '',
-							'parent'			=> $details['component_id'],
-							'admin_menu_link'	=> 'option=' . _EUCA_APP_COMPNAME . '&task=' . $entry[0],
-							'admin_menu_alt'	=> $entry[1],
-							'option'			=> _EUCA_APP_COMPNAME,
-							'ordering'			=> isset( $entry[3] ) ? $entry[3] : $ordering,
-							'admin_menu_img'	=> $entry[2]
-							);
+				'id'              => '',
+				'name'            => $entry[1],
+				'link'            => $frontend ? ( 'option=' . _EUCA_APP_COMPNAME ) : '',
+				'parent'          => $details['component_id'],
+				'admin_menu_link' => 'option=' . _EUCA_APP_COMPNAME . '&task=' . $entry[0],
+				'admin_menu_alt'  => $entry[1],
+				'option'          => _EUCA_APP_COMPNAME,
+				'ordering'        => isset( $entry[3] ) ? $entry[3] : $ordering,
+				'admin_menu_img'  => $entry[2]
+			);
 
 			$db = &JFactory::getDBO();
 			$query = 'INSERT INTO #__components'
