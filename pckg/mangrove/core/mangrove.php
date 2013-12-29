@@ -50,6 +50,7 @@ class Mangrove
 
 		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
 
+		$this->com = dirname(__FILE__);
 
 		$this->payload = self::getJSON($this->temp . '/info.json');
 
