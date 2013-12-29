@@ -212,6 +212,8 @@ class eucaInstallDB extends eucaObject
 		if ( $this->ColumninTable( $column, $table, $prefix ) ) {
 			return $this->dropColumn( $column );
 		}
+
+		return null;
 	}
 
 	function addColifNotExists( $column, $options, $table, $prefix=true )
@@ -219,6 +221,8 @@ class eucaInstallDB extends eucaObject
 		if ( !$this->ColumninTable( $column, $table, $prefix ) ) {
 			return $this->addColumn( $options );
 		}
+
+		return null;
 	}
 
 	function addColumn( $options )
