@@ -73,7 +73,15 @@ class Com_MangroveInstallerScript
 
 		$this->com = JPATH_ROOT . '/administrator/components/com_mangrove';
 
-		$this->payload = self::getJSON($this->base . '/info.json');
+		if ( file_exists($this->mangrove.'/payload.json') ) {
+			// Recover from an inbetween bootstrap/first setup exit
+			$this->payload = self::merge(
+				self::getJSON($this->base . '/info.json'),
+				self::getJSON($this->mangrove . '/payload.json')
+			);
+		} else {
+			$this->payload = self::getJSON($this->base . '/info.json');
+		}
 	}
 
 	public function postflight( $type, $parent )
@@ -116,6 +124,9 @@ class Com_MangroveInstallerScript
 		) {
 			foreach ( $this->payload->payload as $k => $v ) {
 				if ( strpos($k, $install) === false ) continue;
+
+				// Don't install previously installed objects (install recovery)
+				if ( !is_string($v) ) continue;
 
 				$this->installPackage($this->mangrove.'/'.$v);
 			}
@@ -232,6 +243,17 @@ class Com_MangroveInstallerScript
 
 			rmdir($path);
 		}
+	}
+
+	private static function merge( $a, $b )
+	{
+		foreach ( $b->payload as $k => $v ) {
+			if ( is_object($v) ) {
+				$a->payload->$k = $v;
+			}
+		}
+
+		return $a;
 	}
 }
 }

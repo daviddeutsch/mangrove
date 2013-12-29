@@ -2,7 +2,6 @@
 
 include_once( JPATH_ROOT . '/libraries/redbean/redbean-tiny/rb.php' );
 include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jR.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jCubridQueryWriter.php' );
 include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jMysqlQueryWriter.php' );
 include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jPostgreSqlQueryWriter.php' );
 include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jSQLiteTQueryWriter.php' );
@@ -52,16 +51,14 @@ class Mangrove
 
 		$this->com = dirname(__FILE__);
 
-		$this->payload = self::getJSON($this->temp . '/info.json');
+		$this->payload = self::getJSON($this->temp . '/payload.json');
 
 		$this->update();
 	}
 
 	function update()
 	{
-		$payload = self::getJSON($this->temp.'/payload.json');
-
-		print_r($this);print_r($payload);print_r(R::$currentDB);
+		print_r($this);print_r($this->payload);print_r(R::$currentDB);
 	}
 
 	function resolve( $task )
