@@ -89,7 +89,7 @@ class Com_MangroveInstallerScript
 		}
 
 		self::rrmdir($this->base);
-		print_r($this->payload);
+
 		if ( !$this->detectMangrove() ) {
 			$this->installMangrove();
 		}
@@ -123,9 +123,9 @@ class Com_MangroveInstallerScript
 	}
 
 	private function installPackage( $path )
-	{var_dump($path);
+	{
 		$target = $this->unzip($path);
-		var_dump($target);
+
 		$info = self::getJSON($target . '/info.json');
 
 		$this->mockInstaller($info, $target);
