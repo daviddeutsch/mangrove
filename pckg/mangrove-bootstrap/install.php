@@ -200,10 +200,10 @@ class Com_MangroveInstallerScript
 				'administrator/components/com_mangrove/installers'
 			) as $dir
 		) {
-			if ( is_dir(JPATH_ROOT.'/'.$dir) ) return true;
+			if ( !is_dir(JPATH_ROOT.'/'.$dir) ) return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	private static function getJSON( $path )
