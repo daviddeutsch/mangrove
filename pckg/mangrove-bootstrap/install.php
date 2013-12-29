@@ -123,9 +123,9 @@ class Com_MangroveInstallerScript
 	}
 
 	private function installPackage( $path )
-	{print_r($path);
+	{var_dump($path);
 		$target = $this->unzip($path);
-print_r($target);
+		var_dump($target);
 		$info = self::getJSON($target . '/info.json');
 
 		$this->mockInstaller($info, $target);
