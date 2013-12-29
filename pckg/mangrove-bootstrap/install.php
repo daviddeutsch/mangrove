@@ -61,7 +61,9 @@ class Com_MangroveInstallerScript
 		// Establish path names
 		$this->temp = JFactory::getApplication()->getCfg('tmp_path');
 
-		$this->base = array_pop( glob($this->temp.'/install*', GLOB_ONLYDIR) );
+		$installs = glob($this->temp.'/install*', GLOB_ONLYDIR);
+
+		$this->base = array_pop($installs);
 
 		$this->mangrove = $this->temp . '/mangrove';
 
@@ -187,7 +189,7 @@ class Com_MangroveInstallerScript
 
 	private function registerPackage( $info )
 	{
-		$this->payload->payload[$info->name] = $info;
+		$this->payload->payload->{$info->name} = $info;
 	}
 
 	private function detectMangrove()
