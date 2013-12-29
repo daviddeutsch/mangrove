@@ -214,7 +214,7 @@ class Com_MangroveInstallerScript
 		return json_decode( file_get_contents($path) );
 	}
 
-	private static function putJSON( $data, $path )
+	private static function putJSON( $path, $data )
 	{
 		return file_put_contents( $path, json_encode($data) );
 	}
