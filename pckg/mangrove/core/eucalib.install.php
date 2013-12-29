@@ -151,8 +151,9 @@ class eucaInstall extends eucaObject
 				return true;
 			}
 		}
-	}
 
+		return null;
+	}
 }
 
 class eucaInstallDB extends eucaObject
