@@ -61,7 +61,7 @@ class Mangrove
 	{
 		$payload = self::getJSON($this->temp.'/payload.json');
 
-		print_r($this);print_r($payload);
+		print_r($this);print_r($payload);print_r(R::$currentDB);
 	}
 
 	function resolve( $task )
