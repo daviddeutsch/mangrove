@@ -1,6 +1,6 @@
 <?php
 
-include_once( JPATH_ROOT . '/libraries/redbean/redbean/rb.php' );
+include_once( JPATH_ROOT . '/libraries/redbean/redbean-tiny/rb.php' );
 
 $mangrove = new Mangrove();
 
@@ -12,14 +12,48 @@ if ( !empty( $_GET['task'] ) ) {
 
 class Mangrove
 {
-	function __construct()
+	/**
+	 * Path to mangrove tmp directory
+	 *
+	 * @var string
+	 */
+	private $temp;
+
+	/**
+	 * Path to mangrove installation directory
+	 *
+	 * @var string
+	 */
+	private $com;
+
+	/**
+	 * List of installed payload for use on bootup in mangrove
+	 *
+	 * @var object
+	 */
+	private $payload;
+
+	/**
+	 * Load paths and payload json
+	 */
+	public function __construct()
 	{
+		$this->temp = JFactory::getApplication()->getCfg('tmp_path')
+			. '/mangrove';
+
+		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
+
+
+		$this->payload = self::getJSON($this->base . '/info.json');
+
 		$this->update();
 	}
 
 	function update()
 	{
+		$payload = self::getJSON($this->temp.'/payload.json');
 
+		print_r($payload);
 	}
 
 	function resolve( $task )

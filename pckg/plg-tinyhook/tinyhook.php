@@ -45,8 +45,6 @@ class plgSystemTinyhook extends JPlugin
 
 		return true;
 	}
-
-
 }
 
 class TinyHookUtils
@@ -107,5 +105,3 @@ class TinyHookUtils
 		return true;
 	}
 }
-
-?>
