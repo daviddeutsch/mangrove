@@ -257,8 +257,7 @@ class eucaInstallDB extends eucaObject
 			}
 		}
 
-		$query = 'DROP TABLE IF EXISTS #__' . $this->table
-		;
+		$query = 'DROP TABLE IF EXISTS #__' . $this->table;
 
 		$db->setQuery( $query );
 
