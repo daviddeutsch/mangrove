@@ -56,9 +56,11 @@ class Com_MangroveInstallerScript
 	 */
 	private $payload;
 
+	/**
+	 * Load paths and payload json
+	 */
 	public function __construct()
 	{
-		// Establish path names
 		$this->temp = JFactory::getApplication()->getCfg('tmp_path');
 
 		$installs = glob($this->temp.'/install*', GLOB_ONLYDIR);
@@ -71,7 +73,6 @@ class Com_MangroveInstallerScript
 
 		$this->com = JPATH_ROOT . '/administrator/components/com_mangrove';
 
-		// Load payload JSON
 		$this->payload = self::getJSON($this->base . '/info.json');
 	}
 
@@ -96,6 +97,7 @@ class Com_MangroveInstallerScript
 		// Write payload.json so that the mangrove app can take it from there
 		self::putJSON( $this->mangrove.'/payload.json', $this->payload );
 
+		// Head for the mangroves!
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
@@ -123,8 +125,7 @@ class Com_MangroveInstallerScript
 	private function installPackage( $path )
 	{
 		$target = $this->unzip($path);
-
-		// Load info.json
+print_r($target);
 		$info = self::getJSON($target . '/info.json');
 
 		$this->mockInstaller($info, $target);
