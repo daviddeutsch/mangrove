@@ -22,13 +22,6 @@ if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
 class Com_MangroveInstallerScript
 {
 	/**
-	 * Path to CMS temp directory
-	 *
-	 * @var string
-	 */
-	private $temp;
-
-	/**
 	 * Path to bootstrap directory
 	 *
 	 * @var string
@@ -36,18 +29,11 @@ class Com_MangroveInstallerScript
 	private $base;
 
 	/**
-	 * Path to mangrove tmp directory
+	 * Path to CMS temp directory
 	 *
 	 * @var string
 	 */
-	private $mangrove;
-
-	/**
-	 * Path to mangrove installation directory
-	 *
-	 * @var string
-	 */
-	private $com;
+	private $temp;
 
 	/**
 	 * List of installed payload for use on bootup in mangrove
@@ -61,23 +47,21 @@ class Com_MangroveInstallerScript
 	 */
 	public function __construct()
 	{
-		$this->temp = JFactory::getApplication()->getCfg('tmp_path');
+		$temp = JFactory::getApplication()->getCfg('tmp_path');
 
-		$installs = glob($this->temp.'/install*', GLOB_ONLYDIR);
+		$installs = glob($temp.'/install*', GLOB_ONLYDIR);
 
 		$this->base = array_pop($installs);
 
-		$this->mangrove = $this->temp . '/mangrove';
+		$this->temp = $temp . '/mangrove';
 
-		if ( !is_dir($this->mangrove) ) mkdir($this->mangrove, 0744);
+		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
 
-		$this->com = JPATH_ROOT . '/administrator/components/com_mangrove';
-
-		if ( file_exists($this->mangrove.'/payload.json') ) {
+		if ( file_exists($this->temp.'/payload.json') ) {
 			// Recover from an inbetween bootstrap/first setup exit
 			$this->payload = self::merge(
 				self::getJSON($this->base . '/info.json'),
-				self::getJSON($this->mangrove . '/payload.json')
+				self::getJSON($this->temp . '/payload.json')
 			);
 		} else {
 			$this->payload = self::getJSON($this->base . '/info.json');
@@ -93,7 +77,7 @@ class Com_MangroveInstallerScript
 	{
 		// Move payload to mangrove temp directory
 		foreach ( glob($this->base.'/payload/*.zip') as $zip ) {
-			rename($zip, $this->mangrove.'/'.basename($zip));
+			rename($zip, $this->temp.'/'.basename($zip));
 		}
 
 		self::rrmdir($this->base);
@@ -103,7 +87,7 @@ class Com_MangroveInstallerScript
 		}
 
 		// Write payload.json so that the mangrove app can take it from there
-		self::putJSON( $this->mangrove.'/payload.json', $this->payload );
+		self::putJSON( $this->temp.'/payload.json', $this->payload );
 
 		// Head for the mangroves!
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
@@ -128,7 +112,7 @@ class Com_MangroveInstallerScript
 				// Don't install previously installed objects (install recovery)
 				if ( !is_string($v) ) continue;
 
-				$this->installPackage($this->mangrove.'/'.$v);
+				$this->installPackage($this->temp.'/'.$v);
 			}
 		}
 	}
@@ -152,7 +136,7 @@ class Com_MangroveInstallerScript
 	{
 		$file = pathinfo($path);
 
-		$target = $this->mangrove . '/' . $file['filename'];
+		$target = $this->temp . '/' . $file['filename'];
 
 		if ( !is_dir($target) ) mkdir($target, 0744);
 
@@ -187,7 +171,7 @@ class Com_MangroveInstallerScript
 
 			//  Basic file copying
 			case 'mangrove-installer':
-				$path = $this->com
+				$path = JPATH_ROOT . '/administrator/components/com_mangrove'
 					. str_replace( 'valanx/mangrove', '', $info->name );
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
