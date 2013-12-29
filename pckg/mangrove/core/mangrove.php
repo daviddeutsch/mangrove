@@ -1,6 +1,13 @@
 <?php
 
 include_once( JPATH_ROOT . '/libraries/redbean/redbean-tiny/rb.php' );
+include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jR.php' );
+include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jCubridQueryWriter.php' );
+include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jMysqlQueryWriter.php' );
+include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jPostgreSqlQueryWriter.php' );
+include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jSQLiteTQueryWriter.php' );
+
+jR::create();
 
 $mangrove = new Mangrove();
 
@@ -44,7 +51,7 @@ class Mangrove
 		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
 
 
-		$this->payload = self::getJSON($this->base . '/info.json');
+		$this->payload = self::getJSON($this->temp . '/info.json');
 
 		$this->update();
 	}
@@ -71,7 +78,7 @@ class Mangrove
 	{
 		$csslink = '<link rel="stylesheet" type="text/css" media="all" href="' . JURI::root(true).'/media/com_mangrove/css/%s.css" />';
 
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 
 		$v = new JVersion();
 		if ( $v->isCompatible('3.0') ) {
