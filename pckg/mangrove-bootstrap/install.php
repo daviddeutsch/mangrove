@@ -1,5 +1,7 @@
 <?php
 
+jimport('joomla.installer.installer');
+
 if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
 
 /**
@@ -41,11 +43,18 @@ class Com_MangroveInstallerScript
 	private $mangrove;
 
 	/**
-	 * List of installed items
+	 * Path to mangrove installation directory
+	 *
+	 * @var string
+	 */
+	private $com;
+
+	/**
+	 * List of installed payload for use on bootup in mangrove
 	 *
 	 * @var array
 	 */
-	private $installed = array();
+	private $payload = array();
 
 	function __construct()
 	{
@@ -55,9 +64,9 @@ class Com_MangroveInstallerScript
 
 		$this->mangrove = $this->temp . '/mangrove';
 
-		if ( !is_dir($this->mangrove) ) {
-			mkdir($this->mangrove, 0744);
-		}
+		if ( !is_dir($this->mangrove) ) mkdir($this->mangrove, 0744);
+
+		$this->com = JPATH_ROOT . '/administrator/components/com_mangrove';
 	}
 
 	function postflight( $type, $parent )
@@ -82,20 +91,21 @@ class Com_MangroveInstallerScript
 			rename($zip, $this->mangrove.'/'.basename($zip));
 		}
 
-		// Cleanup -_-
-		//unlink($this->base);
+		// Cleanup
+		self::rrmdir($this->base);
 
-		$this->installPayload($payload, 'redbean/redbean');
-
-		$this->installPayload($payload, 'valanx/jredbean');
-
-		if ( !$this->boot['jredbean'] ) {
-			// Try to acquire replacement package?
+		foreach (
+			array(
+				'mangrove/core',
+				'installers/',
+				'redbean/redbean',
+				'valanx/jredbean'
+			) as $install
+		) {
+			$this->installPayload($payload, $install);
 		}
 
-		$this->installPayload($payload, 'mangrove/core');
-
-		$this->installPayload($payload, 'installers/');
+		self::putJSON( $this->mangrove.'/payload.json', $this->payload );
 
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
@@ -118,54 +128,77 @@ class Com_MangroveInstallerScript
 		$zip->open($path);
 
 		$target = $this->mangrove . '/' . $file['filename'];
-var_dump($path);var_dump($target);
-		if ( !is_dir($target) ) {
-			mkdir($target, 0744);
-		}
+
+		if ( !is_dir($target) ) mkdir($target, 0744);
 
 		$zip->extractTo($target);
 
 		// Load info.json
 		$info = self::getJSON($target . '/info.json');
 
+		// Since we have no installers yet, we emulate their core behavior
 		switch ( $info->type ) {
+			case 'joomla-component':
 			case 'joomla-library':
+				$installer = new JInstaller();
+
+				$installer->install($target);
+				break;
+			case 'library':
+				$path = JPATH_ROOT . '/libraries/' . $info->name;
+
+				if ( !is_dir($path) ) mkdir($path, 0744, true);
+
+				rename($target, $path);
 				break;
 			case 'mangrove-installer':
+				$path = $this->com
+					. str_replace( 'valanx/mangrove/', '', $info->name );
+
+				if ( !is_dir($path) ) mkdir($path, 0744, true);
+
+				rename($target, $path);
 				break;
 		}
 
-		if ( strpos('jredbean', $path) ) {
-			$this->boot['jredbean'] = true;
-		}
+		self::rrmdir($target);
+
+		$info->payload = (object) array(
+			'installed' => true,
+			'installed_time' => (int) gmdate('U')
+		);
 
 		$this->registerPackage( $info );
 	}
 
 	function registerPackage( $info )
 	{
-		if ( !$this->boot['db'] ) {
-			//$this->db();
-		}
-	}
-
-	private static function db()
-	{
-		R::addDatabase(
-			self::$config->database->name,
-			'mysql:host='.self::$config->database->host.';'
-			.'dbname='.self::$config->database->name,
-			self::$config->database->user,
-			self::$config->database->password
-		);
-
-		R::selectDatabase( self::$config->database->name );
-		//R::$writer->setUseCache(true);
+		$this->payload[$info->name] = $info;
 	}
 
 	static function getJSON( $path )
 	{
 		return json_decode( file_get_contents($path) );
+	}
+
+	static function putJSON( $data, $path )
+	{
+		return file_put_contents( $path, json_encode($data) );
+	}
+
+	static function rrmdir( $path )
+	{
+		if ( is_dir($path) ) {
+			foreach ( glob($path . '/*') as $item ) {
+				if ( is_dir($item) ) {
+					self::rrmdir($item);
+				} else {
+					unlink($item);
+				}
+			}
+
+			rmdir($path);
+		}
 	}
 }
 }

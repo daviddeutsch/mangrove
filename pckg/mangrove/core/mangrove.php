@@ -1,6 +1,6 @@
 <?php
 
-include_once( __DIR__ . '/lib/redbean/rb.php' );
+include_once( JPATH_ROOT . '/libraries/redbean/redbean/rb.php' );
 
 $mangrove = new Mangrove();
 
