@@ -52,12 +52,13 @@ class Com_MangroveInstallerScript
 	/**
 	 * List of installed payload for use on bootup in mangrove
 	 *
-	 * @var array
+	 * @var object
 	 */
-	private $payload = array();
+	private $payload;
 
 	function __construct()
 	{
+		// Establish path names
 		$this->temp = JFactory::getApplication()->getCfg('tmp_path');
 
 		$this->base = array_pop( glob($this->temp.'/install*', GLOB_ONLYDIR) );
@@ -67,6 +68,9 @@ class Com_MangroveInstallerScript
 		if ( !is_dir($this->mangrove) ) mkdir($this->mangrove, 0744);
 
 		$this->com = JPATH_ROOT . '/administrator/components/com_mangrove';
+
+		// Load payload JSON
+		$this->payload = self::getJSON($this->base . '/info.json');
 	}
 
 	function postflight( $type, $parent )
@@ -76,17 +80,7 @@ class Com_MangroveInstallerScript
 
 	function install()
 	{
-		// TODO: Check whether mangrove already exists
-
-		// If it does exist, copy payload and redirect to mangrove
-		// Although we have to be careful - maybe we want to update ourselves?
-
-		// Make sure we have the basic libraries in place
-
-		// Load payload JSON
-		$payload = self::getJSON($this->base . '/info.json');
-
-		// Move payload to mangrove tmp
+		// Move payload to mangrove temp directory
 		foreach ( glob($this->base.'/payload/*.zip') as $zip ) {
 			rename($zip, $this->mangrove.'/'.basename($zip));
 		}
@@ -94,6 +88,14 @@ class Com_MangroveInstallerScript
 		// Cleanup
 		self::rrmdir($this->base);
 
+		/**
+		 * TODO: Check whether mangrove already exists
+		 *
+		 * If it does exist, copy payload, write the json directive and
+		 * redirect to mangrove
+		 */
+
+		// Install core and dependencies
 		foreach (
 			array(
 				'mangrove/core',
@@ -102,17 +104,18 @@ class Com_MangroveInstallerScript
 				'valanx/jredbean'
 			) as $install
 		) {
-			$this->installPayload($payload, $install);
+			$this->installPayload($install);
 		}
 
+		// Write payload.json so that mangrove can take over
 		self::putJSON( $this->mangrove.'/payload.json', $this->payload );
 
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
-	function installPayload( $payload, $key )
+	function installPayload( $key )
 	{
-		foreach ( $payload->payload as $k => $v ) {
+		foreach ( $this->payload->payload as $k => $v ) {
 			if ( strpos($k, $key) !== false ) {
 				$this->installPackage($this->mangrove.'/'.$v);
 			}
@@ -153,7 +156,7 @@ class Com_MangroveInstallerScript
 				break;
 			case 'mangrove-installer':
 				$path = $this->com
-					. str_replace( 'valanx/mangrove/', '', $info->name );
+					. str_replace( 'valanx/mangrove', '', $info->name );
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
 
@@ -164,7 +167,6 @@ class Com_MangroveInstallerScript
 		self::rrmdir($target);
 
 		$info->payload = (object) array(
-			'installed' => true,
 			'installed_time' => (int) gmdate('U')
 		);
 
@@ -173,7 +175,7 @@ class Com_MangroveInstallerScript
 
 	function registerPackage( $info )
 	{
-		$this->payload[$info->name] = $info;
+		$this->payload->payload[$info->name] = $info;
 	}
 
 	static function getJSON( $path )
