@@ -80,11 +80,16 @@ class Com_MangroveInstallerScript
 			rename($zip, $this->temp.'/'.basename($zip));
 		}
 
-		self::rrmdir($this->base);
-
-		$installer = new JInstaller();
-
-		$installer->uninstall('component', 'com_mangrovebootstrap');
+		// Cleanup
+		foreach(
+			array(
+				$this->base,
+				JPATH_ROOT.'/administrator/components/com_mangrovebootstrap',
+				JPATH_ROOT.'/components/com_mangrovebootstrap',
+			) as $dir
+		) {
+			self::rrmdir($dir);
+		}
 
 		if ( !$this->detectMangrove() ) {
 			$this->installMangrove();
