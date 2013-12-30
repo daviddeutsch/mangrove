@@ -7,10 +7,9 @@
 	"version":"1.0",
 	"require":
 		[
+			"valanx/mangrove/lib/core",
 			"redbean/redbean-tiny",
 			"valanx/jredbean",
-			"valanx/mangrove/installers/valanx/mangrove",
-			"valanx/mangrove/installers/joomla",
 			"valanx/plg-tinyhook",
 			"google/excanvas",
 			"angularjs/angularjs",

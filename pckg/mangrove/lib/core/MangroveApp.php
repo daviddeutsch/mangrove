@@ -1,22 +1,5 @@
 <?php
 
-include_once( JPATH_ROOT . '/libraries/redbean/redbean-tiny/rb.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jR.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jMysqlQueryWriter.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jPostgreSqlQueryWriter.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jSQLiteTQueryWriter.php' );
-
-jR::create();
-jR::context('mangrove');
-
-$mangrove = new MangroveApp();
-
-if ( !empty( $_GET['task'] ) ) {
-	echo $mangrove->resolve($_GET['task']);
-} else {
-	echo $mangrove->resolve('app');
-}
-
 class MangroveApp
 {
 	/**
@@ -53,7 +36,7 @@ class MangroveApp
 		$this->com = dirname(__FILE__);
 
 		if ( file_exists($this->temp . '/payload.json') ) {
-			$this->payload = self::getJSON($this->temp . '/payload.json');
+			$this->payload = MangroveUtils::getJSON($this->temp . '/payload.json');
 
 			unlink($this->temp . '/payload.json');
 		}
@@ -75,7 +58,7 @@ class MangroveApp
 
 				// Double-check everything is nice and tidy
 				if ( is_dir($this->temp.'/'.$sha) ) {
-					self::rrmdir($this->temp.'/'.$sha);
+					MangroveUtils::rrmdir($this->temp.'/'.$sha);
 				}
 
 				if ( file_exists($this->temp.'/'.$sha.'.zip') ) {
@@ -220,22 +203,6 @@ class MangroveApp
 		return sha1( JURI::root().$app->getCfg('dbprefix') );
 	}
 
-	static function getJSON( $path )
-	{
-		return json_decode( file_get_contents( $path ) );
-	}
-
-	static function storeJSON( $path, $content )
-	{
-		return file_put_contents(
-			$path,
-			json_encode(
-				$content,
-				JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
-			)
-		);
-	}
-
 	public static function hook( $payload )
 	{
 
@@ -253,42 +220,4 @@ class MangroveApp
 		);
 	}
 
-	private static function rrmdir( $path )
-	{
-		if ( is_dir($path) ) {
-			foreach ( glob($path . '/*') as $item ) {
-				if ( is_dir($item) ) {
-					self::rrmdir($item);
-				} else {
-					unlink($item);
-				}
-			}
-
-			rmdir($path);
-		}
-	}
-}
-
-class mangroveConnector
-{
-	public function getToken( $sha )
-	{
-		$v = new JVersion();
-
-		return array(
-			'sha' => $sha,
-			'client' => array(
-				'php' => PHP_VERSION,
-				'joomla' => array(
-					'short' => $v->getShortVersion(),
-					'long' => $v->getLongVersion()
-				)
-			)
-		);
-	}
-
-	public function registerHook()
-	{
-
-	}
 }
