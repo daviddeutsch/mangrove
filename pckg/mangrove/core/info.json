@@ -17,6 +17,9 @@
 			"angular-ui/ui-router",
 			"angular-ui/bootstrap",
 			"mgonto/restangular",
-			"jquery/jquery"
+			"jquery/jquery",
+			"valanx/mangrove/media/css",
+			"valanx/mangrove/media/images",
+			"valanx/mangrove/media/js"
 		]
 }

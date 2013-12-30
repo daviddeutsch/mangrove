@@ -33,6 +33,13 @@ class Com_MangroveInstallerScript
 	 *
 	 * @var string
 	 */
+	private $jtemp;
+
+	/**
+	 * Path to mangrove temp directory
+	 *
+	 * @var string
+	 */
 	private $temp;
 
 	/**
@@ -47,13 +54,13 @@ class Com_MangroveInstallerScript
 	 */
 	public function __construct()
 	{
-		$temp = JFactory::getApplication()->getCfg('tmp_path');
+		$this->jtemp = JFactory::getApplication()->getCfg('tmp_path');
 
-		$installs = glob($temp.'/install*', GLOB_ONLYDIR);
+		$installs = glob($this->jtemp.'/install*', GLOB_ONLYDIR);
 
 		$this->base = array_pop($installs);
 
-		$this->temp = $temp . '/mangrove';
+		$this->temp = $this->jtemp . '/mangrove';
 
 		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
 
@@ -75,7 +82,7 @@ class Com_MangroveInstallerScript
 
 	public function install()
 	{
-		// Move payload to mangrove temp directory
+		// Unload payload to mangrove temp directory
 		foreach ( glob($this->base.'/payload/*.zip') as $zip ) {
 			rename($zip, $this->temp.'/'.basename($zip));
 		}
@@ -90,6 +97,8 @@ class Com_MangroveInstallerScript
 		) {
 			self::rrmdir($dir);
 		}
+
+		unlink($this->jtemp.'/mangrove-bootstrap.zip');
 
 		if ( !$this->detectMangrove() ) {
 			$this->installMangrove();
@@ -137,6 +146,8 @@ class Com_MangroveInstallerScript
 		$info->payload = (object) array(
 			'installed_time' => (int) gmdate('U')
 		);
+
+		$info->sha = str_replace( '.zip', '', basename($path) );
 
 		$this->registerPackage( $info );
 	}
@@ -245,7 +256,7 @@ class Com_MangroveInstallerScript
 		$previous    = '';
 		$in_quotes   = false;
 		$last_indent = null;
-		$length      = strlen( $json );
+		$length      = strlen($json);
 
 		$level = 0;
 		for ( $i=0; $i<$length; $i++ ) {
@@ -264,16 +275,13 @@ class Com_MangroveInstallerScript
 				$in_quotes = !$in_quotes;
 			} else if ( !$in_quotes ) {
 				switch ( $current ) {
-					case '}':
-					case ']':
+					case '}': case ']':
 						$level--;
 
 						$last_indent = null;
 						$indent_level = $level;
 						break;
-
-					case '{':
-					case '[':
+					case '{': case '[':
 						$level++;
 					case ',':
 						$last_indent = $level;
@@ -281,10 +289,7 @@ class Com_MangroveInstallerScript
 					case ':':
 						$post = " ";
 						break;
-					case " ":
-					case "\t":
-					case "\n":
-					case "\r":
+					case " ": case "\t": case "\n": case "\r":
 						$current = "";
 
 						$last_indent = $indent_level;

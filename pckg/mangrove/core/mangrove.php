@@ -7,16 +7,17 @@ include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jPostgreSqlQ
 include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jSQLiteTQueryWriter.php' );
 
 jR::create();
+jR::context('mangrove');
 
-$mangrove = new Mangrove();
+$mangrove = new MangroveApp();
 
 if ( !empty( $_GET['task'] ) ) {
-	$mangrove->resolve($_GET['task']);
+	echo $mangrove->resolve($_GET['task']);
 } else {
-	$mangrove->resolve('app');
+	echo $mangrove->resolve('app');
 }
 
-class Mangrove
+class MangroveApp
 {
 	/**
 	 * Path to mangrove tmp directory
@@ -51,21 +52,100 @@ class Mangrove
 
 		$this->com = dirname(__FILE__);
 
-		$this->payload = self::getJSON($this->temp . '/payload.json');
+		if ( file_exists($this->temp . '/payload.json') ) {
+			$this->payload = self::getJSON($this->temp . '/payload.json');
+
+			unlink($this->temp . '/payload.json');
+		}
 
 		$this->update();
 	}
 
 	function update()
 	{
-		print_r($this);print_r($this->payload);print_r(R::$currentDB);
+		if ( !empty($this->payload) ) {
+			foreach ( $this->payload->payload as $id => $package ) {
+				if ( is_string($package) ) {
+					$sha = $package;
+				} else {
+					$this->registerPackage($package);
+
+					$sha = $package->sha;
+				}
+
+				// Double-check everything is nice and tidy
+				if ( is_dir($this->temp.'/'.$sha) ) {
+					self::rrmdir($this->temp.'/'.$sha);
+				}
+
+				if ( file_exists($this->temp.'/'.$sha.'.zip') ) {
+					unlink($this->temp.'/'.$sha.'.zip');
+				}
+			}
+		}
+	}
+
+	private function registerPackage( $package )
+	{
+		$entry = R::_('package');
+
+		foreach ( get_object_vars($package) as $key => $value ) {
+			switch ( $key ) {
+				case 'payload':
+					$entry->installed = $value->installed_time;
+					break;
+				case 'time':
+					$entry->created = R::isoDateTime($value);
+					break;
+				case 'version':
+					$version = $this->explodeVersion($value);
+
+					foreach ( $version as $k => $v ) {
+						$entry->{'version_'.$k} = $v;
+					}
+					break;
+				default:
+					if ( is_string($value) ) {
+						$entry->$key = $value;
+					}
+			}
+		}
+
+		if ( empty($entry->installed) ) {
+			$entry->installed = R::isoDateTime();
+		}
+
+		R::_($entry);
+	}
+
+	private function explodeVersion( $version )
+	{
+		$return = array();
+
+		$v = explode('.', $version, 3);
+
+		$return['major'] = $v[0];
+		$return['minor'] = $v[1];
+
+		if ( is_numeric($v[2]) ) {
+			$return['patch'] = $v[2];
+			$return['meta'] = null;
+		} else {
+			preg_match('/\d+/', $v[2], $regs);
+
+			$return['patch'] = $regs[0];
+
+			$return['meta'] = substr( $v[2], strlen($regs[0]) );
+		}
+
+		return $return;
 	}
 
 	function resolve( $task )
 	{
-		$method = strtolower( $_SERVER['REQUEST_METHOD'] ).ucfirst($task);
+		$method = strtolower($_SERVER['REQUEST_METHOD']).ucfirst($task);
 
-		if ( method_exists( $this, $method ) ) {
+		if ( method_exists($this, $method) ) {
 			return $this->$method();
 		} else {
 			return $this->getApp();
@@ -80,15 +160,15 @@ class Mangrove
 
 		$v = new JVersion();
 		if ( $v->isCompatible('3.0') ) {
-			$document->addCustomTag( sprintf( $csslink, 'joomla3-override' ) );
+			$document->addCustomTag( sprintf($csslink, 'joomla3-override') );
 		} else {
-			$document->addCustomTag( sprintf( $csslink, 'bootstrap-combined.min' ) );
-			$document->addCustomTag( sprintf( $csslink, 'joomla-override' ) );
+			$document->addCustomTag( sprintf($csslink, 'bootstrap-combined.min') );
+			$document->addCustomTag( sprintf($csslink, 'joomla-override') );
 		}
 
-		$document->addCustomTag( sprintf( $csslink, 'mangrove' ) );
+		$document->addCustomTag( sprintf($csslink, 'mangrove') );
 
-		$document->addCustomTag( sprintf( $csslink, '../js/angular-ui.min' ) );
+		$document->addCustomTag( sprintf($csslink, '../js/angular-ui.min') );
 
 		$jsfiles = array(
 			'jquery.min',
@@ -171,6 +251,21 @@ class Mangrove
 			'path/to/mangrove.php',
 			'Mangrove::hook'
 		);
+	}
+
+	private static function rrmdir( $path )
+	{
+		if ( is_dir($path) ) {
+			foreach ( glob($path . '/*') as $item ) {
+				if ( is_dir($item) ) {
+					self::rrmdir($item);
+				} else {
+					unlink($item);
+				}
+			}
+
+			rmdir($path);
+		}
 	}
 }
 
