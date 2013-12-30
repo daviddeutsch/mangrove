@@ -82,13 +82,17 @@ class Com_MangroveInstallerScript
 
 		self::rrmdir($this->base);
 
+		$installer = new JInstaller();
+
+		$installer->uninstall('component', 'com_mangrovebootstrap');
+
 		if ( !$this->detectMangrove() ) {
 			$this->installMangrove();
 		}
 
 		// Write payload.json so that the mangrove app can take it from there
 		self::putJSON( $this->temp.'/payload.json', $this->payload );
-exit;
+
 		// Head for the mangroves!
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
@@ -118,7 +122,7 @@ exit;
 	}
 
 	private function installPackage( $path )
-	{print_r("trying to install ".$path."\n\n");
+	{
 		$target = $this->unzip($path);
 
 		$info = self::getJSON($target . '/info.json');
@@ -150,14 +154,14 @@ exit;
 	}
 
 	private function mockInstaller( $info, $source )
-	{print_r("type ".$info->type."\n\n");
+	{
 		switch ( $info->type ) {
 			// Standard Joomla Installer
 			case 'joomla-component':
 			case 'joomla-library':
 				$installer = new JInstaller();
 
-				$r = $installer->install($source); var_dump($r);
+				$installer->install($source);
 				break;
 
 			// Composer-style library in cms/libraries
@@ -166,7 +170,7 @@ exit;
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
 
-				//rename($source, $path);
+				rename($source, $path);
 				break;
 
 			//  Basic file copying
@@ -176,11 +180,9 @@ exit;
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
 
-				//rename($source, $path);
+				rename($source, $path);
 				break;
 		}
-
-		//self::rrmdir($source);
 	}
 
 	private function registerPackage( $info )
