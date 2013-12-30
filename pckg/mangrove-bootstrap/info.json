@@ -12,7 +12,7 @@
 	"license":"GNU/GPL Version 3.0 or later - http://www.gnu.org/copyleft/gpl.html",
 	"type":"joomla-component",
 	"joomla":{
-		"name":"com_mangrove",
+		"name":"com_mangrovebootstrap",
 		"admin":true,
 		"install":"install.php"
 	},
