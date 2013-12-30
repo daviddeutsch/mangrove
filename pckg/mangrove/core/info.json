@@ -9,7 +9,7 @@
 		[
 			"redbean/redbean-tiny",
 			"valanx/jredbean",
-			"valanx/mangrove/installers/mangrove",
+			"valanx/mangrove/installers/valanx/mangrove",
 			"valanx/mangrove/installers/joomla",
 			"valanx/plg-tinyhook",
 			"google/excanvas",
