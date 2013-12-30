@@ -118,7 +118,7 @@ class Com_MangroveInstallerScript
 	}
 
 	private function installPackage( $path )
-	{
+	{print_r("trying to install ".$path."\n\n");
 		$target = $this->unzip($path);
 
 		$info = self::getJSON($target . '/info.json');
@@ -150,7 +150,7 @@ class Com_MangroveInstallerScript
 	}
 
 	private function mockInstaller( $info, $source )
-	{
+	{print_r("type ".$info->type."\n\n");
 		switch ( $info->type ) {
 			// Standard Joomla Installer
 			case 'joomla-component':
