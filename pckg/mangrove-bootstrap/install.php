@@ -171,8 +171,8 @@ class Com_MangroveInstallerScript
 
 			//  Basic file copying
 			case 'mangrove-installer':
-				$path = JPATH_ROOT . '/administrator/components/com_mangrove'
-					. str_replace( 'valanx/mangrove', '', $info->name );
+				$path = JPATH_ROOT . '/administrator/components/com_mangrove/'
+					. str_replace( 'valanx/mangrove/', '', $info->name );
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
 
