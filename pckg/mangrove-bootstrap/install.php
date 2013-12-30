@@ -166,7 +166,7 @@ exit;
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
 
-				rename($source, $path);
+				//rename($source, $path);
 				break;
 
 			//  Basic file copying
@@ -176,11 +176,11 @@ exit;
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
 
-				rename($source, $path);
+				//rename($source, $path);
 				break;
 		}
 
-		self::rrmdir($source);
+		//self::rrmdir($source);
 	}
 
 	private function registerPackage( $info )
