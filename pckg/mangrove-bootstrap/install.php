@@ -88,7 +88,7 @@ class Com_MangroveInstallerScript
 
 		// Write payload.json so that the mangrove app can take it from there
 		self::putJSON( $this->temp.'/payload.json', $this->payload );
-
+exit;
 		// Head for the mangroves!
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
@@ -211,7 +211,84 @@ class Com_MangroveInstallerScript
 
 	private static function putJSON( $path, $data )
 	{
-		return file_put_contents( $path, json_encode($data) );
+		if ( version_compare(phpversion(), '5.4.0', '>') ) {
+			file_put_contents(
+				$path,
+				json_encode(
+					$data,
+					JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+				)
+			);
+		} else {
+			file_put_contents( $path, self::prettyJSON(json_encode($data)) );
+		}
+	}
+
+	private static function prettyJSON( $json )
+	{
+		$result = '';
+
+		$previous    = '';
+		$in_quotes   = false;
+		$last_indent = null;
+		$length      = strlen( $json );
+
+		$level = 0;
+		for ( $i=0; $i<$length; $i++ ) {
+			$current = $json[$i];
+
+			$indent_level = null;
+
+			$post = "";
+
+			if ( $last_indent !== null ) {
+				$indent_level = $last_indent;
+				$last_indent = null;
+			}
+
+			if ( $current === '"' && $previous != '\\' ) {
+				$in_quotes = !$in_quotes;
+			} else if ( !$in_quotes ) {
+				switch ( $current ) {
+					case '}':
+					case ']':
+						$level--;
+
+						$last_indent = null;
+						$indent_level = $level;
+						break;
+
+					case '{':
+					case '[':
+						$level++;
+					case ',':
+						$last_indent = $level;
+						break;
+					case ':':
+						$post = " ";
+						break;
+					case " ":
+					case "\t":
+					case "\n":
+					case "\r":
+						$current = "";
+
+						$last_indent = $indent_level;
+						$indent_level  = null;
+						break;
+				}
+			}
+
+			if( $indent_level !== null ) {
+				$result .= "\n".str_repeat( "\t", $indent_level );
+			}
+
+			$result .= $current.$post;
+
+			$previous = $current;
+		}
+
+		return $result;
 	}
 
 	private static function rrmdir( $path )
