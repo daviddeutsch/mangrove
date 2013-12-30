@@ -157,7 +157,7 @@ exit;
 			case 'joomla-library':
 				$installer = new JInstaller();
 
-				$installer->install($source);
+				$r = $installer->install($source); var_dump($r);
 				break;
 
 			// Composer-style library in cms/libraries
@@ -224,6 +224,13 @@ exit;
 		}
 	}
 
+	/**
+	 * Adapted from http://stackoverflow.com/a/9776726
+	 *
+	 * @param $json
+	 *
+	 * @return string
+	 */
 	private static function prettyJSON( $json )
 	{
 		$result = '';
