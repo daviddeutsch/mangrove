@@ -4,11 +4,8 @@
 defined('_JEXEC') or die( 'Direct Access to this location is not allowed.' );
 
 require_once( dirname(__FILE__).'/autoload.php' );
-include_once( JPATH_ROOT . '/libraries/redbean/redbean-tiny/rb.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jR.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jMysqlQueryWriter.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jPostgreSqlQueryWriter.php' );
-include_once( JPATH_ROOT . '/libraries/valanx/jredbean/src/jRedBean/jSQLiteTQueryWriter.php' );
+
+R::ext( 'prefix', array('RedBean_Prefix', 'prefix') );
 
 jR::create();
 jR::context('mangrove');

@@ -3,6 +3,8 @@ Why Mangrove?
 
 ### It's not just "a faster horse"
 
+It's actually a [motorized robospider](http://verraes.net/2014/01/henry-ford-fallacy/) for people who rock a fez.
+
 In the past, you downloaded zip files and install them into Joomla. Now, with Joomla 3.0, you can have them automatically update. That's just a faster horse.
 
 ### It's not a firehose
