@@ -7,8 +7,8 @@ jurl = function (name) {
 mangroveApp
 	.config(
 		[
-			'$stateProvider', '$urlRouterProvider', 'Restangular', '$httpProvider',
-			function ($stateProvider, $urlRouterProvider, Restangular, $httpProvider) {
+			'$stateProvider', '$urlRouterProvider', 'Restangular',
+			function ($stateProvider, $urlRouterProvider, Restangular) {
 				Restangular.setBaseUrl('index.php?option=com_mangrove');
 
 				$urlRouterProvider
