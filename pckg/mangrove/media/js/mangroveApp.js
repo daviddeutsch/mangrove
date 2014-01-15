@@ -8,7 +8,7 @@ mangroveApp
 	.config(
 		[
 			'$stateProvider', '$urlRouterProvider', 'Restangular',
-			function ($stateProvider, $urlRouterProvider, Restangular) {
+			function ($stateProvider, $urlRouterProvider, RestangularProvider) {
 				RestangularProvider.setResponseExtractor(function(response) {
 					var newResponse = response;
 					if (angular.isArray(response)) {
@@ -22,7 +22,7 @@ mangroveApp
 					return newResponse;
 				});
 
-				Restangular.setBaseUrl('index.php?option=com_mangrove');
+				RestangularProvider.setBaseUrl('index.php?option=com_mangrove&rest=');
 
 				$urlRouterProvider
 					.otherwise('/packages');
