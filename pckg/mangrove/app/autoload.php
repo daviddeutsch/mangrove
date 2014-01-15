@@ -14,12 +14,7 @@ $includes = array(
 	'libraries/valanx/core/MangroveClassLoader',
 	'libraries/valanx/core/MangroveInstaller',
 	'libraries/valanx/core/MangroveUtils',
-	'libraries/redbean/jredbean/rb',
-	'libraries/valanx/jredbean/src/jRedBean/jMysqlQueryWriter',
-	'libraries/valanx/jredbean/src/jRedBean/jPostgreSqlQueryWriter',
-	'libraries/valanx/jredbean/src/jRedBean/jSQLiteTQueryWriter',
-	'libraries/valanx/jredbean/src/jRedBean/jR',
-
+	'libraries/redbean/jredbean/rb'
 );
 
 foreach ( $includes as $path ) {

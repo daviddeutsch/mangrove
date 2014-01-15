@@ -8,8 +8,7 @@
 	"require":
 		[
 			"valanx/mangrove/lib/core",
-			"redbean/redbean-tiny",
-			"valanx/jredbean",
+			"redbean/redbean-adaptive",
 			"valanx/plg-tinyhook",
 			"google/excanvas",
 			"angularjs/angularjs",
