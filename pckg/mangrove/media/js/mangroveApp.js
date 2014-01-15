@@ -1,4 +1,4 @@
-var mangroveApp = angular.module("mangroveApp", ['ui.compat', 'ui.bootstrap', 'restangular']);
+var mangroveApp = angular.module("mangroveApp", ['restangular', 'ngRoute', 'ui.router', 'ngAnimate', 'ui.bootstrap', 'OmniBinder']);
 
 jurl = function (name) {
 	return "components/com_mangrove/templates/" + name + ".html";
@@ -9,6 +9,19 @@ mangroveApp
 		[
 			'$stateProvider', '$urlRouterProvider', 'Restangular',
 			function ($stateProvider, $urlRouterProvider, Restangular) {
+				RestangularProvider.setResponseExtractor(function(response) {
+					var newResponse = response;
+					if (angular.isArray(response)) {
+						angular.forEach(newResponse, function(value, key) {
+							newResponse[key].originalElement = angular.copy(value);
+						});
+					} else {
+						newResponse.originalElement = angular.copy(response);
+					}
+
+					return newResponse;
+				});
+
 				Restangular.setBaseUrl('index.php?option=com_mangrove');
 
 				$urlRouterProvider
