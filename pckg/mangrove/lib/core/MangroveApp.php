@@ -97,7 +97,7 @@ class MangroveApp
 
 	private function registerPackage( $package )
 	{
-		$entry = R::_('package');
+		$entry = $this->r->_('package');
 
 		foreach ( get_object_vars($package) as $key => $value ) {
 			switch ( $key ) {
@@ -105,7 +105,7 @@ class MangroveApp
 					$entry->installed = $value->installed_time;
 					break;
 				case 'time':
-					$entry->created = R::isoDateTime($value);
+					$entry->created = $this->r->isoDateTime($value);
 					break;
 				case 'version':
 					$version = $this->explodeVersion($value);
@@ -122,10 +122,10 @@ class MangroveApp
 		}
 
 		if ( empty($entry->installed) ) {
-			$entry->installed = R::isoDateTime();
+			$entry->installed = $this->r->isoDateTime();
 		}
 
-		R::_($entry);
+		$this->r->_($entry);
 	}
 
 	private function explodeVersion( $version )
