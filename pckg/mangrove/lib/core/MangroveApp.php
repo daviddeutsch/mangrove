@@ -24,12 +24,18 @@ class MangroveApp
 	private $payload;
 
 	/**
+	 * @var RedBean_Instance
+	 */
+	public $r;
+
+	/**
 	 * Load paths and payload json
 	 */
 	public function __construct()
 	{
-		$this->temp = JFactory::getApplication()->getCfg('tmp_path')
-			. '/mangrove';
+		$japp = JFactory::getApplication();
+
+		$this->temp = $japp->getCfg('tmp_path') . '/mangrove';
 
 		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
 
@@ -41,29 +47,50 @@ class MangroveApp
 			unlink($this->temp . '/payload.json');
 		}
 
+		$this->$r = new RedBean_Instance();
+
+		if ( $japp->getCfg('dbtype') == 'mysqli' ) {
+			$type = 'mysql';
+		} else {
+			$type = $japp->getCfg('dbtype');
+		}
+
+		$this->$r->addDatabase(
+			'joomla',
+			$type . ':'
+			. 'host=' . $japp->getCfg('host') . ';'
+			. 'dbname=' . $japp->getCfg('db'),
+			$japp->getCfg('user'),
+			$japp->getCfg('password')
+		);
+
+		$this->$r->selectDatabase('joomla');
+
+		$this->$r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
+
 		$this->update();
 	}
 
 	function update()
 	{
-		if ( !empty($this->payload) ) {
-			foreach ( $this->payload->payload as $id => $package ) {
-				if ( is_string($package) ) {
-					$sha = $package;
-				} else {
-					$this->registerPackage($package);
+		if ( empty($this->payload) ) return;
 
-					$sha = $package->sha;
-				}
+		foreach ( $this->payload->payload as $id => $package ) {
+			if ( is_string($package) ) {
+				$sha = $package;
+			} else {
+				$this->registerPackage($package);
 
-				// Double-check everything is nice and tidy
-				if ( is_dir($this->temp.'/'.$sha) ) {
-					MangroveUtils::rrmdir($this->temp.'/'.$sha);
-				}
+				$sha = $package->sha;
+			}
 
-				if ( file_exists($this->temp.'/'.$sha.'.zip') ) {
-					unlink($this->temp.'/'.$sha.'.zip');
-				}
+			// Double-check everything is nice and tidy
+			if ( is_dir($this->temp.'/'.$sha) ) {
+				MangroveUtils::rrmdir($this->temp.'/'.$sha);
+			}
+
+			if ( file_exists($this->temp.'/'.$sha.'.zip') ) {
+				unlink($this->temp.'/'.$sha.'.zip');
 			}
 		}
 	}
@@ -198,9 +225,9 @@ class MangroveApp
 	 */
 	private function makeSiteHash()
 	{
-		$app = JFactory::getApplication();
+		$japp = JFactory::getApplication();
 
-		return sha1( JURI::root().$app->getCfg('dbprefix') );
+		return sha1( JURI::root().$japp->getCfg('dbprefix') );
 	}
 
 	public static function hook( $payload )
