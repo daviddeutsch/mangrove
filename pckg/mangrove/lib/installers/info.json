@@ -1,3 +1,4 @@
 {
-    "type":"mangrove-installer"
+    "type":"mangrove-installer",
+	"version":"1.0"
 }
