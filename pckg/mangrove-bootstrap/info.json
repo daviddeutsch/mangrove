@@ -19,7 +19,7 @@
 	"version":"1.0",
 	"require":
 		[
-			"valanx/mangrove/core"
+			"valanx/mangrove/app"
 		],
 	"payload": "require-payload"
 }
