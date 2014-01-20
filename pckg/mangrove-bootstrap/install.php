@@ -132,6 +132,7 @@ class Com_MangroveInstallerScript
 	private function installMangrove()
 	{
 		foreach (
+			// Partial names work just fine
 			array(
 				'mangrove/lib/core',
 				'mangrove/app',
