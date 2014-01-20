@@ -1,6 +1,5 @@
 {
 	"vendor":  "valanx",
-	"name":    "mangrove",
 	"type":    "library",
 	"version": "1.0"
 }
