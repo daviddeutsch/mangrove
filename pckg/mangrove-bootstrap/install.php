@@ -120,7 +120,8 @@ class Com_MangroveInstallerScript
 			array(
 				'libraries/redbean/redbean-adaptive',
 				'administrator/components/com_mangrove',
-				'administrator/components/com_mangrove/installers'
+				'libraries/valanx/mangrove/lib/core',
+				'libraries/valanx/mangrove/lib/installers'
 			) as $dir
 		) {
 			if ( !is_dir(JPATH_ROOT.'/'.$dir) ) return false;
@@ -206,18 +207,9 @@ class Com_MangroveInstallerScript
 				break;
 
 			// Composer-style library in cms/libraries
+			default:
 			case 'library':
 				$path = JPATH_ROOT . '/libraries/' . $info->name;
-
-				if ( !is_dir($path) ) mkdir($path, 0744, true);
-
-				rename($source, $path);
-				break;
-
-			//  Basic file copying
-			case 'mangrove-installer':
-				$path = JPATH_ROOT . '/administrator/components/com_mangrove/'
-					. str_replace( 'valanx/mangrove/', '', $info->name );
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
 
