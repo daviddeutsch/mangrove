@@ -111,6 +111,21 @@ class Com_MangroveInstallerScript
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
 
+	private function detectMangrove()
+	{
+		foreach (
+			array(
+				'libraries/redbean/redbean-adaptive',
+				'administrator/components/com_mangrove',
+				'administrator/components/com_mangrove/installers'
+			) as $dir
+		) {
+			if ( !is_dir(JPATH_ROOT.'/'.$dir) ) return false;
+		}
+
+		return true;
+	}
+
 	/**
 	 * Install Core and its dependencies
 	 */
@@ -121,8 +136,7 @@ class Com_MangroveInstallerScript
 				'mangrove/lib/core',
 				'mangrove/core',
 				'installers/',
-				'redbean/redbean',
-				'valanx/jredbean'
+				'redbean/redbean'
 			) as $install
 		) {
 			foreach ( $this->payload->payload as $k => $v ) {
@@ -205,22 +219,6 @@ class Com_MangroveInstallerScript
 	private function registerPackage( $info )
 	{
 		$this->payload->payload->{$info->name} = $info;
-	}
-
-	private function detectMangrove()
-	{
-		foreach (
-			array(
-				'libraries/redbean/redbean',
-				'libraries/valanx/jredbean',
-				'administrator/components/com_mangrove',
-				'administrator/components/com_mangrove/installers'
-			) as $dir
-		) {
-			if ( !is_dir(JPATH_ROOT.'/'.$dir) ) return false;
-		}
-
-		return true;
 	}
 
 	private static function getJSON( $path )
