@@ -18,5 +18,5 @@ $includes = array(
 );
 
 foreach ( $includes as $path ) {
-	include_once($base.$path.'.php');
+	include_once($base . '/' . $path . '.php');
 }
