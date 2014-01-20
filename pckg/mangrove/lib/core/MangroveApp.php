@@ -68,6 +68,8 @@ class MangroveApp
 
 		$this->r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
 
+		$this->r->setupPipeline($japp->getCfg('dbprefix'));
+
 		$this->update();
 	}
 
