@@ -80,6 +80,9 @@ class Com_MangroveInstallerScript
 		$this->install();
 	}
 
+	/**
+	 * Install only the base necessities, then redirect to the real installer
+	 */
 	public function install()
 	{
 		// Unload payload to mangrove temp directory
