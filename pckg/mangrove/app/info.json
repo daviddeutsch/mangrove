@@ -8,6 +8,7 @@
 	"require":
 		[
 			"valanx/mangrove/lib/core",
+			"valanx/mangrove/lib/installers/joomla",
 			"redbean/redbean-adaptive",
 			"valanx/plg-tinyhook",
 			"google/excanvas",
