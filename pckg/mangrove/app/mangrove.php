@@ -10,9 +10,10 @@ $mangrove = new MangroveApp();
 if ( !empty( $_GET['task'] ) ) {
 	echo $mangrove->resolve($_GET['task']);
 } else {
-	echo $mangrove->resolve('app');
-}
+	$mangrove->resolve('app');
 
+	include dirname(__FILE__).'/templates/main.html';
+}
 
 
 class mangroveConnector

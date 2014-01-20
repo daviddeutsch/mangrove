@@ -44,7 +44,7 @@ class MangroveApp
 		if ( file_exists($this->temp . '/payload.json') ) {
 			$this->payload = MangroveUtils::getJSON($this->temp . '/payload.json');
 
-			unlink($this->temp . '/payload.json');
+			//unlink($this->temp . '/payload.json');
 		}
 
 		$this->r = new RedBean_Instance();
@@ -196,7 +196,7 @@ class MangroveApp
 			$document->addScript( JURI::root(true).'/media/com_mangrove/js/'.$file.'.js' );
 		}
 
-		return include dirname(__FILE__).'/templates/main.html';
+		return null;
 	}
 
 	function getPackages()
