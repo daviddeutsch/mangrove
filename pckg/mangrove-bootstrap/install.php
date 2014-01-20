@@ -11,8 +11,8 @@ if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
  *
  * · Requires being deployed with a payload
  * · Payload needs to include RedBean and Joomla Installers
- * · Sets up RedBean and Joomla Installers
- * · Continues to pull itself up by its bootstraps
+ * · Sets up RedBean, mangrove and basic installers
+ * · Hands over data to the actual mangrove install
  *
  * @package Mangrove
  * @copyright 2013-2014 Copyright (C) David Deutsch
