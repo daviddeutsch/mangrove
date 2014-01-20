@@ -207,8 +207,8 @@ class Com_MangroveInstallerScript
 				break;
 
 			// Composer-style library in cms/libraries
-			default:
 			case 'library':
+			default:
 				$path = JPATH_ROOT . '/libraries/' . $info->name;
 
 				if ( !is_dir($path) ) mkdir($path, 0744, true);
