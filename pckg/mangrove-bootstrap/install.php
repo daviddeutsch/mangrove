@@ -166,9 +166,9 @@ class Com_MangroveInstallerScript
 			'installed_time' => (int) gmdate('U')
 		);
 
-		$info->sha = str_replace( '.zip', '', basename($path) );
+		$info->sha = str_replace('.zip', '', basename($path));
 
-		$this->registerPackage( $info );
+		$this->registerPackage($info);
 	}
 
 	private function unzip( $path )
@@ -247,7 +247,7 @@ class Com_MangroveInstallerScript
 				)
 			);
 		} else {
-			file_put_contents( $path, json_encode($data) );
+			file_put_contents($path, json_encode($data));
 		}
 	}
 
