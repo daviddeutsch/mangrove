@@ -15,7 +15,7 @@ if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
  * · Continues to pull itself up by its bootstraps
  *
  * @package Mangrove
- * @copyright 2013 Copyright (C) David Deutsch
+ * @copyright 2013-2014 Copyright (C) David Deutsch
  * @author David Deutsch <skore@valanx.org> http://www.valanx.org
  * @license GNU/GPL v.3 or later
  */
