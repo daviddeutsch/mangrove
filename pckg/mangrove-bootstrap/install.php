@@ -134,7 +134,7 @@ class Com_MangroveInstallerScript
 		foreach (
 			array(
 				'mangrove/lib/core',
-				'mangrove/core',
+				'mangrove/app',
 				'installers/',
 				'redbean/redbean'
 			) as $install
