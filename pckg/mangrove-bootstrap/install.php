@@ -277,6 +277,7 @@ class Com_MangroveInstallerScript
 		return $a;
 	}
 }
+
 }
 
 if ( !function_exists( 'com_install' ) ) {
