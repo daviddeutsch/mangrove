@@ -6,15 +6,15 @@
  * Will be replaced during self install
  */
 
-$base = realpath( dirname(__FILE__) . '/../..' );
+$base = realpath( dirname(__FILE__) . '/../../..' );
 
 $includes = array(
-	'libraries/valanx/core/MangroveApp',
-	'libraries/valanx/core/MangroveAutoloadGenerator',
-	'libraries/valanx/core/MangroveClassLoader',
-	'libraries/valanx/core/MangroveInstaller',
-	'libraries/valanx/core/MangroveUtils',
-	'libraries/redbean/jredbean/rb'
+	'libraries/valanx/mangrove/lib/core/MangroveApp',
+	'libraries/valanx/mangrove/lib/core/MangroveAutoloadGenerator',
+	'libraries/valanx/mangrove/lib/core/MangroveClassLoader',
+	'libraries/valanx/mangrove/lib/core/MangroveInstaller',
+	'libraries/valanx/mangrove/lib/core/MangroveUtils',
+	'libraries/redbean/redbean-adaptive/rb'
 );
 
 foreach ( $includes as $path ) {
