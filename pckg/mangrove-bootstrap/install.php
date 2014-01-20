@@ -185,6 +185,12 @@ class Com_MangroveInstallerScript
 		return $target;
 	}
 
+	/**
+	 * Emulate the behavior of actual mangrove installers for now
+	 *
+	 * @param object $info
+	 * @param string $source
+	 */
 	private function mockInstaller( $info, $source )
 	{
 		switch ( $info->type ) {
