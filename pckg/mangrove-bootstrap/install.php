@@ -267,7 +267,6 @@ class Com_MangroveInstallerScript
 				}
 			}
 
-			// Remove
 			rmdir($path);
 		}
 	}
