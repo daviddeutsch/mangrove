@@ -105,7 +105,7 @@ class MangroveApp
 					$entry->installed = $value->installed_time;
 					break;
 				case 'time':
-					$entry->created = $this->r->isoDateTime($value);
+					$entry->created = $value;
 					break;
 				case 'version':
 					$version = $this->explodeVersion($value);
@@ -116,6 +116,8 @@ class MangroveApp
 					break;
 				default:
 					if ( is_string($value) ) {
+						$key = str_replace('-', '_', $key);
+
 						$entry->$key = $value;
 					}
 			}
