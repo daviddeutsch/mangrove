@@ -258,17 +258,17 @@ class Com_MangroveInstallerScript
 	 */
 	private static function rrmdir( $path )
 	{
-		if ( is_dir($path) ) {
-			foreach ( glob($path . '/*') as $item ) {
-				if ( is_dir($item) ) {
-					self::rrmdir($item);
-				} else {
-					unlink($item);
-				}
-			}
+		if ( !is_dir($path) ) return;
 
-			rmdir($path);
+		foreach ( glob($path . '/*') as $item ) {
+			if ( is_dir($item) ) {
+				self::rrmdir($item);
+			} else {
+				unlink($item);
+			}
 		}
+
+		rmdir($path);
 	}
 
 	private static function merge( $a, $b )
