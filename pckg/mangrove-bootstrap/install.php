@@ -239,7 +239,7 @@ class Com_MangroveInstallerScript
 				)
 			);
 		} else {
-			file_put_contents( $path, self::prettyJSON(json_encode($data)) );
+			file_put_contents( $path, json_encode($data) );
 		}
 	}
 
