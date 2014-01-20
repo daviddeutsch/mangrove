@@ -2,7 +2,7 @@
 
 jimport('joomla.installer.installer');
 
-if ( !class_exists( 'Com_MangroveInstallerScript' ) ) {
+if ( !class_exists('Com_MangroveInstallerScript') ) {
 
 /**
  * Mangrove Bootstrap installer
@@ -108,7 +108,7 @@ class Com_MangroveInstallerScript
 		}
 
 		// Write payload.json so that the mangrove app can take it from there
-		self::putJSON( $this->temp.'/payload.json', $this->payload );
+		self::putJSON($this->temp.'/payload.json', $this->payload);
 
 		// Head for the mangroves!
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
