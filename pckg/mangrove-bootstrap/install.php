@@ -251,6 +251,11 @@ class Com_MangroveInstallerScript
 		}
 	}
 
+	/**
+	 * Recursive removal of an entire directory
+	 *
+	 * @param string $path
+	 */
 	private static function rrmdir( $path )
 	{
 		if ( is_dir($path) ) {
