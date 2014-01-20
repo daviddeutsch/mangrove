@@ -47,7 +47,7 @@ class MangroveApp
 			unlink($this->temp . '/payload.json');
 		}
 
-		$this->$r = new RedBean_Instance();
+		$this->r = new RedBean_Instance();
 
 		if ( $japp->getCfg('dbtype') == 'mysqli' ) {
 			$type = 'mysql';
@@ -55,7 +55,7 @@ class MangroveApp
 			$type = $japp->getCfg('dbtype');
 		}
 
-		$this->$r->addDatabase(
+		$this->r->addDatabase(
 			'joomla',
 			$type . ':'
 			. 'host=' . $japp->getCfg('host') . ';'
@@ -64,9 +64,9 @@ class MangroveApp
 			$japp->getCfg('password')
 		);
 
-		$this->$r->selectDatabase('joomla');
+		$this->r->selectDatabase('joomla');
 
-		$this->$r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
+		$this->r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
 
 		$this->update();
 	}
