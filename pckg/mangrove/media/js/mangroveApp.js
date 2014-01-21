@@ -71,6 +71,17 @@ mangroveApp
 	);
 
 mangroveApp
+	.directive('mgRepository', function() {
+		return {
+			restrict: 'E',
+			scope: {
+				repository: '=repository'
+			},
+			templateUrl: jurl('repository')
+		};
+	});
+
+mangroveApp
 	.controller("MenuCtrl",
 	[
 		'$scope', '$location',
