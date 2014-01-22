@@ -3,5 +3,5 @@
 <div ng-if="repository.status=='require-auth'">
 	<p>This repository requires you to authenticate yourself with a passphrase</p>
 	<input ng-model="repository.passphrase">
-	<button class="btn btn-info" ng-click="repository.authenticate()"></button>
+	<button class="btn btn-info" ng-click="authenticate()"></button>
 </div>

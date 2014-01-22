@@ -77,7 +77,15 @@ mangroveApp
 			scope: {
 				repository: '=repository'
 			},
-			templateUrl: jurl('repository')
+			templateUrl: jurl('repository'),
+			controller: [
+				'$scope', '$http',
+				function($scope, $http) {
+					$scope.authenticate = function() {
+						// Post passphrase to server, attempting to authenticate
+					};
+				}
+			]
 		};
 	});
 
