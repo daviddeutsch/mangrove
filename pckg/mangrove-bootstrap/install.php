@@ -162,14 +162,6 @@ class Com_MangroveInstallerScript
 		$info = self::getJSON($target . '/info.json');
 
 		$this->mockInstaller($info, $target);
-
-		$info->payload = (object) array(
-			'installed_time' => (int) gmdate('U')
-		);
-
-		$info->sha = str_replace('.zip', '', basename($path));
-
-		$this->registerPackage($info);
 	}
 
 	private function unzip( $path )
@@ -216,11 +208,6 @@ class Com_MangroveInstallerScript
 				rename($source, $path);
 				break;
 		}
-	}
-
-	private function registerPackage( $info )
-	{
-		$this->payload->payload->{$info->name} = $info;
 	}
 
 	private static function getJSON( $path )
