@@ -88,7 +88,22 @@ mangroveApp
 			scope: {
 				repository: '=application'
 			},
-			templateUrl: jurl('application')
+			templateUrl: jurl('application'),
+			controller: [
+				'$scope', '$http',
+				function($scope, $http) {
+					$scope.select = function() {
+						// Make server call to mark application for later install
+						// This may already trigger download actions to expedite
+						// later calls
+					};
+
+					$scope.install = function() {
+						// Actually install the applications main package
+						// And associated packages
+					};
+				}
+			]
 		};
 	});
 

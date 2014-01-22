@@ -1,8 +1,9 @@
 <div>
 	<img src="{{application.image}}"/>
 	<h4>{{application.title}}</h4>
-	<button class="btn btn-success" ng-click="application.install()">Install</button>
+	<button class="btn btn-info" ng-click="select()">Select</button>
 	<div ng-if="application.status == 'selected'">
+		<button class="btn btn-success" ng-click="install()">Install</button>
 		<div></div>
 	</div>
 </div>

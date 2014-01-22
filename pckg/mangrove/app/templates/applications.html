@@ -1,0 +1,7 @@
+<table ng-controller="ApplicationListCtrl">
+	<ul>
+		<li ng-repeat="application in applications | filter:search | orderBy:'name' | limitTo:5">
+			<mg-application></mg-application>
+		</li>
+	</ul>
+</table>
