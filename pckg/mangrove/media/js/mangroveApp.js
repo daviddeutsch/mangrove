@@ -82,6 +82,17 @@ mangroveApp
 	});
 
 mangroveApp
+	.directive('mgApplication', function() {
+		return {
+			restrict: 'E',
+			scope: {
+				repository: '=application'
+			},
+			templateUrl: jurl('application')
+		};
+	});
+
+mangroveApp
 	.controller("MenuCtrl",
 	[
 		'$scope', '$location',
