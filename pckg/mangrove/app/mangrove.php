@@ -3,7 +3,7 @@
 // Dont allow direct linking
 defined('_JEXEC') or die( 'Direct Access to this location is not allowed.' );
 
-require_once( dirname(__FILE__).'/autoload.php' );
+require_once( dirname(__FILE__) . '/autoload.php' );
 
 $mangrove = new MangroveApp();
 
@@ -12,7 +12,7 @@ if ( !empty( $_GET['task'] ) ) {
 } else {
 	$mangrove->resolve('app');
 
-	include dirname(__FILE__).'/templates/main.html';
+	include dirname(__FILE__) . '/templates/main.html';
 }
 
 

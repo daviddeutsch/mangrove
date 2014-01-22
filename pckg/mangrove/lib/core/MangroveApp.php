@@ -136,13 +136,35 @@ class MangroveApp
 
 	function resolve( $task )
 	{
+		if ( empty($task) ) return $this->getApp();
+
 		$method = strtolower($_SERVER['REQUEST_METHOD']).ucfirst($task);
 
 		if ( method_exists($this, $method) ) {
 			return $this->$method();
 		} else {
-			return $this->getApp();
+			$service = ucfirst($_REQUEST['service']) . 'Service';
+
+			$input = @file_get_contents('php://input');
+
+			if ( !$input ) {
+				$input = '';
+			} else {
+				$input = json_decode($input);
+			}
+
+			if ( class_exists($service) ) {
+				$service = new $service();
+
+				$result = $service->call($method, $_REQUEST['path'], $input);
+
+				echo json_encode($result);
+
+				exit;
+			}
 		}
+
+		return null;
 	}
 
 	function getApp()
