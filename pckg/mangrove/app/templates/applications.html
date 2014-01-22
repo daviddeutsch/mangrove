@@ -1,0 +1,8 @@
+<div class="mg-application">
+	<img src="{{application.image}}"/>
+	<h4>{{application.title}}</h4>
+	<button class="btn btn-success" ng-click="application.install()">Install</button>
+	<div ng-if="application.status == 'selected'">
+		<div></div>
+	</div>
+</div>
