@@ -47,28 +47,7 @@ class MangroveApp
 			//unlink($this->temp . '/payload.json');
 		}
 
-		$this->r = new RedBean_Instance();
-
-		if ( $japp->getCfg('dbtype') == 'mysqli' ) {
-			$type = 'mysql';
-		} else {
-			$type = $japp->getCfg('dbtype');
-		}
-
-		$this->r->addDatabase(
-			'joomla',
-			$type . ':'
-			. 'host=' . $japp->getCfg('host') . ';'
-			. 'dbname=' . $japp->getCfg('db'),
-			$japp->getCfg('user'),
-			$japp->getCfg('password')
-		);
-
-		$this->r->selectDatabase('joomla');
-
-		$this->r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
-
-		$this->r->setupPipeline($japp->getCfg('dbprefix'));
+		$this->getDB($japp);
 
 		$this->update();
 	}
@@ -201,21 +180,6 @@ class MangroveApp
 		return null;
 	}
 
-	function getPackages()
-	{
-		echo '[{"repo1":{"test1":"test"}},{"repo2":{"test2":"test"}}]';
-	}
-
-	function getPackage()
-	{
-		echo '[{"repo1":{"test1":"test"}},{"repo2":{"test2":"test"}}]';
-	}
-
-	function staticGet( $package )
-	{
-
-	}
-
 	/**
 	 * Make a unique hash for this site.
 	 *
@@ -249,6 +213,32 @@ class MangroveApp
 			'path/to/mangrove.php',
 			'Mangrove::hook'
 		);
+	}
+
+	private function getDB( $japp )
+	{
+		$this->r = new RedBean_Instance();
+
+		if ( $japp->getCfg('dbtype') == 'mysqli' ) {
+			$type = 'mysql';
+		} else {
+			$type = $japp->getCfg('dbtype');
+		}
+
+		$this->r->addDatabase(
+			'joomla',
+			$type . ':'
+			. 'host=' . $japp->getCfg('host') . ';'
+			. 'dbname=' . $japp->getCfg('db'),
+			$japp->getCfg('user'),
+			$japp->getCfg('password')
+		);
+
+		$this->r->selectDatabase('joomla');
+
+		$this->r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
+
+		$this->r->setupPipeline($japp->getCfg('dbprefix'));
 	}
 
 }
