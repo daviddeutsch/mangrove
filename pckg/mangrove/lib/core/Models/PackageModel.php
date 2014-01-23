@@ -1,6 +1,6 @@
 <?php
 
-class PackageModel
+class PackageModel extends RedBean_PipelineModel
 {
 
 }

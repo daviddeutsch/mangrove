@@ -6,21 +6,22 @@
  * Will be replaced during self install
  */
 
-$base = realpath( dirname(__FILE__) . '/../../..' );
+$base = realpath( dirname(__FILE__) . '/../../../libraries' );
 
 $includes = array(
-	'libraries/redbean/redbean-adaptive/rb',
-	'libraries/valanx/mangrove/lib/core/MangroveApp',
-	'libraries/valanx/mangrove/lib/core/MangroveAutoloadGenerator',
-	'libraries/valanx/mangrove/lib/core/MangroveClassLoader',
-	'libraries/valanx/mangrove/lib/core/MangroveInstaller',
-	'libraries/valanx/mangrove/lib/core/MangroveUtils',
-	'libraries/valanx/mangrove/lib/installers/joomla/JoomlaInstaller',
-	'libraries/valanx/mangrove/lib/installers/joomla/JoomlaAssetInstaller',
-	'libraries/valanx/mangrove/lib/installers/joomla/JoomlaComponentInstaller',
-	'libraries/valanx/mangrove/lib/installers/joomla/JoomlaLibraryInstaller',
-	'libraries/valanx/mangrove/lib/installers/joomla/JoomlaModuleInstaller',
-	'libraries/valanx/mangrove/lib/installers/joomla/JoomlaPluginInstaller'
+	'redbean/redbean-adaptive/rb',
+	'valanx/mangrove/lib/core/MangroveApp',
+	'valanx/mangrove/lib/core/MangroveAutoloadGenerator',
+	'valanx/mangrove/lib/core/MangroveClassLoader',
+	'valanx/mangrove/lib/core/MangroveInstaller',
+	'valanx/mangrove/lib/core/MangroveModelFormatter',
+	'valanx/mangrove/lib/core/MangroveUtils',
+	'valanx/mangrove/lib/installers/joomla/JoomlaInstaller',
+	'valanx/mangrove/lib/installers/joomla/JoomlaAssetInstaller',
+	'valanx/mangrove/lib/installers/joomla/JoomlaComponentInstaller',
+	'valanx/mangrove/lib/installers/joomla/JoomlaLibraryInstaller',
+	'valanx/mangrove/lib/installers/joomla/JoomlaModuleInstaller',
+	'valanx/mangrove/lib/installers/joomla/JoomlaPluginInstaller'
 );
 
 foreach ( $includes as $path ) {
