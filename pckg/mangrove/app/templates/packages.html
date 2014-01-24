@@ -1,15 +1,12 @@
 <div ng-controller="PackageListCtrl">
 	<div class="header">
 		<div class="mangrove-logo"
-			 ng-show="search"
-			 ng-animate="{show: 'fade-opacity-show'}"></div>
+			 ng-show="search"></div>
 		<div class="mangrove-logo-big"
-			 ng-hide="search"
-			 ng-animate="'fade-opacity'"></div>
+			 ng-hide="search"></div>
 		<div class="spinwrapper">
 			<div id="spinner"
-				 ng-show="inprogress"
-				 ng-animate="'fade-opacity'"></div>
+				 ng-show="inprogress"></div>
 		</div>
 		<input type="text"
 			   class="input-xlarge form-inline"
@@ -21,8 +18,7 @@
 		<hr ng-show="search" />
 	</div>
 	<div id="mangrove-install"
-		 ng-show="installList.length > 0"
-		 ng-animate="{show: 'install-show'}">
+		 ng-show="installList.length > 0">
 		<pre>Number of packages selected: {{install.length}}</pre>
 		<progress value="stacked"></progress>
 		<h4>Downloading</h4>
@@ -37,8 +33,7 @@
 		<div class="no-results"
 			 ng-hide="packages.length">No Results</div>
 		<div class="package"
-			 ng-repeat="package in packages"
-			 ng-animate="'repeat'">
+			 ng-repeat="package in packages">
 			<button type="button"
 					class="btn pull-right"
 					ng-model="checkModel.left"
