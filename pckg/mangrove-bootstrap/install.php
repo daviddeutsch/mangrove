@@ -9,7 +9,7 @@ if ( !class_exists('Com_MangroveInstallerScript') ) {
  *
  * Does the following:
  *
- * · Requires being deployed with a payload
+ * · Comes with a payload
  * · Payload needs to include RedBean and Joomla Installers
  * · Sets up RedBean, mangrove and basic installers
  * · Hands over data to the actual mangrove install
@@ -56,9 +56,9 @@ class Com_MangroveInstallerScript
 	{
 		$this->jtemp = JFactory::getApplication()->getCfg('tmp_path');
 
-		$installs = glob($this->jtemp.'/install*', GLOB_ONLYDIR);
-
-		$this->base = array_pop($installs);
+		$this->base = array_pop(
+			glob($this->jtemp.'/install*', GLOB_ONLYDIR)
+		);
 
 		$this->temp = $this->jtemp . '/mangrove';
 
@@ -80,9 +80,6 @@ class Com_MangroveInstallerScript
 		$this->install();
 	}
 
-	/**
-	 * Install only the base necessities, then redirect to the real installer
-	 */
 	public function install()
 	{
 		// Unload payload to mangrove temp directory

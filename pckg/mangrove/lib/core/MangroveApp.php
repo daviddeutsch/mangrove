@@ -7,111 +7,63 @@ class MangroveApp
 	 *
 	 * @var string
 	 */
-	private $temp;
+	private static $temp;
 
 	/**
 	 * Path to mangrove installation directory
 	 *
 	 * @var string
 	 */
-	private $com;
+	private static $com;
 
 	/**
 	 * List of installed payload for use on bootup in mangrove
 	 *
 	 * @var object
 	 */
-	private $payload;
+	private static $payload;
 
 	/**
 	 * @var RedBean_Instance
 	 */
-	public $r;
+	public static $r;
 
 	/**
 	 * Load paths and payload json
 	 */
-	public function __construct()
+	public static function init()
 	{
 		$japp = JFactory::getApplication();
 
-		$this->temp = $japp->getCfg('tmp_path') . '/mangrove';
+		self::$temp = $japp->getCfg('tmp_path') . '/mangrove';
 
-		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
+		if ( !is_dir(self::$temp) ) mkdir(self::$temp, 0744);
 
-		$this->com = dirname(__FILE__);
+		self::$com = dirname(__FILE__);
 
-		if ( file_exists($this->temp . '/payload.json') ) {
-			$this->payload = MangroveUtils::getJSON($this->temp . '/payload.json');
+		if ( file_exists(self::$temp . '/payload.json') ) {
+			self::$payload = MangroveUtils::getJSON(self::$temp . '/payload.json');
 
-			//unlink($this->temp . '/payload.json');
+			//unlink(self::temp . '/payload.json');
 		}
 
-		$this->getDB($japp);
+		self::getDB($japp);
 
-		$this->update();
+		self::update();
 	}
 
-	function update()
+	private static function update()
 	{
-		if ( empty($this->payload) ) return;
+		if ( empty(self::$payload) ) return;
 
-		foreach ( $this->payload->payload as $id => $package ) {
-			if ( is_string($package) ) {
-				$sha = $package;
-			} else {
-				$this->registerPackage($package);
+		foreach ( self::$payload->payload as $id => $file ) {
+			$package = self::$r->x->one->package->name($id)->find(true);
 
-				$sha = $package->sha;
-			}
-
-			// Double-check everything is nice and tidy
-			if ( is_dir($this->temp.'/'.$sha) ) {
-				MangroveUtils::rrmdir($this->temp.'/'.$sha);
-			}
-
-			if ( file_exists($this->temp.'/'.$sha.'.zip') ) {
-				unlink($this->temp.'/'.$sha.'.zip');
-			}
+			$package->installFrom($file);
 		}
 	}
 
-	private function registerPackage( $package )
-	{
-		$entry = $this->r->_('package');
-
-		foreach ( get_object_vars($package) as $key => $value ) {
-			switch ( $key ) {
-				case 'payload':
-					$entry->installed = $value->installed_time;
-					break;
-				case 'time':
-					$entry->created = $value;
-					break;
-				case 'version':
-					$version = $this->explodeVersion($value);
-
-					foreach ( $version as $k => $v ) {
-						$entry->{'version_'.$k} = $v;
-					}
-					break;
-				default:
-					if ( is_string($value) ) {
-						$key = str_replace('-', '_', $key);
-
-						$entry->$key = $value;
-					}
-			}
-		}
-
-		if ( empty($entry->installed) ) {
-			$entry->installed = $this->r->isoDateTime();
-		}
-
-		$this->r->_($entry);
-	}
-
-	private function explodeVersion( $version )
+	private static function explodeVersion( $version )
 	{
 		$return = array();
 
@@ -134,40 +86,36 @@ class MangroveApp
 		return $return;
 	}
 
-	function resolve( $task )
+	public static function resolve( $task )
 	{
-		if ( empty($task) ) return $this->getApp();
+		if ( empty($task) ) return self::getApp();
 
-		$method = strtolower($_SERVER['REQUEST_METHOD']).ucfirst($task);
+		$method = strtolower($_SERVER['REQUEST_METHOD']) . ucfirst($task);
 
-		if ( method_exists($this, $method) ) {
-			return $this->$method();
+		$service = ucfirst($_REQUEST['service']) . 'Service';
+
+		$input = @file_get_contents('php://input');
+
+		if ( !$input ) {
+			$input = '';
 		} else {
-			$service = ucfirst($_REQUEST['service']) . 'Service';
+			$input = json_decode($input);
+		}
 
-			$input = @file_get_contents('php://input');
+		if ( class_exists($service) ) {
+			$service = new $service();
 
-			if ( !$input ) {
-				$input = '';
-			} else {
-				$input = json_decode($input);
-			}
+			$result = $service->call($method, $_REQUEST['path'], $input);
 
-			if ( class_exists($service) ) {
-				$service = new $service();
+			echo json_encode($result);
 
-				$result = $service->call($method, $_REQUEST['path'], $input);
-
-				echo json_encode($result);
-
-				exit;
-			}
+			exit;
 		}
 
 		return null;
 	}
 
-	function getApp()
+	public static function getApp()
 	{
 		$csslink = '<link rel="stylesheet" type="text/css" media="all" href="' . JURI::root(true).'/media/com_mangrove/css/%s.css" />';
 
@@ -213,11 +161,11 @@ class MangroveApp
 	 *
 	 * @return string
 	 */
-	private function makeSiteHash()
+	private static function makeSiteHash()
 	{
 		$japp = JFactory::getApplication();
 
-		return sha1( JURI::root().$japp->getCfg('dbprefix') );
+		return sha1( JURI::root() . $japp->getCfg('dbprefix') );
 	}
 
 	public static function hook( $payload )
@@ -225,7 +173,7 @@ class MangroveApp
 
 	}
 
-	private function makeCallback()
+	private static function makeCallback()
 	{
 		include_once( 'path/to/plugin.php');
 
@@ -237,9 +185,12 @@ class MangroveApp
 		);
 	}
 
-	private function getDB( $japp )
+	/**
+	 * @param object $japp JApplication
+	 */
+	private static function getDB( $japp )
 	{
-		$this->r = new RedBean_Instance();
+		self::$r = new RedBean_Instance();
 
 		if ( $japp->getCfg('dbtype') == 'mysqli' ) {
 			$type = 'mysql';
@@ -247,7 +198,7 @@ class MangroveApp
 			$type = $japp->getCfg('dbtype');
 		}
 
-		$this->r->addDatabase(
+		self::$r->addDatabase(
 			'joomla',
 			$type . ':'
 			. 'host=' . $japp->getCfg('host') . ';'
@@ -256,13 +207,13 @@ class MangroveApp
 			$japp->getCfg('password')
 		);
 
-		$this->r->selectDatabase('joomla');
+		self::$r->selectDatabase('joomla');
 
-		$this->r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
+		self::$r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
 
-		$this->r->setupPipeline($japp->getCfg('dbprefix'));
+		self::$r->setupPipeline($japp->getCfg('dbprefix'));
 
-		$this->r->redbean->beanhelper->setModelFormatter(new MangroveModelFormatter);
+		self::$r->redbean->beanhelper->setModelFormatter(new MangroveModelFormatter);
 	}
 
 }

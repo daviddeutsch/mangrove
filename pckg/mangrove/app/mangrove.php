@@ -5,12 +5,12 @@ defined('_JEXEC') or die( 'Direct Access to this location is not allowed.' );
 
 require_once( dirname(__FILE__) . '/autoload.php' );
 
-$mangrove = new MangroveApp();
+MangroveApp::init();
 
 if ( !empty( $_GET['task'] ) ) {
-	echo $mangrove->resolve($_GET['task']);
+	echo MangroveApp::resolve($_GET['task']);
 } else {
-	$mangrove->resolve('app');
+	MangroveApp::getApp();
 
 	include dirname(__FILE__) . '/templates/main.html';
 }

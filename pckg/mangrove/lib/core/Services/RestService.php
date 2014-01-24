@@ -16,7 +16,7 @@ class RestService extends AbstractService
 
 			$subaction = $submethod . ucfirst($p[2]);
 
-			if ( method_exists($this, $subaction) ) {
+			if ( $this->is_callable($subaction) ) {
 				$path = $p[0] . '/' . $p[1];
 
 				unset($p[0], $p[1], $p[2]);
