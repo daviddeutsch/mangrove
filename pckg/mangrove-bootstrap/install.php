@@ -156,11 +156,11 @@ class Com_MangroveInstallerScript
 
 	private function installPackage( $path )
 	{
-		$target = $this->unzip($path);
+		$path = $this->unzip($path);
 
-		$info = self::getJSON($target . '/info.json');
+		$info = self::getJSON($path . '/info.json');
 
-		$this->mockInstaller($info, $target);
+		$this->mockInstaller($info, $path);
 	}
 
 	private function unzip( $path )
@@ -193,7 +193,7 @@ class Com_MangroveInstallerScript
 			case 'joomla-component':
 			case 'joomla-library':
 				$installer = new JInstaller();
-
+print_r($installer);exit;
 				$installer->install($source);
 				break;
 
