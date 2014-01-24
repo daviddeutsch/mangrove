@@ -58,9 +58,9 @@ class Com_MangroveInstallerScript
 
 		$this->jtemp = $app->getCfg('tmp_path');
 
-		$this->base = array_pop(
-			glob($this->jtemp.'/install*', GLOB_ONLYDIR)
-		);
+		$dirs = glob($this->jtemp.'/install*', GLOB_ONLYDIR);
+
+		$this->base = array_pop($dirs);
 
 		$this->temp = $this->jtemp . '/mangrove';
 
