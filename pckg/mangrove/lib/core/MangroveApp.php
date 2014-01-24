@@ -41,18 +41,18 @@ class MangroveApp
 
 		self::$com = dirname(__FILE__);
 
+		self::getDB($japp);
+
 		if ( file_exists(self::$temp . '/payload.json') ) {
 			self::$payload = MangroveUtils::getJSON(self::$temp . '/payload.json');
 
+			self::bootstrap();
+
 			//unlink(self::temp . '/payload.json');
 		}
-
-		self::getDB($japp);
-
-		self::update();
 	}
 
-	private static function update()
+	private static function bootstrap()
 	{
 		if ( empty(self::$payload) ) return;
 
