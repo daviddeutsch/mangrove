@@ -106,9 +106,6 @@ class Com_MangroveInstallerScript
 			$this->installMangrove();
 		}
 
-		// Write payload.json so that the mangrove app can take it from there
-		self::putJSON($this->temp.'/payload.json', $this->payload);
-
 		// Head for the mangroves!
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
 	}
@@ -212,21 +209,6 @@ class Com_MangroveInstallerScript
 	private static function getJSON( $path )
 	{
 		return json_decode( file_get_contents($path) );
-	}
-
-	private static function putJSON( $path, $data )
-	{
-		if ( version_compare(phpversion(), '5.4.0', '>') ) {
-			file_put_contents(
-				$path,
-				json_encode(
-					$data,
-					JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
-				)
-			);
-		} else {
-			file_put_contents($path, json_encode($data));
-		}
 	}
 
 	/**
