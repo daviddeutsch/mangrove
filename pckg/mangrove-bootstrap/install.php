@@ -54,7 +54,9 @@ class Com_MangroveInstallerScript
 	 */
 	public function __construct()
 	{
-		$this->jtemp = JFactory::getApplication()->getCfg('tmp_path');
+		$app = JFactory::getApplication();
+
+		$this->jtemp = $app->getCfg('tmp_path');
 
 		$this->base = array_pop(
 			glob($this->jtemp.'/install*', GLOB_ONLYDIR)
