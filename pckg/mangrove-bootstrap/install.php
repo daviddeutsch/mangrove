@@ -111,6 +111,8 @@ class Com_MangroveInstallerScript
 
 		// Head for the mangroves!
 		JFactory::getApplication()->redirect('index.php?option=com_mangrove');
+
+		return true;
 	}
 
 	private function detectMangrove()
@@ -269,6 +271,7 @@ if ( !function_exists( 'com_install' ) ) {
 	function com_install()
 	{
 		$installer = new Com_MangroveInstallerScript;
-		$installer->install();
+
+		return $installer->install();
 	}
 }
