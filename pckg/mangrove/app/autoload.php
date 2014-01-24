@@ -8,20 +8,31 @@
 
 $base = realpath( dirname(__FILE__) . '/../../../libraries' );
 
+$c = 'valanx/mangrove/lib/core/';
+$i = 'valanx/mangrove/lib/installers/';
+
 $includes = array(
 	'redbean/redbean-adaptive/rb',
-	'valanx/mangrove/lib/core/MangroveApp',
-	'valanx/mangrove/lib/core/MangroveAutoloadGenerator',
-	'valanx/mangrove/lib/core/MangroveClassLoader',
-	'valanx/mangrove/lib/core/MangroveInstaller',
-	'valanx/mangrove/lib/core/MangroveModelFormatter',
-	'valanx/mangrove/lib/core/MangroveUtils',
-	'valanx/mangrove/lib/installers/joomla/JoomlaInstaller',
-	'valanx/mangrove/lib/installers/joomla/JoomlaAssetInstaller',
-	'valanx/mangrove/lib/installers/joomla/JoomlaComponentInstaller',
-	'valanx/mangrove/lib/installers/joomla/JoomlaLibraryInstaller',
-	'valanx/mangrove/lib/installers/joomla/JoomlaModuleInstaller',
-	'valanx/mangrove/lib/installers/joomla/JoomlaPluginInstaller'
+	$c . 'MangroveApp',
+	$c . 'MangroveAutoloadGenerator',
+	$c . 'MangroveClassLoader',
+	$c . 'MangroveModelFormatter',
+	$c . 'MangroveUtils',
+
+	$c . 'Models/PackageModel',
+	$c . 'Services/AbstractService',
+	$c . 'Services/ApplicationService',
+	$c . 'Services/PackageService',
+	$c . 'Services/RepositoryService',
+	$c . 'Services/RestService',
+
+	$i . 'valanx/mangrove/MangroveInstaller',
+	$i . 'joomla/JoomlaInstaller',
+	$i . 'joomla/JoomlaAssetInstaller',
+	$i . 'joomla/JoomlaComponentInstaller',
+	$i . 'joomla/JoomlaLibraryInstaller',
+	$i . 'joomla/JoomlaModuleInstaller',
+	$i . 'joomla/JoomlaPluginInstaller'
 );
 
 foreach ( $includes as $path ) {
