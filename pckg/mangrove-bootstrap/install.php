@@ -191,10 +191,9 @@ class Com_MangroveInstallerScript
 		switch ( $info->type ) {
 			// Standard Joomla Installer
 			case 'joomla-component':
-			case 'joomla-library':
 				$installer = new JInstaller();
 
-				$installer->install($source);
+				$installer->install($source);print_r($installer);exit;
 				break;
 
 			// Composer-style library in cms/libraries
