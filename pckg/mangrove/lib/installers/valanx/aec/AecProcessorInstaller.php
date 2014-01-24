@@ -1,6 +1,6 @@
 <?php
 
-class AecInstaller extends JoomlaInstaller
+class AecProcessorInstaller extends JoomlaInstaller
 {
 	public function install( $path )
 	{
