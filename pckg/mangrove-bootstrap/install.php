@@ -195,7 +195,7 @@ class Com_MangroveInstallerScript
 			case 'joomla-component':
 				$installer = new JInstaller();
 
-				$installer->install($source);print_r($installer);exit;
+				$installer->install($source);
 				break;
 
 			// Composer-style library in cms/libraries
