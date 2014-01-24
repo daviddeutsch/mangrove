@@ -193,8 +193,8 @@ class Com_MangroveInstallerScript
 			case 'joomla-component':
 			case 'joomla-library':
 				$installer = new JInstaller();
-print_r($installer);exit;
-				$installer->install($source);
+
+				$installer->install($source);print_r($installer);exit;
 				break;
 
 			// Composer-style library in cms/libraries
@@ -202,7 +202,10 @@ print_r($installer);exit;
 			default:
 				$path = JPATH_ROOT . '/libraries/' . $info->name;
 
-				if ( !is_dir($path) ) mkdir($path, 0744, true);
+				// If we have any version, that'll be good enough for now
+				if ( is_dir($path) ) return;
+
+				mkdir($path, 0744, true);
 
 				rename($source, $path);
 				break;
