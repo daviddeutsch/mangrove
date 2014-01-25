@@ -1,0 +1,5 @@
+<progress ng-if="queue.length()">
+	<bar ng-repeat="item in queue" value="item.value" type="{{item.type}}">
+		<span ng-hide="item.value < 5">{{item.value}}%</span>
+	</bar>
+</progress>

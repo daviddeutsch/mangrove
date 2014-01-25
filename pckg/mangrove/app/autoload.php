@@ -21,10 +21,10 @@ $includes = array(
 
 	$c . 'Models/PackageModel',
 	$c . 'Services/AbstractService',
+	$c . 'Services/RestService',
 	$c . 'Services/ApplicationService',
 	$c . 'Services/PackageService',
 	$c . 'Services/RepositoryService',
-	$c . 'Services/RestService',
 
 	$i . 'valanx/mangrove/MangroveInstaller',
 	$i . 'joomla/JoomlaInstaller',

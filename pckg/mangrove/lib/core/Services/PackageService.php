@@ -40,10 +40,10 @@ class PackageService extends RestService
 	 */
 	private function updateStatus( $name, $status )
 	{
-		$package = MangroveApp::$r->x->one->package->name($name)->find();
+		$queue = MangroveApp::$r->x->one->queue->name($name)->find(true);
 
-		$package->status = $status;
+		$queue->status = $status;
 
-		MangroveApp::$r->_($package);
+		MangroveApp::$r->_($queue);
 	}
 }
