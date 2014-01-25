@@ -2,18 +2,22 @@
 
 class JoomlaInstaller extends MangroveInstaller
 {
-	public function install( $path )
+	public function install()
 	{
+		parent::install();
+
 		jimport('joomla.installer.installer');
 
 		$installer = new JInstaller();
 
-		return $installer->install( $path );
+		return $installer->install($this->package->source);
 	}
 
 	public function afterInstall( $path )
 	{
-		return self::addIndexFiles( array($path) );
+		self::addIndexFiles( array($path) );
+
+		parent::afterInstall();
 	}
 
 	public static function addIndexFiles( $paths )
@@ -43,5 +47,24 @@ class JoomlaInstaller extends MangroveInstaller
 		}
 
 		return true;
+	}
+
+	protected function canonizeAssets( $folder )
+	{
+		$path = JPATH_ROOT . '/media/' . $folder;
+
+		foreach ( $this->assets as $type => $content ) {
+			if ( empty($content) ) continue;
+
+			$subpath = $path . '/' . $type;
+
+			if ( !is_dir($subpath) ) mkdir($subpath, 0744, true);
+
+			foreach ( $content as $asset ) {
+				rename( $asset, $subpath . '/' . basename($asset) );
+			}
+		}
+
+		self::addIndexFiles( array($path) );
 	}
 }

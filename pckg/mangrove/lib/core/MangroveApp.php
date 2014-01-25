@@ -61,7 +61,7 @@ class MangroveApp
 
 			$package->fromSource($file);
 
-			self::getInstaller();
+			$package->install();
 		}
 	}
 

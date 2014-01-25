@@ -17,9 +17,19 @@ class MangroveInstaller
 		$this->package = $package;
 	}
 
-	public function install()
+	public function beforeInstall()
 	{
 		$this->ensureDependencies();
+	}
+
+	public function install()
+	{
+
+	}
+
+	public function afterInstall()
+	{
+
 	}
 
 	protected function ensureDependencies()

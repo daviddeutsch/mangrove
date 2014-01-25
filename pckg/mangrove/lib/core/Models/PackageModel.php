@@ -4,7 +4,7 @@ class PackageModel extends RedBean_PipelineModel
 {
 	public function fromSource( $source )
 	{
-		$this->source = $source;
+		$this->source = MangroveApp::$temp . '/' . $source;
 
 		if ( !is_dir($this->source) ) {
 			$this->source = $this->unzip($this->source, true);
@@ -73,6 +73,12 @@ class PackageModel extends RedBean_PipelineModel
 			. 'Installer';
 
 		$installer = new $class($this);
+
+		$installer->beforeInstall();
+
+		$installer->install();
+
+		$installer->afterInstall();
 
 		$sha = explode('.', $package);
 
