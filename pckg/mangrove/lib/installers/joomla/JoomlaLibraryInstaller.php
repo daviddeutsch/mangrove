@@ -2,9 +2,9 @@
 
 class JoomlaLibraryInstaller extends JoomlaInstaller
 {
-	public function install( $path )
+	public function install()
 	{
-		$target = JPATH_ROOT . '/libraries/' . $this->info->name;
+		$target = JPATH_ROOT . '/libraries/' . $this->package->info->name;
 
 		return true;
 	}

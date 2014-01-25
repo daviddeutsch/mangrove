@@ -63,7 +63,7 @@ class PackageModel extends RedBean_PipelineModel
 		return $target;
 	}
 
-	private function install()
+	public function install()
 	{
 		$class = str_replace(
 				' ', '', ucwords(
@@ -79,17 +79,6 @@ class PackageModel extends RedBean_PipelineModel
 		$installer->install();
 
 		$installer->afterInstall();
-
-		$sha = explode('.', $package);
-
-		$sha = $sha[0];
-
-
-
-		// Double-check everything is nice and tidy
-		if ( is_dir(MangroveApp::$temp.'/'.$sha) ) {
-			MangroveUtils::rrmdir(MangroveApp::$temp.'/'.$sha);
-		}
 	}
 
 	private function registerPackage( $package )

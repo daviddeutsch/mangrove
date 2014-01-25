@@ -107,7 +107,7 @@ class MangroveUtils
 
 	public static function explodeVersion( $version )
 	{
-		$return = array();
+		$return = new stdClass();
 
 		$v = explode('.', $version, 3);
 

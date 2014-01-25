@@ -10,12 +10,13 @@ class JoomlaInstaller extends MangroveInstaller
 
 		$installer = new JInstaller();
 
-		return $installer->install($this->package->source);
+		$installer->install($this->package->source);
 	}
 
-	public function afterInstall( $path )
+	public function afterInstall()
 	{
-		self::addIndexFiles( array($path) );
+		// TODO:
+		//self::addIndexFiles( array($path) );
 
 		parent::afterInstall();
 	}
