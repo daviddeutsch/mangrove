@@ -104,4 +104,28 @@ class MangroveUtils
 			rmdir($path);
 		}
 	}
+
+	public static function explodeVersion( $version )
+	{
+		$return = array();
+
+		$v = explode('.', $version, 3);
+
+		$return->major = $v[0];
+		$return->minor = $v[1];
+
+		if ( is_numeric($v[2]) ) {
+			$return->patch = $v[2];
+			$return->meta = null;
+		} else {
+			preg_match('/\d+/', $v[2], $regs);
+
+			$return->patch = $regs[0];
+
+			$return->meta = substr( $v[2], strlen($regs[0]) );
+		}
+
+		return $return;
+	}
+
 }

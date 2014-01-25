@@ -2,30 +2,30 @@
 
 class MangroveInstaller
 {
-	private $info;
-
-	private $assets = array(
+	protected $assets = array(
 		'js' => array(),
 		'css' => array(),
 		'img' => array()
 	);
 
-	private $autoload = array();
+	protected $autoload = array();
 
-	public function __construct( $info=null )
+	protected $package;
+
+	public function __construct( $package )
 	{
-		$this->info = $info;
+		$this->package = $package;
 	}
 
-	public function install( $source )
+	public function install()
 	{
 		$this->ensureDependencies();
 	}
 
-	public function ensureDependencies()
+	protected function ensureDependencies()
 	{
-		if ( !empty($this->info->require) ) {
-			foreach ( $this->info->require as $name ) {
+		if ( !empty($this->package->info->require) ) {
+			foreach ( $this->package->info->require as $name ) {
 				$installer = MangroveApp::getInstaller($name);
 
 				$installer->install();
