@@ -88,6 +88,7 @@ class Com_MangroveInstallerScript
 			rename($zip, $this->temp.'/'.basename($zip));
 		}
 
+		// Remove bootstrap directories
 		foreach(
 			array(
 				$this->base,
