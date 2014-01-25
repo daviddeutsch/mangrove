@@ -67,7 +67,7 @@ class PackageModel extends RedBean_PipelineModel
 	{
 		$class = str_replace(
 				' ', '', ucwords(
-					str_replace('-', ' ', $this->info->type)
+					str_replace('-', ' ', $this->type)
 				)
 			)
 			. 'Installer';
