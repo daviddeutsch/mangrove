@@ -51,7 +51,7 @@ class TinyHookUtils
 {
 	function get( $hash )
 	{
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 
 		$db->setQuery(
 			'SELECT *'
@@ -64,7 +64,7 @@ class TinyHookUtils
 
 	function create( $path, $callable )
 	{
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 
 		$secret = sha1( mt_rand().mt_rand().mt_rand() );
 
