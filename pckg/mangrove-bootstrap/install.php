@@ -67,7 +67,6 @@ class Com_MangroveInstallerScript
 		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
 
 		if ( file_exists($this->temp.'/payload.json') ) {
-			// Recover from an inbetween bootstrap/first setup exit
 			$this->payload = self::mergePayload(
 				self::getJSON($this->base . '/info.json'),
 				self::getJSON($this->temp . '/payload.json')
