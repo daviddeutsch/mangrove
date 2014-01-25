@@ -274,6 +274,7 @@ class Com_MangroveInstallerScript
 
 }
 
+// Compat for Joomla <2.x
 if ( !function_exists( 'com_install' ) ) {
 	function com_install()
 	{
