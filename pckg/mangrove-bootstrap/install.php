@@ -89,7 +89,6 @@ class Com_MangroveInstallerScript
 			rename($zip, $this->temp.'/'.basename($zip));
 		}
 
-		// Cleaning up itself
 		foreach(
 			array(
 				$this->base,
