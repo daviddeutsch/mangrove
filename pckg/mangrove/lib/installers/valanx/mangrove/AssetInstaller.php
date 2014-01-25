@@ -1,6 +1,6 @@
 <?php
 
-class AssetInstaller
+class AssetInstaller extends MangroveInstaller
 {
 	public function install()
 	{
