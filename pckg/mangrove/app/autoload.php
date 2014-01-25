@@ -16,6 +16,7 @@ $includes = array(
 	$c . 'MangroveApp',
 	$c . 'MangroveAutoloadGenerator',
 	$c . 'MangroveClassLoader',
+	$c . 'MangroveConnector',
 	$c . 'MangroveModelFormatter',
 	$c . 'MangroveUtils',
 
@@ -27,8 +28,10 @@ $includes = array(
 	$c . 'Services/RepositoryService',
 
 	$i . 'valanx/mangrove/MangroveInstaller',
+	$i . 'valanx/mangrove/AssetInstaller',
+	$i . 'valanx/mangrove/LibraryInstaller',
+
 	$i . 'joomla/JoomlaInstaller',
-	$i . 'joomla/JoomlaAssetInstaller',
 	$i . 'joomla/JoomlaComponentInstaller',
 	$i . 'joomla/JoomlaLibraryInstaller',
 	$i . 'joomla/JoomlaModuleInstaller',
