@@ -68,7 +68,7 @@ class Com_MangroveInstallerScript
 
 		if ( file_exists($this->temp.'/payload.json') ) {
 			// Recover from an inbetween bootstrap/first setup exit
-			$this->payload = self::merge(
+			$this->payload = self::mergePayload(
 				self::getJSON($this->base . '/info.json'),
 				self::getJSON($this->temp . '/payload.json')
 			);
@@ -252,7 +252,15 @@ class Com_MangroveInstallerScript
 		rmdir($path);
 	}
 
-	private static function merge( $a, $b )
+	/**
+	 * Merge Payload from payload.json file into package info.json file
+	 *
+	 * @param object $a info.json
+	 * @param object $b payload.json
+	 *
+	 * @return object
+	 */
+	private static function mergePayload( $a, $b )
 	{
 		foreach ( $b->payload as $k => $v ) {
 			if ( is_object($v) ) {
