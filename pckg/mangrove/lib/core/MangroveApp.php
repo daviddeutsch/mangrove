@@ -57,9 +57,11 @@ class MangroveApp
 		if ( empty(self::$payload) ) return;
 
 		foreach ( self::$payload->payload as $id => $file ) {
-			$package = self::$r->x->one->package->name($id)->find(true);
+			$package = self::$r->_('package');
 
-			$package->installFrom($file);
+			$package->fromSource($file);
+
+			self::getInstaller();
 		}
 	}
 

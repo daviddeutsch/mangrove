@@ -6,7 +6,7 @@ class JoomlaComponentInstaller extends JoomlaInstaller
 	{
 		parent::addIndexFiles( array($path) );
 
-		self::canonizeAssets();
+		$this->canonizeAssets();
 	}
 
 

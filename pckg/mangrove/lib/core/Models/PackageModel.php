@@ -2,9 +2,39 @@
 
 class PackageModel extends RedBean_PipelineModel
 {
-	public function installFrom( $file )
+	public function fromSource( $source )
+	{
+		if ( !is_dir($source) ) {
+			$source = $this->unzip($source, true);
+		}
+
+		$info = MangroveUtils::getJSON($source.'/info.json');
+
+		$this->fromInfo($info);
+	}
+
+	public function fromInfo( $info )
 	{
 
+	}
+
+	private function unzip( $path, $remove=false )
+	{
+		$file = pathinfo($path);
+
+		$target = $this->temp . '/' . $file['filename'];
+
+		if ( !is_dir($target) ) mkdir($target, 0744);
+
+		$zip = new ZipArchive();
+
+		$zip->open($path);
+
+		$zip->extractTo($target);
+
+		if ( $remove ) unlink($path);
+
+		return $target;
 	}
 
 	private function installPackage( $package )

@@ -19,26 +19,26 @@ class JoomlaInstaller extends MangroveInstaller
 	public static function addIndexFiles( $paths )
 	{
 		foreach ( $paths as $path ) {
-			if ( !is_dir( $path ) ) {
+			if ( !is_dir($path) ) {
 				continue;
 			}
 
-			$allsub = scandir( $path );
+			$allsub = scandir($path);
 
 			$subdirs = array();
 			foreach ( $allsub as $subdir ) {
-				if ( strpos( $subdir, '.' ) === false ) {
+				if ( strpos($subdir, '.') === false ) {
 					$subdirs[] = $path . '/' . $subdir;
 				}
 			}
 
-			if ( count( $subdirs ) ) {
-				self::addIndexFiles( $subdirs );
+			if ( count($subdirs) ) {
+				self::addIndexFiles($subdirs);
 			}
 
 			$fpath = $path . '/index.html';
-			if ( !file_exists( $fpath ) ) {
-				file_put_contents( $fpath, '<!DOCTYPE html><title></title>' );
+			if ( !file_exists($fpath) ) {
+				file_put_contents($fpath, '<!DOCTYPE html><title></title>');
 			}
 		}
 
