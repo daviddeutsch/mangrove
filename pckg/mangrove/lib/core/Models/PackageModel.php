@@ -11,6 +11,18 @@ class PackageModel extends RedBean_PipelineModel
 		}
 	}
 
+	public function update()
+	{
+		if ( is_object($this->bean->info) ) {
+			$this->bean->info = json_encode($this->bean->info);
+		}
+	}
+
+	public function after_update()
+	{
+		$this->open();
+	}
+
 	public function fromSource( $source )
 	{
 		$this->source = MangroveApp::$temp . '/' . $source;
