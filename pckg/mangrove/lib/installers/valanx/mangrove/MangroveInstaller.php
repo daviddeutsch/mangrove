@@ -50,9 +50,7 @@ class MangroveInstaller
 		if ( empty($this->package->info->require) ) return;
 
 		foreach ( $this->package->info->require as $id => $name ) {
-			$package = MangroveApp::$r->_('package');
-
-			$package->fromSource($id);
+			$package = MangroveApp::$r->x->one->package->name($name)->find();
 
 			$installer = $package->getInstaller();
 
@@ -65,7 +63,7 @@ class MangroveInstaller
 	public function mergeAssets( $assets )
 	{
 		if ( empty($asset) ) return;
-
+		print_r($assets);exit;
 		foreach ( $assets as $type => $a ) {
 			foreach ( $a as $path ) {
 				$this->assets[$type][] = $path;

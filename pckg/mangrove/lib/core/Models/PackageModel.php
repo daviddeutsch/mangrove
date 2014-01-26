@@ -93,6 +93,10 @@ class PackageModel extends RedBean_PipelineModel
 			)
 			. 'Installer';
 
+		if ( !class_exists($class) ) {
+			$class = 'LibraryInstaller';
+		}
+
 		return new $class($this);
 	}
 

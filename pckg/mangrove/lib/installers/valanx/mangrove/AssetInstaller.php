@@ -13,6 +13,8 @@ class AssetInstaller extends MangroveInstaller
 	{
 		foreach ( scandir($path) as $r ) {
 			if ( is_dir($r) ) {
+				if ( $r == '.' || $r == '..' ) continue;
+
 				$this->populateAssets($path . '/' . $r);
 
 				return;

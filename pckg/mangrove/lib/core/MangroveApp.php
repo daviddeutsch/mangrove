@@ -58,14 +58,16 @@ class MangroveApp
 
 		$packages = array();
 		foreach ( self::$payload->payload as $file ) {
-			if ( empty($sha) ) continue;
-
 			$sha = str_replace('.zip', '', $file);
+
+			if ( empty($sha) ) continue;
 
 			$package = self::$r->x->one->package->sha($sha)->find();
 
-			if ( $package->id ) {
+			if ( !empty($package->id) ) {
 				$packages[] = $package;
+
+				continue;
 			}
 
 			$package = self::$r->_('package');
