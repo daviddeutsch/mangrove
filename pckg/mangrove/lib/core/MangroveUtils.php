@@ -36,12 +36,9 @@ class MangroveUtils
 		$previous    = '';
 		$in_quotes   = false;
 		$last_indent = null;
-		$length      = strlen($json);
 
 		$level = 0;
-		for ( $i=0; $i<$length; $i++ ) {
-			$current = $json[$i];
-
+		foreach ( str_split($json) as $current ) {
 			$indent_level = null;
 
 			$post = "";
@@ -56,13 +53,13 @@ class MangroveUtils
 			} else if ( !$in_quotes ) {
 				switch ( $current ) {
 					case '}': case ']':
-					$level--;
+						$level--;
 
-					$last_indent = null;
-					$indent_level = $level;
-					break;
+						$last_indent = null;
+						$indent_level = $level;
+						break;
 					case '{': case '[':
-					$level++;
+						$level++;
 					case ',':
 						$last_indent = $level;
 						break;
@@ -70,19 +67,19 @@ class MangroveUtils
 						$post = " ";
 						break;
 					case " ": case "\t": case "\n": case "\r":
-					$current = "";
+						$current = "";
 
-					$last_indent = $indent_level;
-					$indent_level  = null;
-					break;
+						$last_indent = $indent_level;
+						$indent_level = null;
+						break;
 				}
 			}
 
 			if( $indent_level !== null ) {
-				$result .= "\n".str_repeat( "\t", $indent_level );
+				$result .= "\n" . str_repeat("\t", $indent_level);
 			}
 
-			$result .= $current.$post;
+			$result .= $current . $post;
 
 			$previous = $current;
 		}
@@ -92,17 +89,17 @@ class MangroveUtils
 
 	public static function rrmdir( $path )
 	{
-		if ( is_dir($path) ) {
-			foreach ( glob($path . '/*') as $item ) {
-				if ( is_dir($item) ) {
-					self::rrmdir($item);
-				} else {
-					unlink($item);
-				}
-			}
+		if ( !is_dir($path) ) return;
 
-			rmdir($path);
+		foreach ( glob($path . '/*') as $item ) {
+			if ( is_dir($item) ) {
+				self::rrmdir($item);
+			} else {
+				unlink($item);
+			}
 		}
+
+		rmdir($path);
 	}
 
 	public static function explodeVersion( $version )
