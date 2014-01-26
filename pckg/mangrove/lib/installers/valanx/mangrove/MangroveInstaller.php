@@ -41,7 +41,7 @@ class MangroveInstaller
 				$installer->install();
 
 				$assets = $installer->getAssets();
-
+print_r($assets);exit;
 				foreach ( $assets as $type => $a ) {
 					foreach ( $a as $path ) {
 						$this->assets[$type][] = $path;

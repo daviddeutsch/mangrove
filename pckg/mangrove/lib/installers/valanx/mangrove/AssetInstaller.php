@@ -14,13 +14,15 @@ class AssetInstaller extends MangroveInstaller
 		foreach ( scandir($path) as $r ) {
 			if ( is_dir($r) ) {
 				$this->populateAssets($path . '/' . $r);
+
+				return;
 			}
 
 			$f = explode('.', $r);
 
 			$ext = array_pop($f);
 
-			$path = $this->package->source . $r;
+			$path .= $r;
 
 			switch ( $ext ) {
 				case 'json': break;
