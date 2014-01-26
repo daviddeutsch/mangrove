@@ -5,7 +5,7 @@ class PackageModel extends RedBean_PipelineModel
 	public function open()
 	{
 		if ( is_string($this->bean->info) ) {
-			if ( strpos($this->bean->info, '{') ) {
+			if ( strpos($this->bean->info, '{') !== false ) {
 				$this->bean->info = json_decode($this->bean->info);
 			}
 		}
