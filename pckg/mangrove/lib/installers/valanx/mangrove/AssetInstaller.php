@@ -6,8 +6,15 @@ class AssetInstaller extends MangroveInstaller
 	{
 		parent::install();
 
-		foreach ( scandir($this->package->source) as $r ) {
-			if ( is_dir($r) ) continue;
+		$this->populateAssets( $this->package->source );
+	}
+
+	public function populateAssets( $path )
+	{
+		foreach ( scandir($path) as $r ) {
+			if ( is_dir($r) ) {
+				$this->populateAssets($path . '/' . $r);
+			}
 
 			$f = explode('.', $r);
 

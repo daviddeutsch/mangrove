@@ -10,6 +10,6 @@ class LibraryInstaller extends MangroveInstaller
 
 		if ( !is_dir($target) ) mkdir($target, 0744, true);
 
-		rename( $this->source, $target );
+		rename( $this->package->source, $target );
 	}
 }
