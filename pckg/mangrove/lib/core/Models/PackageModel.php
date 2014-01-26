@@ -2,6 +2,15 @@
 
 class PackageModel extends RedBean_PipelineModel
 {
+	public function open()
+	{
+		if ( is_string($this->bean->info) ) {
+			if ( strpos($this->bean->info, '{') ) {
+				$this->bean->info = json_decode($this->bean->info);
+			}
+		}
+	}
+
 	public function fromSource( $source )
 	{
 		$this->source = MangroveApp::$temp . '/' . $source;
@@ -10,14 +19,14 @@ class PackageModel extends RedBean_PipelineModel
 			$this->source = $this->unzip($this->source, true);
 		}
 
-		$info = MangroveUtils::getJSON($this->source . '/info.json');
+		$this->info = MangroveUtils::getJSON($this->source . '/info.json');
 
-		$this->fromInfo($info);
+		$this->fromInfo($this->info);
 	}
 
 	public function fromInfo( $info )
 	{
-		// Using get_object_vars instead of a straight foreach for compat reason
+		// Using get_object_vars instead of a straight foreach for compat
 		foreach ( get_object_vars($info) as $key => $value ) {
 			switch ( $key ) {
 				case 'time':
@@ -63,7 +72,7 @@ class PackageModel extends RedBean_PipelineModel
 		return $target;
 	}
 
-	public function install()
+	public function getInstaller()
 	{
 		$class = str_replace(
 				' ', '', ucwords(
@@ -72,13 +81,7 @@ class PackageModel extends RedBean_PipelineModel
 			)
 			. 'Installer';
 
-		$installer = new $class($this);
-
-		$installer->beforeInstall();
-
-		$installer->install();
-
-		$installer->afterInstall();
+		return new $class($this);
 	}
 
 	private function registerPackage( $package )

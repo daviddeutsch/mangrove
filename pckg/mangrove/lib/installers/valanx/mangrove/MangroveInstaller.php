@@ -17,6 +17,15 @@ class MangroveInstaller
 		$this->package = $package;
 	}
 
+	public function process()
+	{
+		$this->beforeInstall();
+
+		$this->install();
+
+		$this->afterInstall();
+	}
+
 	public function beforeInstall()
 	{
 		$this->ensureDependencies();
@@ -35,13 +44,17 @@ class MangroveInstaller
 	protected function ensureDependencies()
 	{
 		if ( !empty($this->package->info->require) ) {
-			foreach ( $this->package->info->require as $name ) {
-				$installer = MangroveApp::getInstaller($name);
+			foreach ( $this->package->info->require as $id => $name ) {
+				$package = MangroveApp::$r->_('package');
 
-				$installer->install();
+				$package->fromSource($id);
+
+				$installer = $package->getInstaller();
+
+				$installer->process();
 
 				$assets = $installer->getAssets();
-print_r($assets);exit;
+
 				foreach ( $assets as $type => $a ) {
 					foreach ( $a as $path ) {
 						$this->assets[$type][] = $path;
