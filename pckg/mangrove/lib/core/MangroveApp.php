@@ -56,11 +56,18 @@ class MangroveApp
 	{
 		if ( empty(self::$payload) ) return;
 
+		$packages = array();
 		foreach ( self::$payload->payload as $id => $file ) {
 			$package = self::$r->_('package');
 
-			$package->fromSource($file);
+			$package->fromSource( str_replace('.zip', '', $file) );
 
+			self::$r->_($package);
+
+			$packages[] = $package;
+		}
+
+		foreach ( $packages as $package ) {
 			$installer = $package->getInstaller();
 
 			$installer->process();

@@ -16,7 +16,7 @@ class PackageModel extends RedBean_PipelineModel
 		$this->source = MangroveApp::$temp . '/' . $source;
 
 		if ( !is_dir($this->source) ) {
-			$this->source = $this->unzip($this->source, true);
+			$this->source = $this->unzip($this->source . '.zip', true);
 		}
 
 		$this->info = MangroveUtils::getJSON($this->source . '/info.json');
