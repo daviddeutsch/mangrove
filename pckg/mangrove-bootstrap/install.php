@@ -139,9 +139,9 @@ class Com_MangroveInstallerScript
 			// Partial names work just fine
 			array(
 				'mangrove/lib/core',
-				'mangrove/app',
 				'installers/',
-				'redbean/redbean'
+				'redbean/redbean',
+				'mangrove/app'
 			) as $install
 		) {
 			foreach ( $this->payload->payload as $k => $v ) {
