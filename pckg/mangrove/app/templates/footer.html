@@ -1,10 +1,24 @@
-<div class="footer"
-	 ng-controller="MenuCtrl">
-	<ul class="nav nav-pills">
-		<li ng-repeat="pane in panes"
-			ng-class="{active:pane.selected}">
-			<a href="#{{pane.title}}"
-			   ng-click="select(pane)">{{pane.title}}</a>
+<div class="footer">
+	<ul class="nav-pills">
+		<li ng-class="{ active: $state.includes('packages.list') }">
+			<a ui-sref="packages.list">
+				Packages
+			</a>
+		</li>
+		<li ng-class="{ active: $state.includes('repositories.list') }">
+			<a ui-sref="repositories.list">
+				 Repositories
+			</a>
+		</li>
+		<li ng-class="{ active: $state.includes('credits') }">
+			<a ui-sref="credits">
+				 Credits
+			</a>
+		</li>
+		<li ng-class="{ active: $state.includes('settings') }">
+			<a ui-sref="settings">
+				Settings
+			</a>
 		</li>
 	</ul>
 </div>

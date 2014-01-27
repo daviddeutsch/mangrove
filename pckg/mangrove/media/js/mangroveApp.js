@@ -28,42 +28,35 @@ mangroveApp
 				return newResponse;
 			});
 
-			RestangularProvider.setBaseUrl('index.php?option=com_mangrove&rest=');
+			RestangularProvider.setBaseUrl('index.php?option=com_mangrove');
 
 			$urlRouterProvider
 				.otherwise('/packages');
 
 			$stateProvider
-				.state('repository', {
+				.state('repositories', {
 					abstract: true,
 					templateUrl: jurl('repositories'),
 					views: {
 						'footer': { templateUrl: jurl('footer') }
 					}
 				})
-				.state('repository.list', {
+				.state('repositories.list', {
 					url: '/repositories'
 				})
-				.state('repository.detail', {
+				.state('repositories.detail', {
 					url: '/repository/:repositoryId',
-					templateUrl: jurl('repository')
+					templateUrl: jurl('repositories')
 				})
-				.state('package', {
+				.state('packages', {
 					abstract: true,
 					views: {
 						'footer': { templateUrl: jurl('footer') },
 						'main': { templateUrl: jurl('packages') }
 					}
 				})
-				.state('package.list', {
+				.state('packages.list', {
 					url: '/packages'
-				})
-				.state('package.search', {
-					url: '/packages/:search'
-				})
-				.state('package.detail', {
-					url: '/package/:packageId',
-					templateUrl: jurl('package')
 				})
 				.state('credits', {
 					url: '/credits',
@@ -120,32 +113,6 @@ mangroveApp
 			]
 		};
 	});
-
-mangroveApp
-	.controller("MenuCtrl",
-	[
-		'$scope', '$location',
-		function ($scope, $location) {
-			$scope.panes = [
-				{ title: "packages", content: "components/com_mangrove/templates/packages.html" },
-				{ title: "repositories", content: "components/com_mangrove/templates/repositories.html" },
-				{ title: "settings", content: "components/com_mangrove/templates/settings.html" },
-				{ title: "credits", content: "components/com_mangrove/templates/credits.html" }
-			];
-
-			angular.forEach($scope.panes, function (pane) {
-				pane.selected = '/' + pane.title == $location.$$path;
-			});
-
-			$scope.select = function selectPane(pane) {
-				angular.forEach($scope.panes, function (pane) {
-					pane.selected = false;
-				});
-				pane.selected = true;
-			};
-		}
-	]
-);
 
 mangroveApp
 	.controller('PackageListCtrl',
