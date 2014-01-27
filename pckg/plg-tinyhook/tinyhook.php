@@ -66,9 +66,9 @@ class TinyHookUtils
 	{
 		$db = JFactory::getDBO();
 
-		$secret = sha1( mt_rand().mt_rand().mt_rand() );
+		$secret = sha1( mt_rand() . mt_rand() . mt_rand() );
 
-		$hash = sha1( $path.$callable.mt_rand() );
+		$hash = sha1( $path . $callable.mt_rand() );
 
 		$url = JURI::root() . '/index.php?tinyhook=' . $hash;
 
