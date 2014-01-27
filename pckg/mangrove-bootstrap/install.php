@@ -260,13 +260,13 @@ class Com_MangroveInstallerScript
 
 			foreach ( glob($source . '/*') as $item ) {
 				if ( is_dir($item) ) {
-					self::rcopy($item, $destination . '/' . basename($item));
+					rcopy($item, $destination . '/' . basename($item));
 				} else {
-					copy($source, $destination);
+					copy($item, $destination . '/' . basename($item));
 				}
 			}
 		} elseif ( file_exists($source) ) {
-			copy($source, $destination);
+			copy($source, $destination . '/' . basename($source));
 		}
 	}
 
