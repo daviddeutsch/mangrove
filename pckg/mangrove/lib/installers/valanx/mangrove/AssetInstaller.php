@@ -20,7 +20,9 @@ class AssetInstaller extends MangroveInstaller
 				return;
 			}
 
-			$ext = array_pop(explode('.', $r));
+			$f = explode('.', $r);
+
+			$ext = array_pop($f);
 
 			switch ( $ext ) {
 				case 'json': case 'txt': case 'md': break;

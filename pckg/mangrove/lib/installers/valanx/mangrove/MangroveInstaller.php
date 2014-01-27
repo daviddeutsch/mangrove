@@ -19,6 +19,8 @@ class MangroveInstaller
 
 	public function process()
 	{
+		if ( !is_dir($this->package->source) ) return false;
+
 		$this->beforeInstall();
 
 		$this->install();

@@ -102,6 +102,21 @@ class MangroveUtils
 		rmdir($path);
 	}
 
+	public static function rcopy( $source, $destination )
+	{
+		if ( !is_dir($source) ) return;
+
+		if ( is_dir($source) ) {
+			if ( !is_dir($destination) ) mkdir($destination, 0744);
+
+			foreach ( glob($source . '/*') as $item ) {
+				self::rcopy($item, $destination . '/' . basename($item));
+			}
+		} elseif ( file_exists($source) ) {
+			copy($source, $destination);
+		}
+	}
+
 	public static function explodeVersion( $version )
 	{
 		$return = new stdClass();
