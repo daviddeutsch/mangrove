@@ -109,7 +109,7 @@ class MangroveUtils
 
 			foreach ( glob($source . '/*') as $item ) {
 				if ( is_dir($item) ) {
-					rcopy($item, $destination . '/' . basename($item));
+					self::rcopy($item, $destination . '/' . basename($item));
 				} else {
 					copy($item, $destination . '/' . basename($item));
 				}
