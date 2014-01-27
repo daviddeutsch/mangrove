@@ -208,7 +208,7 @@ class Com_MangroveInstallerScript
 
 				mkdir($path, 0744, true);
 
-				rename($source, $path);
+				self::rcopy($source, $path);
 				break;
 		}
 	}
@@ -252,6 +252,23 @@ class Com_MangroveInstallerScript
 
 		rmdir($path);
 	}
+
+
+	private static function rcopy( $source, $destination )
+	{
+		if ( !is_dir($source) ) return;
+
+		if ( is_dir($source) ) {
+			if ( !is_dir($destination) ) mkdir($destination, 0744);
+
+			foreach ( glob($source . '/*') as $item ) {
+				self::rcopy($item, $destination . '/' . basename($item));
+			}
+		} elseif ( file_exists($source) ) {
+			copy($source, $destination);
+		}
+	}
+
 
 	/**
 	 * Merge Payload from payload.json file into package info.json file
