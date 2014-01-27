@@ -92,8 +92,20 @@ body {
 	width: 28px;
 }
 
-.header input {
-	margin: 10px 0;
+.main-search-box {
+	margin: 0 auto !important;
+	display: inline-block !important;
+	float: none !important;
+}
+
+.main-search {
+	max-width: 300px;
+	margin: 0 auto !important;
+}
+
+.top-search {
+	vertical-align: middle;
+	display: inline-block !important;
 }
 
 .mangrove-header-big {
@@ -127,6 +139,7 @@ body {
 
 .footer .nav-pills {
 	text-align: center;
+	font-weight: 400;
 }
 
 #toolbar-box {
