@@ -7,66 +7,66 @@ jurl = function (name) {
 mangroveApp
 	.config(
 		[
-			'$stateProvider', '$urlRouterProvider', 'Restangular',
-			function ($stateProvider, $urlRouterProvider, RestangularProvider) {
-				RestangularProvider.setResponseExtractor(function(response) {
-					var newResponse = response;
-					if (angular.isArray(response)) {
-						angular.forEach(newResponse, function(value, key) {
-							newResponse[key].originalElement = angular.copy(value);
-						});
-					} else {
-						newResponse.originalElement = angular.copy(response);
+		'$stateProvider', '$urlRouterProvider', 'Restangular',
+		function ($stateProvider, $urlRouterProvider, RestangularProvider) {
+			RestangularProvider.setResponseExtractor(function(response) {
+				var newResponse = response;
+				if (angular.isArray(response)) {
+					angular.forEach(newResponse, function(value, key) {
+						newResponse[key].originalElement = angular.copy(value);
+					});
+				} else {
+					newResponse.originalElement = angular.copy(response);
+				}
+
+				return newResponse;
+			});
+
+			RestangularProvider.setBaseUrl('index.php?option=com_mangrove&rest=');
+
+			$urlRouterProvider
+				.otherwise('/packages');
+
+			$stateProvider
+				.state('repository', {
+					abstract: true,
+					templateUrl: jurl('repositories'),
+					views: {
+						'footer': { templateUrl: jurl('footer') }
 					}
-
-					return newResponse;
-				});
-
-				RestangularProvider.setBaseUrl('index.php?option=com_mangrove&rest=');
-
-				$urlRouterProvider
-					.otherwise('/packages');
-
-				$stateProvider
-					.state('repository', {
-						abstract: true,
-						templateUrl: jurl('repositories'),
-						views: {
-							'footer': { templateUrl: jurl('footer') }
-						}
-					})
-					.state('repository.list', {
-						url: '/repositories'
-					})
-					.state('repository.detail', {
-						url: '/repository/:repositoryId',
-						templateUrl: jurl('repository')
-					})
-					.state('package', {
-						abstract: true,
-						views: {
-							'footer': { templateUrl: jurl('footer') },
-							'main': { templateUrl: jurl('packages') }
-						}
-					})
-					.state('package.list', {
-						url: '/packages'
-					})
-					.state('package.search', {
-						url: '/packages/:search'
-					})
-					.state('package.detail', {
-						url: '/package/:packageId',
-						templateUrl: jurl('package')
-					})
-					.state('credits', {
-						url: '/credits',
-						views: {
-							'footer': { templateUrl: jurl('footer') },
-							'main': { templateUrl: jurl('credits') }
-						}
-					})
-			}
+				})
+				.state('repository.list', {
+					url: '/repositories'
+				})
+				.state('repository.detail', {
+					url: '/repository/:repositoryId',
+					templateUrl: jurl('repository')
+				})
+				.state('package', {
+					abstract: true,
+					views: {
+						'footer': { templateUrl: jurl('footer') },
+						'main': { templateUrl: jurl('packages') }
+					}
+				})
+				.state('package.list', {
+					url: '/packages'
+				})
+				.state('package.search', {
+					url: '/packages/:search'
+				})
+				.state('package.detail', {
+					url: '/package/:packageId',
+					templateUrl: jurl('package')
+				})
+				.state('credits', {
+					url: '/credits',
+					views: {
+						'footer': { templateUrl: jurl('footer') },
+						'main': { templateUrl: jurl('credits') }
+					}
+				})
+		}
 		]
 	);
 
