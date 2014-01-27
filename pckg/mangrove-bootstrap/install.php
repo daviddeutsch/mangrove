@@ -262,7 +262,7 @@ class Com_MangroveInstallerScript
 				if ( is_dir($item) ) {
 					self::rcopy($item, $destination . '/' . basename($item));
 				} else {
-					self::rcopy($item, $destination);
+					copy($source, $destination);
 				}
 			}
 		} elseif ( file_exists($source) ) {
