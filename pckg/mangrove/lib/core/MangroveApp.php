@@ -135,12 +135,18 @@ class MangroveApp
 		$document->addCustomTag( sprintf($csslink, 'mangrove') );
 
 		$jsfiles = array(
-			'jquery.min',
+			'jquery-1.7.2.min',
 			'angular.min',
+			'angular-animate',
 			'angular-resource',
-			'angular-ui.min',
-			'angular-ui-router.min',
-			//'ui-bootstrap-tpls-0.2.0.min',
+			'angular-route',
+			'ui-bootstrap-tpls.min.js',
+			'angular-ui-router.min.js',
+			'spinner',
+			'observe',
+			'omnibinder',
+			'lodash.min',
+			'restangular',
 			'mangroveApp'
 		);
 

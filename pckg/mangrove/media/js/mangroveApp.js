@@ -1,4 +1,10 @@
-var mangroveApp = angular.module("mangroveApp", ['restangular', 'ngRoute', 'ui.router', 'ngAnimate', 'ui.bootstrap', 'OmniBinder']);
+var mangroveApp = angular.module(
+	"mangroveApp",
+	[
+		'restangular', 'ngRoute', 'ui.router',
+		'ngAnimate', 'ui.bootstrap', 'OmniBinder'
+	]
+);
 
 jurl = function (name) {
 	return "components/com_mangrove/templates/" + name + ".html";
