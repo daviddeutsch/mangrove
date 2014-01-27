@@ -1,18 +1,20 @@
 {
-	"label":"Tinyhook Plugin",
-	"type":"joomla-plugin",
-	"joomla":{
-		"name":"plg_tinyhook"
+	"label":       "Tinyhook Plugin",
+	"description": "Allows other webservices (such as mangrove) to securely connect with your site.",
+	"type":        "joomla-plugin",
+	"joomla":      {
+		"name":         "plg_tinyhook",
+		"plugin_group": "system"
 	},
-	"version":"1.0",
-    "vendor":"valanx",
-	"authors":[
+	"version":     "1.0",
+	"vendor":      "valanx",
+	"authors":     [
 		{
-			"name":"David Deutsch",
-			"email":"skore@valanx.org",
-			"homepage":"http://valanx.org"
+			"name":     "David Deutsch",
+			"email":    "skore@valanx.org",
+			"homepage": "http://valanx.org"
 		}
 	],
-    "copyright":"Copyright (C) 2013 David Deutsch",
-    "license":"GNU/GPL Version 3.0 or later - http://www.gnu.org/copyleft/gpl.html"
+	"copyright":   "Copyright (C) 2013 David Deutsch",
+	"license":     "GNU/GPL Version 3.0 or later - http://www.gnu.org/copyleft/gpl.html"
 }
