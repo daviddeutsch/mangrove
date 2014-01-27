@@ -28,6 +28,7 @@ body {
 	overflow: hidden;
 	border-radius: 3px;
 	padding: 24px;
+	min-height: 400px;
 }
 
 .mangroveApp .container a {
