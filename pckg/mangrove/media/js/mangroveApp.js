@@ -13,7 +13,7 @@ jurl = function (name) {
 mangroveApp
 	.config(
 		[
-		'$stateProvider', '$urlRouterProvider', 'Restangular',
+		'$stateProvider', '$urlRouterProvider', 'RestangularProvider',
 		function ($stateProvider, $urlRouterProvider, RestangularProvider) {
 			RestangularProvider.setResponseExtractor(function(response) {
 				var newResponse = response;
