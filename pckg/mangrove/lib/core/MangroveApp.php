@@ -145,7 +145,7 @@ class MangroveApp
 		);
 
 		foreach ( $jsfiles as $file ) {
-			$document->addScript( JURI::root(true).'/media/com_mangrove/js/'.$file.'.js' );
+			$document->addScript( JURI::root().'/media/com_mangrove/js/'.$file.'.js' );
 		}
 
 		return null;

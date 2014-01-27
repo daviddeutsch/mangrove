@@ -21,7 +21,7 @@
 			"polymer/observe-js",
 			"jquery/jquery",
 			"valanx/mangrove/media/css",
-			"valanx/mangrove/media/images",
+			"valanx/mangrove/media/img",
 			"valanx/mangrove/media/js"
 		]
 }
