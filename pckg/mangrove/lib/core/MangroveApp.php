@@ -128,7 +128,8 @@ class MangroveApp
 		if ( $v->isCompatible('3.0') ) {
 			$document->addCustomTag( sprintf($csslink, 'joomla3-override') );
 		} else {
-			$document->addCustomTag( sprintf($csslink, 'bootstrap-combined.min') );
+			$document->addCustomTag( sprintf($csslink, 'bootstrap.min') );
+			$document->addCustomTag( sprintf($csslink, 'font-awesome.min') );
 			$document->addCustomTag( sprintf($csslink, 'joomla-override') );
 		}
 
@@ -151,7 +152,11 @@ class MangroveApp
 		);
 
 		foreach ( $jsfiles as $file ) {
-			$document->addScript( JURI::root() . 'media/com_mangrove/js/' . $file . '.js' );
+			if ( $file == 'angular.min' ) {
+				$document->addScript( 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js' );
+ 			} else {
+				$document->addScript( JURI::root() . 'media/com_mangrove/js/' . $file . '.js' );
+			}
 		}
 
 		return null;

@@ -32,6 +32,9 @@ class AssetInstaller extends MangroveInstaller
 				case 'css':
 					$this->assets['css'][] = $path . '/' . $r;
 					break;
+				case 'otf': case 'eot': case 'svg': case 'ttf': case 'woff':
+					$this->assets['fonts'][] = $path . '/' . $r;
+					break;
 				default:
 					$this->assets['img'][] = $path . '/' . $r;
 					break;

@@ -5,7 +5,8 @@ class MangroveInstaller
 	protected $assets = array(
 		'js' => array(),
 		'css' => array(),
-		'img' => array()
+		'img' => array(),
+		'fonts' => array()
 	);
 
 	protected $autoload = array();

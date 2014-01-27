@@ -25,6 +25,7 @@
 			"jquery/jquery",
 			"staaky/spinners",
 			"lodash/lodash",
+			"fontawesome/fontawesome",
 			"valanx/mangrove/media/css",
 			"valanx/mangrove/media/img",
 			"valanx/mangrove/media/js"
