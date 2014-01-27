@@ -15,30 +15,46 @@ body {
 }
 
 .mangroveApp {
-	padding: 4%;
+	padding: 2%;
 }
 
 .mangroveApp > .container {
 	background: rgba(255, 255, 255, 0.7);
 	box-shadow:
-		0 4px 10px rgba(127, 127, 127, 0.2),
-		0 -1px 3px rgba(127, 127, 127, 0.6) inset;
-	min-height: 500px;
+		4px 8px 5px rgba(127, 127, 127, 0.1),
+		-4px 8px 5px rgba(127, 127, 127, 0.1),
+		0 -2px 2px rgba(127, 127, 127, 0.25) inset,
+		0 -1px 2px rgba(127, 127, 127, 0.25) inset;
 	overflow: hidden;
-	border-radius: 2px;
+	border-radius: 3px;
+	padding: 24px;
+}
+
+.mangroveApp .container a {
+	color: #79a127;
+}
+
+.mangroveApp .container a:hover {
+	color: #405e1e;
+}
+
+.mangroveApp .container a:active,
+.mangroveApp .container a:focus {
+	color: #2d4513;
+	outline: none;
 }
 
 .mangrove-logo-big {
 	position: relative;
 	width: 100%;
-	height: 140px;
+	height: 170px;
 	background: url(../img/mangrove-logo.png) center center no-repeat;
-	margin: 60px 0 20px;
+	margin: 60px 0 40px;
 }
 
 .mangrove-logo {
 	width: 260px;
-	height: 80px;
+	height: 90px;
 	background: url(../img/mangrove-logo-small.png) center center no-repeat;
 	display: inline-block;
 	vertical-align: middle;
