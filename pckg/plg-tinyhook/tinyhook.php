@@ -10,7 +10,8 @@ jimport('joomla.plugin.plugin');
  */
 class plgSystemTinyhook extends JPlugin
 {
-	function plgSystemTinyhook( &$subject, $config ) {
+	function plgSystemTinyhook( &$subject, $config )
+	{
 		parent::__construct( $subject, $config );
 	}
 
@@ -68,7 +69,7 @@ class TinyHookUtils
 
 		$secret = sha1( mt_rand() . mt_rand() . mt_rand() );
 
-		$hash = sha1( $path . $callable.mt_rand() );
+		$hash = sha1( $path . $callable . mt_rand() );
 
 		$url = JURI::root() . '/index.php?tinyhook=' . $hash;
 
