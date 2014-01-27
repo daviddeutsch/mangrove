@@ -99,7 +99,7 @@ class Com_MangroveInstallerScript
 			self::rrmdir($dir);
 		}
 
-		unlink($this->jtemp.'/mangrove-bootstrap.zip');
+		//unlink($this->jtemp.'/mangrove-bootstrap.zip');
 
 		if ( !$this->detectMangrove() ) {
 			$this->installMangrove();
