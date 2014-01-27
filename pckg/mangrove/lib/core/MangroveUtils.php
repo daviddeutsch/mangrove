@@ -105,7 +105,8 @@ class MangroveUtils
 	public static function rcopy( $source, $destination )
 	{
 		if ( is_dir($source) ) {
-			if ( !is_dir($destination) ) mkdir($destination, 0744);
+			// 755 because apache needs that sometimes
+			if ( !is_dir($destination) ) mkdir($destination, 0755);
 
 			foreach ( glob($source . '/*') as $item ) {
 				if ( is_dir($item) ) {

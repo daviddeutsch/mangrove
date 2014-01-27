@@ -64,7 +64,7 @@ class Com_MangroveInstallerScript
 
 		$this->temp = $this->jtemp . '/mangrove';
 
-		if ( !is_dir($this->temp) ) mkdir($this->temp, 0744);
+		if ( !is_dir($this->temp) ) mkdir($this->temp, 0755);
 
 		if ( file_exists($this->temp.'/payload.json') ) {
 			$this->payload = self::mergePayload(
@@ -171,7 +171,7 @@ class Com_MangroveInstallerScript
 
 		$target = $this->temp . '/' . $file['filename'];
 
-		if ( !is_dir($target) ) mkdir($target, 0744);
+		if ( !is_dir($target) ) mkdir($target, 0755);
 
 		$zip = new ZipArchive();
 
@@ -256,7 +256,7 @@ class Com_MangroveInstallerScript
 	private static function rcopy( $source, $destination )
 	{
 		if ( is_dir($source) ) {
-			if ( !is_dir($destination) ) mkdir($destination, 0744);
+			if ( !is_dir($destination) ) mkdir($destination, 0755);
 
 			foreach ( glob($source . '/*') as $item ) {
 				if ( is_dir($item) ) {

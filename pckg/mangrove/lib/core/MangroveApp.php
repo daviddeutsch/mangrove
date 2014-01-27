@@ -37,7 +37,8 @@ class MangroveApp
 
 		self::$temp = $japp->getCfg('tmp_path') . '/mangrove';
 
-		if ( !is_dir(self::$temp) ) mkdir(self::$temp, 0744);
+		// 755 because apache needs that sometimes
+		if ( !is_dir(self::$temp) ) mkdir(self::$temp, 0755);
 
 		self::$com = dirname(__FILE__);
 
@@ -119,7 +120,7 @@ class MangroveApp
 
 	public static function getApp()
 	{
-		$csslink = '<link rel="stylesheet" type="text/css" media="all" href="' . JURI::root(true).'/media/com_mangrove/css/%s.css" />';
+		$csslink = '<link rel="stylesheet" type="text/css" media="all" href="' . JURI::root().'media/com_mangrove/css/%s.css" />';
 
 		$document = JFactory::getDocument();
 
