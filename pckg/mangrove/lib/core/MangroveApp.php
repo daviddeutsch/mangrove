@@ -120,7 +120,7 @@ class MangroveApp
 
 	public static function getApp()
 	{
-		$csslink = '<link rel="stylesheet" type="text/css" media="all" href="' . JURI::root().'media/com_mangrove/css/%s.css" />';
+		$csslink = '<link rel="stylesheet" type="text/css" media="all" href="' . JURI::root() . 'media/com_mangrove/css/%s.css" />';
 
 		$document = JFactory::getDocument();
 
@@ -137,21 +137,21 @@ class MangroveApp
 		$jsfiles = array(
 			'jquery-1.7.2.min',
 			'angular.min',
-			'angular-animate',
-			'angular-resource',
-			'angular-route',
-			'ui-bootstrap-tpls.min.js',
-			'angular-ui-router.min.js',
-			'spinner',
+			'angular-animate.min',
+			'angular-resource.min',
+			'angular-route.min',
+			'ui-bootstrap-tpls.min',
+			'angular-ui-router.min',
+			'spinners.min',
 			'observe',
 			'omnibinder',
 			'lodash.min',
-			'restangular',
+			'restangular.min',
 			'mangroveApp'
 		);
 
 		foreach ( $jsfiles as $file ) {
-			$document->addScript( JURI::root().'/media/com_mangrove/js/'.$file.'.js' );
+			$document->addScript( JURI::root() . 'media/com_mangrove/js/' . $file . '.js' );
 		}
 
 		return null;
