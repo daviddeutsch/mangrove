@@ -8,7 +8,9 @@ class LibraryInstaller extends MangroveInstaller
 
 		$target = JPATH_ROOT . '/libraries/' . $this->package->info->name;
 
-		if ( !is_dir($target) ) mkdir($target, 0744, true);
+		if ( is_dir($target) ) MangroveUtils::rrmdir($target);
+
+		mkdir($target, 0744, true);
 
 		rename( $this->package->source, $target );
 	}

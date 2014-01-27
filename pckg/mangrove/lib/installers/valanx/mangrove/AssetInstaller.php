@@ -12,30 +12,26 @@ class AssetInstaller extends MangroveInstaller
 	public function populateAssets( $path )
 	{
 		foreach ( scandir($path) as $r ) {
-			if ( is_dir($r) ) {
-				if ( $r == '.' || $r == '..' ) continue;
+			if ( $r == '.' || $r == '..' ) continue;
 
+			if ( is_dir($path . '/' . $r) ) {
 				$this->populateAssets($path . '/' . $r);
 
 				return;
 			}
 
-			$f = explode('.', $r);
-
-			$ext = array_pop($f);
-
-			$path .= $r;
+			$ext = array_pop(explode('.', $r));
 
 			switch ( $ext ) {
-				case 'json': break;
+				case 'json': case 'txt': case 'md': break;
 				case 'js':
-					$this->assets['js'][] = $path;
+					$this->assets['js'][] = $path . '/' . $r;
 					break;
 				case 'css':
-					$this->assets['css'][] = $path;
+					$this->assets['css'][] = $path . '/' . $r;
 					break;
 				default:
-					$this->assets['img'][] = $path;
+					$this->assets['img'][] = $path . '/' . $r;
 					break;
 			}
 		}

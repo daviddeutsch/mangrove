@@ -62,8 +62,8 @@ class MangroveInstaller
 
 	public function mergeAssets( $assets )
 	{
-		if ( empty($asset) ) return;
-		print_r($assets);exit;
+		if ( empty($assets) ) return;
+
 		foreach ( $assets as $type => $a ) {
 			foreach ( $a as $path ) {
 				$this->assets[$type][] = $path;
