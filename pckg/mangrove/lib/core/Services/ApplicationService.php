@@ -2,6 +2,11 @@
 
 class ApplicationService extends AbstractService
 {
+	public function getApplication()
+	{
+		// Return list of all packages with >5 dependencies for now
+	}
+
 	public function postSelect( $package )
 	{
 		// Mark a package for later install, possibly already downloading it
