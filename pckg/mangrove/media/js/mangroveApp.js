@@ -48,15 +48,15 @@ mangroveApp
 					url: '/repository/:repositoryId',
 					templateUrl: jurl('repositories')
 				})
-				.state('packages', {
+				.state('applications', {
 					abstract: true,
 					views: {
 						'footer': { templateUrl: jurl('footer') },
-						'main': { templateUrl: jurl('packages') }
+						'main': { templateUrl: jurl('applications') }
 					}
 				})
-				.state('packages.list', {
-					url: '/packages'
+				.state('applications.list', {
+					url: '/applications'
 				})
 				.state('credits', {
 					url: '/credits',
@@ -115,7 +115,7 @@ mangroveApp
 	});
 
 mangroveApp
-	.controller('PackageListCtrl',
+	.controller('ApplicationListCtrl',
 		[
 			'$scope', '$timeout', '$filter', 'Restangular',
 			function ($scope, $timeout, $filter, Restangular) {
