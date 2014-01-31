@@ -1,6 +1,6 @@
 <?php
 
-class MangroveApp
+class MangroveApp extends MangroveAppBase
 {
 	/**
 	 * Path to mangrove tmp directory
@@ -24,11 +24,6 @@ class MangroveApp
 	private static $payload;
 
 	/**
-	 * @var RedBean_Instance
-	 */
-	public static $r;
-
-	/**
 	 * Load paths and payload json
 	 */
 	public static function init()
@@ -41,8 +36,6 @@ class MangroveApp
 		if ( !is_dir(self::$temp) ) mkdir(self::$temp, 0755);
 
 		self::$com = dirname(__FILE__);
-
-		self::getDB($japp);
 
 		if ( file_exists(self::$temp . '/payload.json') ) {
 			self::$payload = MangroveUtils::getJSON(self::$temp . '/payload.json');
@@ -87,35 +80,6 @@ class MangroveApp
 
 			$installer->process();
 		}
-	}
-
-	public static function resolve( $task )
-	{
-		if ( empty($task) ) return self::getApp();
-
-		$method = strtolower($_SERVER['REQUEST_METHOD']) . ucfirst($task);
-
-		$service = ucfirst($_REQUEST['service']) . 'Service';
-
-		$input = @file_get_contents('php://input');
-
-		if ( !$input ) {
-			$input = '';
-		} else {
-			$input = json_decode($input);
-		}
-
-		if ( class_exists($service) ) {
-			$service = new $service();
-
-			$result = $service->call($method, $_REQUEST['path'], $input);
-
-			echo json_encode($result);
-
-			exit;
-		}
-
-		return null;
 	}
 
 	public static function getApp()
@@ -195,37 +159,6 @@ class MangroveApp
 			'path/to/mangrove.php',
 			'Mangrove::hook'
 		);
-	}
-
-	/**
-	 * @param object $japp JApplication
-	 */
-	private static function getDB( $japp )
-	{
-		self::$r = new RedBean_Instance();
-
-		if ( $japp->getCfg('dbtype') == 'mysqli' ) {
-			$type = 'mysql';
-		} else {
-			$type = $japp->getCfg('dbtype');
-		}
-
-		self::$r->addDatabase(
-			'joomla',
-			$type . ':'
-			. 'host=' . $japp->getCfg('host') . ';'
-			. 'dbname=' . $japp->getCfg('db'),
-			$japp->getCfg('user'),
-			$japp->getCfg('password')
-		);
-
-		self::$r->selectDatabase('joomla');
-
-		self::$r->prefix($japp->getCfg('dbprefix') . 'mangrove_');
-
-		self::$r->setupPipeline($japp->getCfg('dbprefix'));
-
-		self::$r->redbean->beanhelper->setModelFormatter(new MangroveModelFormatter);
 	}
 
 }
