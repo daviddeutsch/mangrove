@@ -84,44 +84,30 @@ class MangroveApp extends MangroveAppBase
 
 	public static function getApp()
 	{
-		$csslink = '<link rel="stylesheet" type="text/css" media="all" href="' . JURI::root() . 'media/com_mangrove/css/%s.css" />';
-
-		$document = JFactory::getDocument();
-
 		$v = new JVersion();
-		if ( $v->isCompatible('3.0') ) {
-			$document->addCustomTag( sprintf($csslink, 'joomla3-override') );
-		} else {
-			$document->addCustomTag( sprintf($csslink, 'bootstrap.min') );
-			$document->addCustomTag( sprintf($csslink, 'font-awesome.min') );
-			$document->addCustomTag( sprintf($csslink, 'joomla-override') );
-		}
 
-		$document->addCustomTag( sprintf($csslink, 'mangrove') );
-
-		$jsfiles = array(
-			'jquery-1.7.2.min',
-			'angular.min',
-			'angular-animate.min',
-			'angular-resource.min',
-			'angular-route.min',
-			'ui-bootstrap-tpls.min',
-			'angular-ui-router.min',
-			'spinners.min',
-			'observe',
-			'omnibinder',
-			'lodash.min',
-			'restangular.min',
-			'mangroveApp'
+		self::addAssets(
+			'css',
+			array(
+				'font-awesome.min',
+				'joomla' . ($v->isCompatible('3.0') ? '3' : '') . '-override',
+				'mangrove'
+			)
 		);
 
-		foreach ( $jsfiles as $file ) {
-			if ( $file == 'angular.min' ) {
-				$document->addScript( 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js' );
- 			} else {
-				$document->addScript( JURI::root() . 'media/com_mangrove/js/' . $file . '.js' );
-			}
-		}
+		self::addAssets(
+			'js',
+			array(
+				'jquery-1.7.2.min',
+				'angular.min', 'angular-animate.min', 'angular-resource.min', 'angular-route.min',
+				'ui-bootstrap-tpls.min', 'angular-ui-router.min',
+				'lodash.min', 'restangular.min',
+				'observe', 'omnibinder',
+				'spinners.min',
+				'mangroveBase',
+				'mangroveApp'
+			)
+		);
 
 		return null;
 	}
