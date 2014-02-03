@@ -7,10 +7,8 @@
 	"version":"1.0",
 	"require":
 		[
-			"valanx/mangrove-base/lib",
-			"valanx/mangrove/lib/core",
-			"valanx/mangrove/lib/installers/valanx/mangrove",
-			"valanx/mangrove/lib/installers/joomla",
+			"valanx/mangrove-base/*",
+			"valanx/mangrove/lib/*",
 			"redbean/redbean-adaptive",
 			"valanx/plg-tinyhook",
 			"google/excanvas",
@@ -27,9 +25,6 @@
 			"staaky/spinners",
 			"lodash/lodash",
 			"fontawesome/fontawesome",
-			"valanx/mangrove-base/media/js",
-			"valanx/mangrove/media/css",
-			"valanx/mangrove/media/img",
-			"valanx/mangrove/media/js"
+			"valanx/mangrove/media/*"
 		]
 }
