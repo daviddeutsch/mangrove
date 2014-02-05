@@ -1,6 +1,6 @@
 <?php
 
-class MangroveApp extends MangroveAppBase
+class MangroveClientApp
 {
 	/**
 	 * Path to mangrove tmp directory
