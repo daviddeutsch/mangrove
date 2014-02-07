@@ -10,19 +10,27 @@ $base = realpath( dirname(__FILE__) . '/../../../libraries' );
 
 $c = 'valanx/mangrove/lib/core/';
 $i = 'valanx/mangrove/lib/installers/';
+$b = 'valanx/mangrove-base/lib/core/';
 
 $includes = array(
 	'redbean/redbean-adaptive/rb',
-	$c . 'MangroveApp',
+
+	$b . 'MangroveApp',
+	$b . 'MangroveAppInstance',
+	$b . 'MangroveModelFormatter',
+
+	$b . 'Services/AbstractService',
+	$b . 'Services/RestService',
+	$b . 'Services/HookService',
+
+	$c . 'MangroveClientApp',
 	$c . 'MangroveAutoloadGenerator',
 	$c . 'MangroveClassLoader',
 	$c . 'MangroveConnector',
-	$c . 'MangroveModelFormatter',
 	$c . 'MangroveUtils',
 
 	$c . 'Models/PackageModel',
-	$c . 'Services/AbstractService',
-	$c . 'Services/RestService',
+
 	$c . 'Services/ApplicationService',
 	$c . 'Services/PackageService',
 	$c . 'Services/RepositoryService',

@@ -1,62 +1,68 @@
 <?php
 
-class MangroveClientApp
+class MangroveClientApp extends MangroveAppInstance
 {
+	public $name = 'mangrove';
+
+	public $base_path;
+
 	/**
 	 * Path to mangrove tmp directory
 	 *
 	 * @var string
 	 */
-	public static $temp;
+	public $temp;
 
 	/**
 	 * Path to mangrove installation directory
 	 *
 	 * @var string
 	 */
-	private static $com;
+	private $com;
 
 	/**
 	 * List of installed payload for use on bootup in mangrove
 	 *
 	 * @var object
 	 */
-	private static $payload;
+	private $payload;
 
 	/**
 	 * Load paths and payload json
 	 */
-	public static function init()
+	public function __construct()
 	{
 		$japp = JFactory::getApplication();
 
-		self::$temp = $japp->getCfg('tmp_path') . '/mangrove';
+		$this->temp = JPATH_ROOT . '/administrator/components/com_mangrove';
+
+		$this->temp = $japp->getCfg('tmp_path') . '/mangrove';
 
 		// 755 because apache needs that sometimes
-		if ( !is_dir(self::$temp) ) mkdir(self::$temp, 0755);
+		if ( !is_dir($this->temp) ) mkdir($this->temp, 0755);
 
-		self::$com = dirname(__FILE__);
+		$this->com = dirname(__FILE__);
 
-		if ( file_exists(self::$temp . '/payload.json') ) {
-			self::$payload = MangroveUtils::getJSON(self::$temp . '/payload.json');
+		if ( file_exists($this->temp . '/payload.json') ) {
+			$this->payload = MangroveUtils::getJSON($this->temp . '/payload.json');
 
-			self::bootstrap();
+			$this->bootstrapMangrove();
 
 			//unlink(self::temp . '/payload.json');
 		}
 	}
 
-	private static function bootstrap()
+	private function bootstrapMangrove()
 	{
-		if ( empty(self::$payload) ) return;
+		if ( empty($this->payload) ) return;
 
 		$packages = array();
-		foreach ( self::$payload->payload as $file ) {
+		foreach ( $this->payload->payload as $file ) {
 			$sha = str_replace('.zip', '', $file);
 
 			if ( empty($sha) ) continue;
 
-			$package = self::$r->x->one->package->sha($sha)->find();
+			$package = MangroveApp::$r->x->one->package->sha($sha)->find();
 
 			if ( !empty($package->id) ) {
 				$packages[] = $package;
@@ -64,13 +70,13 @@ class MangroveClientApp
 				continue;
 			}
 
-			$package = self::$r->_('package');
+			$package = MangroveApp::$r->_('package');
 
-			$package->fromSource( $sha );
+			$package->fromSource($sha);
 
 			$package->status = 'downloaded';
 
-			self::$r->_($package);
+			MangroveApp::$r->_($package);
 
 			$packages[] = $package;
 		}
@@ -82,11 +88,11 @@ class MangroveClientApp
 		}
 	}
 
-	public static function getApp()
+	public function getApp()
 	{
 		$v = new JVersion();
 
-		self::addAssets(
+		$this->addAssets(
 			'css',
 			array(
 				'font-awesome.min',
@@ -95,7 +101,7 @@ class MangroveClientApp
 			)
 		);
 
-		self::addAssets(
+		$this->addAssets(
 			'js',
 			array(
 				'jquery-1.7.2.min',
@@ -123,19 +129,19 @@ class MangroveClientApp
 	 *
 	 * @return string
 	 */
-	private static function makeSiteHash()
+	private function makeSiteHash()
 	{
 		$japp = JFactory::getApplication();
 
 		return sha1( JURI::root() . $japp->getCfg('dbprefix') );
 	}
 
-	public static function hook( $payload )
+	public function hook( $payload )
 	{
 
 	}
 
-	private static function makeCallback()
+	private function makeCallback()
 	{
 		include_once( 'path/to/plugin.php');
 

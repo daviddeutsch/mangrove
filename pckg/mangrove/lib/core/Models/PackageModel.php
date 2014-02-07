@@ -25,7 +25,7 @@ class PackageModel extends RedBean_PipelineModel
 
 	public function fromSource( $source )
 	{
-		$this->source = MangroveApp::$temp . '/' . $source;
+		$this->source = MangroveApp::$app->temp . '/' . $source;
 
 		if ( !is_dir($this->source) ) {
 			$this->source = $this->unzip($this->source . '.zip', true);
@@ -69,7 +69,7 @@ class PackageModel extends RedBean_PipelineModel
 	{
 		$file = pathinfo($path);
 
-		$target = MangroveApp::$temp . '/' . $file['filename'];
+		$target = MangroveApp::$app->temp . '/' . $file['filename'];
 
 		if ( !is_dir($target) ) mkdir($target, 0744);
 
