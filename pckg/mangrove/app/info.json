@@ -9,22 +9,10 @@
 		[
 			"valanx/mangrove-base/*",
 			"valanx/mangrove/lib/*",
-			"redbean/redbean-adaptive",
+			"valanx/mangrove/media/*",
 			"valanx/plg-tinyhook",
 			"google/excanvas",
-			"angularjs/angularjs",
-			"angularjs/angular-animate",
-			"angularjs/angular-resource",
-			"angularjs/angular-route",
-			"angular-ui/ui-router",
-			"angular-ui/bootstrap",
-			"mgonto/restangular",
-			"jeffbcross/omnibinder",
-			"polymer/observe-js",
-			"jquery/jquery",
 			"staaky/spinners",
-			"lodash/lodash",
-			"fontawesome/fontawesome",
-			"valanx/mangrove/media/*"
+			"fontawesome/fontawesome"
 		]
 }
