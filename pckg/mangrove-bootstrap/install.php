@@ -89,7 +89,6 @@ class Com_MangroveInstallerScript
 		}
 
 		// Remove bootstrap directories
-
 		foreach(
 			array(
 				$this->base,

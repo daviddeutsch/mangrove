@@ -27,6 +27,8 @@ class MangroveInstaller
 		$this->install();
 
 		$this->afterInstall();
+
+		return true;
 	}
 
 	public function beforeInstall()

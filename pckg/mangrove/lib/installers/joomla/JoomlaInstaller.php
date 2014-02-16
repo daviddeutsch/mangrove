@@ -6,6 +6,9 @@ class JoomlaInstaller extends MangroveInstaller
 	{
 		parent::install();
 
+		// Add index files if we don't have them yet
+		$this->addIndexFiles(array($this->package->source));
+
 		jimport('joomla.installer.installer');
 
 		$installer = new JInstaller();
@@ -15,13 +18,10 @@ class JoomlaInstaller extends MangroveInstaller
 
 	public function afterInstall()
 	{
-		// TODO:
-		//self::addIndexFiles( array($path) );
-
 		parent::afterInstall();
 	}
 
-	public static function addIndexFiles( $paths )
+	public function addIndexFiles( $paths )
 	{
 		foreach ( $paths as $path ) {
 			if ( !is_dir($path) ) {
@@ -38,7 +38,7 @@ class JoomlaInstaller extends MangroveInstaller
 			}
 
 			if ( count($subdirs) ) {
-				self::addIndexFiles($subdirs);
+				$this->addIndexFiles($subdirs);
 			}
 
 			$fpath = $path . '/index.html';

@@ -4,10 +4,11 @@ class JoomlaComponentInstaller extends JoomlaInstaller
 {
 	public function afterInstall()
 	{
-		// TODO:
-		// parent::addIndexFiles( array($path) );
+		print_r($this);exit;
 
 		$this->canonizeAssets( $this->package->info->joomla->name );
+
+		parent::afterInstall();
 	}
 
 }
