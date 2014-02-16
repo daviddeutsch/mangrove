@@ -54,6 +54,7 @@ class JoomlaInstaller extends MangroveInstaller
 	{
 		$path = JPATH_ROOT . '/media/' . $folder;
 
+		print_r($this->assets);exit;
 		foreach ( $this->assets as $type => $content ) {
 			if ( empty($content) ) continue;
 

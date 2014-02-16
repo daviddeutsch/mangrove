@@ -56,8 +56,8 @@ class MangroveInstaller
 
 		$list = new RequireIterator($this->package->info->require);
 
-		foreach ( $list as $name => $info ) {
-			$packages = MangroveUtils::findPackages($name);
+		foreach ( $list as $info ) {
+			$packages = MangroveUtils::findPackages($info);
 
 			if ( empty($packages) ) continue;
 
