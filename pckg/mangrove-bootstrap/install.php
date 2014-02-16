@@ -139,6 +139,7 @@ class Com_MangroveInstallerScript
 		foreach (
 			// Partial names work just fine
 			array(
+				'mangrove-base/',
 				'mangrove/lib/core',
 				'installers/',
 				'redbean/redbean',
