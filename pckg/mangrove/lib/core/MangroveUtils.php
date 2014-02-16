@@ -159,14 +159,14 @@ class MangroveUtils
 
 				foreach ( $packages as $package ) {
 					if ( $package->package ) {
-						$return[$package->name] = $package->source;
+						$return[] = $package;
 					}
 				}
 			} else {
 				$package = MangroveApp::$r->x->last->package->name($name)->find();
 
 				if ( !empty($package->id) ) {
-					$return[$package->name] = $package->source;
+					$return[] = $package;
 				}
 			}
 		}

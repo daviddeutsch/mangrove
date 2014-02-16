@@ -51,7 +51,7 @@ class MangroveClientApp extends MangroveAppInstance
 
 			$this->bootstrapMangrove();
 
-			//unlink(self::temp . '/payload.json');
+			unlink($this->temp . '/payload.json');
 		}
 	}
 

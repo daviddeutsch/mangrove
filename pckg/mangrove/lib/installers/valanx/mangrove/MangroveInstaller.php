@@ -57,6 +57,8 @@ class MangroveInstaller
 		foreach ( $list as $name => $info ) {
 			$packages = MangroveUtils::findPackages($name);
 
+			if ( empty($packages) ) continue;
+
 			foreach ( $packages as $package ) {
 				$installer = $package->getInstaller();
 
