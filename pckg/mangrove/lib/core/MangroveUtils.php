@@ -155,6 +155,8 @@ class MangroveUtils
 
 				$packages = MangroveApp::$r->x->all->package->name('LIKE', $name.'%')->find();
 
+				if ( empty($packages) ) continue;
+
 				foreach ( $packages as $package ) {
 					if ( $package->package ) {
 						$return[$package->name] = $package->source;
@@ -163,7 +165,7 @@ class MangroveUtils
 			} else {
 				$package = MangroveApp::$r->x->last->package->name($name)->find();
 
-				if ( $package->package ) {
+				if ( !empty($package->id) ) {
 					$return[$package->name] = $package->source;
 				}
 			}
@@ -181,6 +183,8 @@ class MangroveUtils
 
 			$packages = MangroveApp::$r->x->all->package->name('LIKE', $package.'%')->find();
 
+			if ( empty($packages) ) return $return;
+
 			foreach ( $packages as $package ) {
 				if ( empty($package->info) ) continue;
 
@@ -189,7 +193,7 @@ class MangroveUtils
 		} else {
 			$package = MangroveApp::$r->x->last->package->name($package)->find();
 
-			if ( empty($package->info) ) return null;
+			if ( empty($package->info) ) return $return;
 
 			$return[$package->name] = $package->info;
 		}
