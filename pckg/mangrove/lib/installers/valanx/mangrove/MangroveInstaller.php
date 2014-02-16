@@ -52,14 +52,18 @@ class MangroveInstaller
 	{
 		if ( empty($this->package->info->require) ) return;
 
-		foreach ( $this->package->info->require as $id => $name ) {
-			$package = MangroveApp::$r->x->one->package->name($name)->find();
+		$list = new RequireIterator($this->package->info->require);
 
-			$installer = $package->getInstaller();
+		foreach ( $list as $name => $info ) {
+			$packages = MangroveUtils::findPackages($name);
 
-			$installer->process();
+			foreach ( $packages as $package ) {
+				$installer = $package->getInstaller();
 
-			$this->mergeAssets($installer->getAssets());
+				$installer->process();
+
+				$this->mergeAssets($installer->getAssets());
+			}
 		}
 	}
 

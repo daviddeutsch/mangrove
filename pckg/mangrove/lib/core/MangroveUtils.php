@@ -143,4 +143,58 @@ class MangroveUtils
 		return $return;
 	}
 
+	public static function findPackages( $list )
+	{
+		if ( !is_array($list) ) $list = array($list);
+
+		$return = array();
+
+		foreach ( $list as $name ) {
+			if ( strpos($name, '/*') ) {
+				$name = str_replace('/*', '', $name);
+
+				$packages = MangroveApp::$r->x->all->package->name('LIKE', $name.'%')->find();
+
+				foreach ( $packages as $package ) {
+					if ( $package->package ) {
+						$return[$package->name] = $package->source;
+					}
+				}
+			} else {
+				$package = MangroveApp::$r->x->last->package->name($name)->find();
+
+				if ( $package->package ) {
+					$return[$package->name] = $package->source;
+				}
+			}
+		}
+
+		return $return;
+	}
+
+	public static function getPackageInfo( $package )
+	{
+		$return = array();
+
+		if ( strpos($package, '/*') ) {
+			$package = str_replace('/*', '', $package);
+
+			$packages = MangroveApp::$r->x->all->package->name('LIKE', $package.'%')->find();
+
+			foreach ( $packages as $package ) {
+				if ( empty($package->info) ) continue;
+
+				$return[$package->name] = $package->info;
+			}
+		} else {
+			$package = MangroveApp::$r->x->last->package->name($package)->find();
+
+			if ( empty($package->info) ) return null;
+
+			$return[$package->name] = $package->info;
+		}
+
+		return $return;
+	}
+
 }

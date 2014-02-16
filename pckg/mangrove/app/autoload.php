@@ -28,6 +28,7 @@ $includes = array(
 	$c . 'MangroveClassLoader',
 	$c . 'MangroveConnector',
 	$c . 'MangroveUtils',
+	$c . 'RequireIterator',
 
 	$c . 'Models/PackageModel',
 
