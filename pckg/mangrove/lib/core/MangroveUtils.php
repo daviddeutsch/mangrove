@@ -163,7 +163,8 @@ class MangroveUtils
 					}
 				}
 			} else {
-				$package = MangroveApp::$r->x->last->package->name($name)->find();
+				$package = MangroveApp::$r->x->one->package->name($name)
+					->order('version_patch DESC')->find();
 
 				if ( !empty($package->id) ) {
 					$return[] = $package;
@@ -191,7 +192,8 @@ class MangroveUtils
 				$return[$package->name] = $package->info;
 			}
 		} else {
-			$package = MangroveApp::$r->x->last->package->name($package)->find();
+			$package = MangroveApp::$r->x->one->package->name($package)
+				->order('version_patch DESC')->find();
 
 			if ( empty($package->info) ) return $return;
 

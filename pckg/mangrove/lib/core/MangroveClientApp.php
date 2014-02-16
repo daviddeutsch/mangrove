@@ -145,7 +145,7 @@ class MangroveClientApp extends MangroveAppInstance
 
 	private function makeCallback()
 	{
-		include_once( 'path/to/plugin.php');
+		include_once('path/to/plugin.php');
 
 		$utils = new TinyHookUtils();
 

@@ -4,7 +4,7 @@ class JoomlaComponentInstaller extends JoomlaInstaller
 {
 	public function afterInstall()
 	{
-		$this->canonizeAssets( $this->package->info->joomla->name );
+		$this->canonizeAssets($this->package->info->joomla->name);
 
 		parent::afterInstall();
 	}
