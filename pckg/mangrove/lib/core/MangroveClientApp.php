@@ -34,7 +34,7 @@ class MangroveClientApp extends MangroveAppInstance
 	{
 		$japp = JFactory::getApplication();
 
-		$this->temp = JPATH_ROOT . '/administrator/components/com_mangrove';
+		$this->base_path = JPATH_ROOT . '/administrator/components/com_mangrove';
 
 		$this->temp = $japp->getCfg('tmp_path') . '/mangrove';
 
@@ -117,7 +117,7 @@ class MangroveClientApp extends MangroveAppInstance
 			)
 		);
 
-		return null;
+		parent::getApp();
 	}
 
 	/**
