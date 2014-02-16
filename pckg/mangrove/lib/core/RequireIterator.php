@@ -4,40 +4,40 @@ class RequireIterator extends ArrayIterator
 {
 	public function __construct( $requires )
 	{
-		if ( is_array($requires) ) {
-			parent::__construct($requires);
-		} else {
-			$r = array();
+		if ( !is_array($requires) ) $requires = (array) $requires;
 
-			foreach ( (array) $requires as $k => $v ) {
-				$r[] = $k;
-			}
-		}
-
-		$this->expand();
+		parent::__construct( $this->expand($requires) );
 	}
 
-	public function expand()
+	public function expand( $requires )
 	{
-		foreach ( $this as $require ) {
+		$res = array();
+		foreach ( $requires as $require ) {
+			if ( !strpos($require, '*') && !in_array($require, $res) ) {
+				$res[] = $require;
+			}
+
 			$r = MangroveUtils::getPackageInfo($require);
 
 			if ( !is_array($r) ) $r = array($r);
 
 			foreach ( $r as $info ) {
+				if ( !strpos($info->name, '*') && !in_array($info->name, $res) ) {
+					$res[] = $info->name;
+				}
+
 				if ( empty($info->require) ) continue;
 
-				$this->append( new RequireIterator($info->require) );
+				$children = new RequireIterator($info->require);
+
+				foreach ( $children as $child ) {
+					if( !in_array($require, $res) ) {
+						$res[] = $child;
+					}
+				}
 			}
 		}
-	}
 
-	public function append( $array )
-	{
-		foreach ( $array as $entry ) {
-			if ( array_search($entry, (array) $this) ) continue;
-
-			$this[] = $entry;
-		}
+		return $res;
 	}
 }
