@@ -98,6 +98,7 @@ class MangroveClientApp extends MangroveAppInstance
 		$this->addAssets(
 			'css',
 			array(
+				'bootstrap.min',
 				'font-awesome.min',
 				'joomla' . ($v->isCompatible('3.0') ? '3' : '') . '-override',
 				'mangrove'

@@ -17,7 +17,7 @@ mangroveApp
 			//RestangularProvider.setBaseUrl('index.php?option=com_mangrove');
 
 			$urlRouterProvider
-				.otherwise('/packages');
+				.otherwise('/applications');
 
 			$stateProvider
 				.state('repositories', {
