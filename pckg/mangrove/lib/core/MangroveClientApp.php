@@ -42,7 +42,10 @@ class MangroveClientApp extends MangroveAppInstance
 		if ( !is_dir($this->temp) ) mkdir($this->temp, 0755);
 
 		$this->com = dirname(__FILE__);
+	}
 
+	public function ready()
+	{
 		if ( file_exists($this->temp . '/payload.json') ) {
 			$this->payload = MangroveUtils::getJSON($this->temp . '/payload.json');
 

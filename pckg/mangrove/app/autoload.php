@@ -10,7 +10,7 @@ $base = realpath( dirname(__FILE__) . '/../../../libraries' );
 
 $c = 'valanx/mangrove/lib/core/';
 $i = 'valanx/mangrove/lib/installers/';
-$b = 'valanx/mangrove-base/lib/core/';
+$b = 'valanx/mangrove-base/lib/';
 
 $includes = array(
 	'redbean/redbean-adaptive/rb',
