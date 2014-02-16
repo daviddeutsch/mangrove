@@ -62,7 +62,7 @@ class JoomlaInstaller extends MangroveInstaller
 			if ( !is_dir($subpath) ) mkdir($subpath, 0755, true);
 
 			foreach ( $content as $asset ) {
-				rename( $asset, $subpath . '/' . basename($asset) );
+				copy( $asset, $subpath . '/' . basename($asset) );
 			}
 		}
 
