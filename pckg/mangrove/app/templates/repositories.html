@@ -1,7 +1,0 @@
-<table ng-controller="RepositoryListCtrl">
-	<ul>
-		<li ng-repeat="repository in repositories | filter:search | orderBy:'name' | limitTo:5">
-			<mg-repository></mg-repository>
-		</li>
-	</ul>
-</table>

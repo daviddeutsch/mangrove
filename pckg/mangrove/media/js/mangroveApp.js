@@ -18,19 +18,19 @@ mangroveApp
 			.otherwise('/applications');
 
 		$stateProvider
-			.state('repositories', {
+			.state('sources', {
 				abstract: true,
-				templateUrl: jurl('repositories'),
+				templateUrl: jurl('sources'),
 				views: {
 					'footer': { templateUrl: jurl('footer') }
 				}
 			})
-			.state('repositories.list', {
-				url: '/repositories'
+			.state('sources.list', {
+				url: '/sources'
 			})
-			.state('repositories.detail', {
-				url: '/repository/:repositoryId',
-				templateUrl: jurl('repositories')
+			.state('sources.detail', {
+				url: '/source/:sourceId',
+				templateUrl: jurl('sources')
 			})
 			.state('applications', {
 				abstract: true,
@@ -54,13 +54,13 @@ mangroveApp
 );
 
 mangroveApp
-	.directive('mgRepository', function() {
+	.directive('mgSource', function() {
 		return {
 			restrict: 'E',
 			scope: {
-				repository: '=repository'
+				source: '=source'
 			},
-			templateUrl: jurl('repository'),
+			templateUrl: jurl('source'),
 			controller: [
 				'$scope', '$http',
 				function($scope, $http) {
@@ -77,7 +77,7 @@ mangroveApp
 		return {
 			restrict: 'E',
 			scope: {
-				repository: '=application'
+				source: '=application'
 			},
 			templateUrl: jurl('application'),
 			controller: [
@@ -156,21 +156,21 @@ mangroveApp
 );
 
 mangroveApp
-	.controller('RepositoryListCtrl',
+	.controller('SourceListCtrl',
 	[
-		'$scope', 'Repository',
-		function ($scope, Repository) {
-			$scope.repositories = Repository.query();
+		'$scope', 'Source',
+		function ($scope, Source) {
+			$scope.sources = Source.query();
 		}
 	]
 );
 
 mangroveApp
-	.controller('RepositoryDetailCtrl',
+	.controller('SourceDetailCtrl',
 	[
-		'$scope', 'Repository',
-		function ($scope, Repository) {
-			return Repository.get({task: 'repository'});
+		'$scope', 'Source',
+		function ($scope, Source) {
+			return Source.get({task: 'source'});
 		}
 	]
 );
