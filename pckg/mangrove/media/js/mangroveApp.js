@@ -11,49 +11,47 @@ jurl = function (name) {
 
 mangroveApp
 	.config(
-		[
-		'$stateProvider', '$urlRouterProvider',
-		function ($stateProvider, $urlRouterProvider) {
-			//RestangularProvider.setBaseUrl('index.php?option=com_mangrove');
+	[
+	'$stateProvider', '$urlRouterProvider',
+	function ($stateProvider, $urlRouterProvider) {
+		$urlRouterProvider
+			.otherwise('/applications');
 
-			$urlRouterProvider
-				.otherwise('/applications');
-
-			$stateProvider
-				.state('repositories', {
-					abstract: true,
-					templateUrl: jurl('repositories'),
-					views: {
-						'footer': { templateUrl: jurl('footer') }
-					}
-				})
-				.state('repositories.list', {
-					url: '/repositories'
-				})
-				.state('repositories.detail', {
-					url: '/repository/:repositoryId',
-					templateUrl: jurl('repositories')
-				})
-				.state('applications', {
-					abstract: true,
-					views: {
-						'footer': { templateUrl: jurl('footer') },
-						'main': { templateUrl: jurl('applications') }
-					}
-				})
-				.state('applications.list', {
-					url: '/applications'
-				})
-				.state('credits', {
-					url: '/credits',
-					views: {
-						'footer': { templateUrl: jurl('footer') },
-						'main': { templateUrl: jurl('credits') }
-					}
-				})
-		}
-		]
-	);
+		$stateProvider
+			.state('repositories', {
+				abstract: true,
+				templateUrl: jurl('repositories'),
+				views: {
+					'footer': { templateUrl: jurl('footer') }
+				}
+			})
+			.state('repositories.list', {
+				url: '/repositories'
+			})
+			.state('repositories.detail', {
+				url: '/repository/:repositoryId',
+				templateUrl: jurl('repositories')
+			})
+			.state('applications', {
+				abstract: true,
+				views: {
+					'footer': { templateUrl: jurl('footer') },
+					'main': { templateUrl: jurl('applications') }
+				}
+			})
+			.state('applications.list', {
+				url: '/applications'
+			})
+			.state('credits', {
+				url: '/credits',
+				views: {
+					'footer': { templateUrl: jurl('footer') },
+					'main': { templateUrl: jurl('credits') }
+				}
+			})
+	}
+	]
+);
 
 mangroveApp
 	.directive('mgRepository', function() {
@@ -101,71 +99,81 @@ mangroveApp
 	});
 
 mangroveApp
+	.controller('mgAppCtrl',
+	[
+		'mgAppSession',
+		function(mgAppSession) {
+			mgAppSession.init('com_mangrove');
+		}
+	]
+);
+
+mangroveApp
 	.controller('ApplicationListCtrl',
-		[
-			'$scope', '$timeout', '$filter',
-			function ($scope, $timeout, $filter) {
-				var spinner = Spinners.create('#spinner', {
-					radius: 2,
-					height: 4,
-					width: 14,
-					dashes: 3,
-					opacity: 0.49,
-					padding: 0,
-					rotation: 250,
-					color: '#080'
-				}).play();
+	[
+		'$scope', '$timeout', '$filter',
+		function ($scope, $timeout, $filter) {
+			var spinner = Spinners.create('#spinner', {
+				radius: 2,
+				height: 4,
+				width: 14,
+				dashes: 3,
+				opacity: 0.49,
+				padding: 0,
+				rotation: 250,
+				color: '#080'
+			}).play();
 
-				$scope.search = '';
+			$scope.search = '';
 
-				//allpackages = Restangular.all("packages").getList();
+			//allpackages = Restangular.all("packages").getList();
 
-				$scope.packages = [];
+			$scope.packages = [];
 
-				$scope.installList = [];
+			$scope.installList = [];
 
-				filter = $filter('filter');
+			filter = $filter('filter');
 
-				$scope.filter = function(q) {
-					$scope.inprogress = true;
-					$scope.packages = filter(allpackages, q);
-					$timeout(function(){
-						$scope.inprogress = false;
-					}, 100);
-				};
-			}
-		]
-	);
+			$scope.filter = function(q) {
+				$scope.inprogress = true;
+				$scope.packages = filter(allpackages, q);
+				$timeout(function(){
+					$scope.inprogress = false;
+				}, 100);
+			};
+		}
+	]
+);
 
 mangroveApp
 	.controller('InstallListCtrl',
-		[
-			'$scope',
-			function ($scope) {
-				$scope.install = [];
-			}
-		]
-	);
+	[
+		'$scope',
+		function ($scope) {
+			$scope.install = [];
+		}
+	]
+);
 
 mangroveApp
 	.controller('RepositoryListCtrl',
-		[
-			'$scope', 'Repository',
-			function ($scope, Repository) {
-				$scope.repositories = Repository.query();
-			}
-		]
-	);
+	[
+		'$scope', 'Repository',
+		function ($scope, Repository) {
+			$scope.repositories = Repository.query();
+		}
+	]
+);
 
 mangroveApp
 	.controller('RepositoryDetailCtrl',
-		[
-			'$scope', 'Repository',
-			function ($scope, Repository) {
-				return Repository.get({task: 'repository'});
-			}
-		]
-	);
+	[
+		'$scope', 'Repository',
+		function ($scope, Repository) {
+			return Repository.get({task: 'repository'});
+		}
+	]
+);
 
 // Fix for Joomla 2.5 language modal
 jQuery(document).ready(function (jQuery) {
