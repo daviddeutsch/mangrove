@@ -34,7 +34,7 @@ $includes = array(
 
 	$c . 'Services/ApplicationService',
 	$c . 'Services/PackageService',
-	$c . 'Services/RepositoryService',
+	$c . 'Services/SourceService',
 
 	$i . 'valanx/mangrove/MangroveInstaller',
 	$i . 'valanx/mangrove/AssetInstaller',
