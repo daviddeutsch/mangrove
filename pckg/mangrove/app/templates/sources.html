@@ -1,11 +1,3 @@
-<table ng-controller="SourceListCtrl">
-	<ul>
-		<li ng-repeat="source in sources | filter:search | orderBy:'name' | limitTo:5">
-			<mg-source></mg-source>
-		</li>
-	</ul>
-</table>
-
 <div class="row" ng-controller="SourceListCtrl">
 	<div ui-view="source-main" class="animate-calm"></div>
 </div>

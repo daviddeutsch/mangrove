@@ -1,0 +1,40 @@
+<div ng-controller="SourceCtrl" ng-cloak>
+	<h2>
+		<span ng-show="source.name">{{source.name}}</span>
+		<span class="pull-right">
+			<button class="btn btn-xs btn-success" ng-click="editmode=true" ng-hide="editmode">edit</button>
+			<button class="btn btn-xs btn-warning" ng-click="editmode=false" ng-show="editmode && source.id">done</button>
+			<button class="btn btn-xs btn-warning" ng-click="editmode=false;add(source)" ng-show="editmode && !source.id">save</button>
+			<button class="btn btn-xs btn-danger" mg-confirm-click="remove(source.id)" ng-hide="editmode">remove</button>
+		</span>
+	</h2>
+	<hr>
+	<div ng-hide="editmode">
+		<div class="row">
+			<div class="col-md-6">
+				<p>Server Url: <strong>{{source.url}}</strong></p>
+			</div>
+			<div class="col-md-6">
+			</div>
+		</div>
+	</div>
+	<div ng-show="editmode">
+		<form>
+			<p>
+				<label for="source-name">Name</label>
+				<input class="form-control" id="source-name" ng-model="source.name">
+			</p>
+			<h3>Hotbox Details</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<p>
+						<label for="source-url">Server Url</label>
+						<input class="form-control" id="source-url" ng-model="source.url">
+					</p>
+				</div>
+				<div class="col-md-6">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

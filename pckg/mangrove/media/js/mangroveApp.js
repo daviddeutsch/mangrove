@@ -18,20 +18,31 @@ mangroveApp
 			.otherwise('/applications');
 
 		$stateProvider
+
 			.state('sources', {
 				abstract: true,
-				templateUrl: jurl('sources'),
+				url: '/sources',
 				views: {
-					'footer': { templateUrl: jurl('footer') }
+					'footer': { templateUrl: jurl('footer') },
+					"main": { templateUrl: jurl('sources') }
 				}
 			})
+
 			.state('sources.list', {
-				url: '/sources'
+				url: '',
+				views: {
+					"source-main": { templateUrl: jurl('sources.list') }
+				}
 			})
+
 			.state('sources.detail', {
-				url: '/source/:sourceId',
-				templateUrl: jurl('sources')
+				url: '/:sourceId',
+				views: {
+					"source-main": { templateUrl: jurl('sources.detail') }
+				}
 			})
+
+
 			.state('applications', {
 				abstract: true,
 				views: {
@@ -39,9 +50,11 @@ mangroveApp
 					'main': { templateUrl: jurl('applications') }
 				}
 			})
+
 			.state('applications.list', {
 				url: '/applications'
 			})
+
 			.state('credits', {
 				url: '/credits',
 				views: {
@@ -53,50 +66,22 @@ mangroveApp
 	]
 );
 
-mangroveApp
-	.directive('mgSource', function() {
+mangroveServerApp
+	.directive('mgConfirmClick',
+	function(){
 		return {
-			restrict: 'E',
-			scope: {
-				source: '=source'
-			},
-			templateUrl: jurl('source'),
-			controller: [
-				'$scope', '$http',
-				function($scope, $http) {
-					$scope.authenticate = function() {
-						// Post passphrase to server, attempting to authenticate
-					};
-				}
-			]
+			link: function (scope, element, attr) {
+				var msg = attr.mgConfirmText || "Are you sure?";
+				var clickAction = attr.mgConfirmClick;
+				element.bind('click',function () {
+					if ( window.confirm(msg) ) {
+						scope.$eval(clickAction)
+					}
+				});
+			}
 		};
-	});
-
-mangroveApp
-	.directive('mgApplication', function() {
-		return {
-			restrict: 'E',
-			scope: {
-				source: '=application'
-			},
-			templateUrl: jurl('application'),
-			controller: [
-				'$scope', '$http',
-				function($scope, $http) {
-					$scope.select = function() {
-						// Make server call to mark application for later install
-						// This may already trigger download actions to expedite
-						// later calls
-					};
-
-					$scope.install = function() {
-						// Actually install the applications main package
-						// And associated packages
-					};
-				}
-			]
-		};
-	});
+	}
+);
 
 mangroveApp
 	.controller('mgAppCtrl',
@@ -166,7 +151,7 @@ mangroveApp
 );
 
 mangroveApp
-	.controller('SourceDetailCtrl',
+	.controller('SourceCtrl',
 	[
 		'$scope', 'Source',
 		function ($scope, Source) {
