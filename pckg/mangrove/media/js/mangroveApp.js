@@ -13,7 +13,8 @@ mangroveApp
 	.config(
 	[
 	'$stateProvider', '$urlRouterProvider',
-	function ($stateProvider, $urlRouterProvider) {
+	function ($stateProvider, $urlRouterProvider)
+	{
 		$urlRouterProvider
 			.otherwise('/applications');
 
@@ -66,9 +67,10 @@ mangroveApp
 	]
 );
 
-mangroveServerApp
+mangroveApp
 	.directive('mgConfirmClick',
-	function(){
+	function()
+	{
 		return {
 			link: function (scope, element, attr) {
 				var msg = attr.mgConfirmText || "Are you sure?";
@@ -87,17 +89,10 @@ mangroveApp
 	.controller('mgAppCtrl',
 	[
 		'mgAppSession',
-		function(mgAppSession) {
+		function(mgAppSession)
+		{
 			mgAppSession.init('com_mangrove');
-		}
-	]
-);
 
-mangroveApp
-	.controller('ApplicationListCtrl',
-	[
-		'$scope', '$timeout', '$filter',
-		function ($scope, $timeout, $filter) {
 			var spinner = Spinners.create('#spinner', {
 				radius: 2,
 				height: 4,
@@ -108,24 +103,17 @@ mangroveApp
 				rotation: 250,
 				color: '#080'
 			}).play();
+		}
+	]
+);
 
-			$scope.search = '';
-
-			//allpackages = Restangular.all("packages").getList();
-
-			$scope.packages = [];
-
-			$scope.installList = [];
-
-			filter = $filter('filter');
-
-			$scope.filter = function(q) {
-				$scope.inprogress = true;
-				$scope.packages = filter(allpackages, q);
-				$timeout(function(){
-					$scope.inprogress = false;
-				}, 100);
-			};
+mangroveApp
+	.controller('ApplicationListCtrl',
+	[
+		'$scope', 'dataPersist',
+		function ($scope, dataPersist)
+		{
+			dataPersist.getList($scope, 'applications', 'application');
 		}
 	]
 );
@@ -134,7 +122,8 @@ mangroveApp
 	.controller('InstallListCtrl',
 	[
 		'$scope',
-		function ($scope) {
+		function ($scope)
+		{
 			$scope.install = [];
 		}
 	]
@@ -143,9 +132,10 @@ mangroveApp
 mangroveApp
 	.controller('SourceListCtrl',
 	[
-		'$scope', 'Source',
-		function ($scope, Source) {
-			$scope.sources = Source.query();
+		'$scope', 'dataPersist',
+		function ($scope, dataPersist)
+		{
+			dataPersist.getList($scope, 'sources', 'source');
 		}
 	]
 );
@@ -153,9 +143,28 @@ mangroveApp
 mangroveApp
 	.controller('SourceCtrl',
 	[
-		'$scope', 'Source',
-		function ($scope, Source) {
-			return Source.get({task: 'source'});
+		'$scope', '$state', '$stateParams',
+		function ($scope, $state, $stateParams)
+		{
+			$scope.editmode = false;
+
+			if ( $stateParams.sourceId == 0 ) {
+				$scope.editmode = true;
+
+				return;
+			} else if ( typeof $scope.sources == 'undefined' ) {
+				$state.transitionTo('sources.list');
+			}
+
+			for ( var i = 0; i < $scope.sources.length; i++ ) {
+				if ($scope.sources[i].id == $stateParams.sourceId) {
+					$scope.source = $scope.sources[i];
+				}
+			}
+
+			if ( typeof $scope.source == 'undefined' ) {
+				$state.transitionTo('sources.list');
+			}
 		}
 	]
 );
