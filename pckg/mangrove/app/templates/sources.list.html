@@ -1,6 +1,9 @@
 <ul>
 	<li ng-repeat="source in sources" class="animate-calm">
-		<a ui-sref="sources.detail({sourceId:source.id})">{{source.name}}</a>
+		<a ui-sref="sources.detail({sourceId:source.id})">
+			<span ng-if="{{source.name}}">{{source.name}}</span>
+			<span ng-if="{{!source.name}}">{{source.url}}</span>
+		</a>
 	</li>
 	<li ng-if="loading" class="text-center">
 		<i class="fa fa-spinner fa-spin"></i> Loading sources
