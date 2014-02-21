@@ -1,6 +1,6 @@
 <?php
 
-class ApplicationService extends AbstractService
+class ApplicationService extends RestService
 {
 	public function getApplication()
 	{

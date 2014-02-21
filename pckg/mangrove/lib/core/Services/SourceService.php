@@ -1,6 +1,6 @@
 <?php
 
-class SourceService extends AbstractService
+class SourceService extends RestService
 {
 	public function postAuthenticate()
 	{
