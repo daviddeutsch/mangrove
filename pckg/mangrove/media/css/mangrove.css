@@ -147,3 +147,7 @@ body {
 	display: none;
 	height: 0;
 }
+
+ul#sources li {
+	list-style: none;
+}

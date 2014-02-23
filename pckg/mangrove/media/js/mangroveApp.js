@@ -135,7 +135,18 @@ mangroveApp
 		'$scope', 'dataPersist',
 		function ($scope, dataPersist)
 		{
-			dataPersist.getList($scope, 'sources', 'source');
+			dataPersist.getList(
+				$scope,
+				'sources',
+				'source',
+				{
+					remove: function() { $state.transitionTo('sources.list'); },
+					load: function() {
+						$scope.loading = false;
+						$state.go('sources.detail',{sourceId:$scope.source.id});
+					}
+				}
+			);
 		}
 	]
 );

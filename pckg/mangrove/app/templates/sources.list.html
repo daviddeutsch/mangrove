@@ -1,14 +1,17 @@
-<ul>
+<ul id="sources">
 	<li ng-repeat="source in sources" class="animate-calm">
 		<a ui-sref="sources.detail({sourceId:source.id})">
 			<span ng-if="{{source.name}}">{{source.name}}</span>
-			<span ng-if="{{!source.name}}">{{source.url}}</span>
+			<span ng-if="{{source.name}}">{{source.url}}</span>
+			<i class="fa fa-pencil"></i>
 		</a>
+		<span>Selected Streams: X/X</span>
+		{{source}}
 	</li>
 	<li ng-if="loading" class="text-center">
 		<i class="fa fa-spinner fa-spin"></i> Loading sources
 	</li>
 	<li class="animate-calm">
-		<a ui-sref="sources.detail({sourceId:0})"><i class="fa fa-plus"></i></a>
+		<a ui-sref="sources.detail({sourceId:0})"><i class="fa fa-plus"></i> add a new source</a>
 	</li>
 </ul>
