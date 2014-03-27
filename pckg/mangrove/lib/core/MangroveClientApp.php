@@ -111,7 +111,7 @@ class MangroveClientApp extends MangroveAppInstance
 				'jquery-1.7.2.min',
 				'angular.min', 'angular-animate.min',
 				'ui-bootstrap-tpls.min', 'angular-ui-router.min',
-				'observe', 'omnibinder',
+				'observe', 'octobinder',
 				'spinners.min',
 				'mangroveBase',
 				'mangroveApp'
