@@ -5,13 +5,13 @@ jimport('joomla.installer.installer');
 if ( !class_exists('Com_MangroveInstallerScript') ) {
 
 /**
- * Mangrove Bootstrap installer
+ * Mangrove Shoot installer
  *
  * Does the following:
  *
  * · Comes with a payload
- * · Payload needs to include RedBean and Joomla Installers
- * · Sets up RedBean, mangrove and basic installers
+ * · Payload needs to include RedBean, saltwater and Joomla installers
+ * · Sets up RedBean, saltwater, mangrove and emulates basic installers
  * · Hands over data to the actual mangrove install
  *
  * @package Mangrove
@@ -22,7 +22,7 @@ if ( !class_exists('Com_MangroveInstallerScript') ) {
 class Com_MangroveInstallerScript
 {
 	/**
-	 * Path to bootstrap directory
+	 * Path to shoot directory
 	 *
 	 * @var string
 	 */
@@ -88,19 +88,19 @@ class Com_MangroveInstallerScript
 			rename($zip, $this->temp.'/'.basename($zip));
 		}
 
-		// Remove bootstrap directories
+		// Remove shoot directories
 
 		foreach(
 			array(
 				$this->base,
-				JPATH_ROOT.'/administrator/components/com_mangrovebootstrap',
-				JPATH_ROOT.'/components/com_mangrovebootstrap',
+				JPATH_ROOT.'/administrator/components/com_mangroveshoot',
+				JPATH_ROOT.'/components/com_mangroveshoot',
 			) as $dir
 		) {
 			self::rrmdir($dir);
 		}
 
-		unlink($this->jtemp.'/mangrove-bootstrap.zip');
+		unlink($this->jtemp.'/mangrove-shoot.zip');
 
 		if ( !$this->detectMangrove() ) {
 			$this->installMangrove();
