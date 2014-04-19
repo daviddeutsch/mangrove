@@ -1,0 +1,20 @@
+{
+	"vendor":"valanx",
+	"description":"A package manager that is not just a faster horse.",
+	"authors":[
+		{
+			"name":"David Deutsch",
+			"email":"skore@valanx.org",
+			"homepage":"http://valanx.org"
+		}
+	],
+	"copyright":"Copyright (C) 2013 David Deutsch",
+	"license":"GNU/GPL Version 3.0 or later - http://www.gnu.org/copyleft/gpl.html",
+	"type":"app",
+	"version":"1.0",
+	"require":
+		[
+			"valanx/mangrove/saltwater"
+		],
+	"payload": "require-payload"
+}
