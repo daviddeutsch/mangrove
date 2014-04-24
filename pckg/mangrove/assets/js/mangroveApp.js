@@ -1,7 +1,8 @@
 var mangroveApp = angular.module(
 	"mangroveApp",
 	[
-		'ngAnimate', 'ui.router', 'ui.bootstrap', 'mangroveBase'
+		'ngAnimate', 'ui.router', 'angularMoment',
+		'ui.bootstrap', 'swamp'
 	]
 );
 
@@ -88,10 +89,10 @@ mangroveApp
 mangroveApp
 	.controller('mgAppCtrl',
 	[
-		'mgAppSession',
-		function(mgAppSession)
+		'swSession',
+		function(swSession)
 		{
-			mgAppSession.init('com_mangrove');
+			swSession.init('com_mangrove');
 
 			var spinner = Spinners.create('#spinner', {
 				radius: 2,

@@ -3,7 +3,6 @@ body {
 }
 
 #element-box {
-	background-image: url("../img/arches.png");
 	margin-bottom: 0;
 	border-radius: 0 0 10px 10px;
 }
@@ -16,6 +15,7 @@ body {
 
 .mangroveApp {
 	padding: 2%;
+	background-image: url("../img/arches.png");
 }
 
 .mangroveApp > .container {

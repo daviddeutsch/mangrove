@@ -16,16 +16,16 @@
 	<script type="text/javascript" src="assets/js/angular-moment.min.js"></script>
 	<script type="text/javascript" src="assets/js/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="assets/js/ui-bootstrap-tpls-0.9.0.min.js"></script>
-	<script type="text/javascript" src="assets/js/mangroveServerApp.js"></script>
+	<script type="text/javascript" src="assets/js/mangroveApp.js"></script>
 
 	<link href="https://netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css" rel="stylesheet">
 	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-	<link href="assets/css/mangrove-server.css" rel="stylesheet">
+	<link href="assets/css/mangrove.css" rel="stylesheet">
 
-	<title ng-bind="'mangrove server: ' + $state.current.name">mangrove server</title>
+	<title ng-bind="'mangrove: ' + $state.current.name">mangrove server</title>
 </head>
 <body ng-controller="mgAppCtrl">
-<div class="mangroveServerApp" ng-cloak>
+<div class="mangroveApp" ng-cloak>
 	<div class="container">
 		<div id="spinner" class="animate-calm pull-right" ng-class="{'ng-leave':loading, 'ng-enter':!loading}"></div>
 		<div ui-view="header"></div>
