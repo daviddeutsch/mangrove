@@ -4,12 +4,14 @@ namespace MangroveClient;
 
 use Saltwater\Thing\Module;
 
-class MangroveClient extends Module
+class MangroveClientStandalone extends Module
 {
 	protected $dependencies = array(
-		'Saltwater\Root\Root'
+		'MangroveClient\MangroveClient'
 	);
 
-	protected $contexts = array('MangroveClient');
+	protected $providers = array(
+		'config'
+	);
 
 }
