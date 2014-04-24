@@ -7,7 +7,7 @@ var mangroveApp = angular.module(
 );
 
 jurl = function (name) {
-	return "components/com_mangrove/templates/" + name + ".html";
+	return "partials/" + name + ".html";
 };
 
 mangroveApp
@@ -17,7 +17,7 @@ mangroveApp
 	function ($stateProvider, $urlRouterProvider)
 	{
 		$urlRouterProvider
-			.otherwise('/applications');
+			.otherwise('/application');
 
 		$stateProvider
 

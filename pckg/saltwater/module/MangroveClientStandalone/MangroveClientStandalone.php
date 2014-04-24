@@ -1,6 +1,6 @@
 <?php
 
-namespace MangroveClient;
+namespace MangroveClientStandalone;
 
 use Saltwater\Thing\Module;
 
