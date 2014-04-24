@@ -6,6 +6,8 @@ use Saltwater\Thing\Module;
 
 class MangroveClient extends Module
 {
+	public $namespace = 'MangroveClient';
+
 	protected $dependencies = array(
 		'Saltwater\Root\Root'
 	);
