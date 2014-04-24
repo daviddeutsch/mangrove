@@ -114,7 +114,17 @@ mangroveApp
 		'$scope', 'dataPersist',
 		function ($scope, dataPersist)
 		{
-			dataPersist.getList($scope, 'applications', 'application');
+			$scope.loading = true;
+
+			dataPersist.bindResource(
+				$scope,
+				{
+					res: 'application'
+				}
+			)
+			.then(function() {
+				$scope.loading = false;
+			});
 		}
 	]
 );
