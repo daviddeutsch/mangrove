@@ -21,40 +21,40 @@ mangroveApp
 
 		$stateProvider
 
-			.state('sources', {
+			.state('source', {
 				abstract: true,
-				url: '/sources',
+				url: '/source',
 				views: {
 					'footer': { templateUrl: jurl('footer') },
-					"main": { templateUrl: jurl('sources') }
+					"main": { templateUrl: jurl('source') }
 				}
 			})
 
-			.state('sources.list', {
+			.state('source.list', {
 				url: '',
 				views: {
-					"source-main": { templateUrl: jurl('sources.list') }
+					"source-main": { templateUrl: jurl('source.list') }
 				}
 			})
 
-			.state('sources.detail', {
+			.state('source.detail', {
 				url: '/:sourceId',
 				views: {
-					"source-main": { templateUrl: jurl('sources.detail') }
+					"source-main": { templateUrl: jurl('source.detail') }
 				}
 			})
 
 
-			.state('applications', {
+			.state('application', {
 				abstract: true,
 				views: {
 					'footer': { templateUrl: jurl('footer') },
-					'main': { templateUrl: jurl('applications') }
+					'main': { templateUrl: jurl('application') }
 				}
 			})
 
-			.state('applications.list', {
-				url: '/applications'
+			.state('application.list', {
+				url: '/application'
 			})
 
 			.state('credits', {
