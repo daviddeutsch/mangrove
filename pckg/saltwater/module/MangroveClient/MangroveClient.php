@@ -14,4 +14,8 @@ class MangroveClient extends Module
 
 	protected $contexts = array('MangroveClient');
 
+	protected $services = array(
+		'application', 'source', 'stream'
+	);
+
 }

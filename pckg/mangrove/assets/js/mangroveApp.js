@@ -38,7 +38,7 @@ mangroveApp
 			})
 
 			.state('source.detail', {
-				url: '/:sourceId',
+				url: '/:itemId',
 				views: {
 					"source-main": { templateUrl: jurl('source.detail') }
 				}
@@ -146,18 +146,25 @@ mangroveApp
 		'$scope', 'dataPersist',
 		function ($scope, dataPersist)
 		{
-			dataPersist.getList(
+			$scope.loading = true;
+
+			dataPersist.bindResource(
 				$scope,
-				'sources',
-				'source',
 				{
-					remove: function() { $state.transitionTo('sources.list'); },
-					load: function() {
-						$scope.loading = false;
-						$state.go('sources.detail',{sourceId:$scope.source.id});
+					res: 'source',
+					callback: {
+						add: function(id) { $state.go('source.detail',{itemId:id}); },
+						remove: function(id) {
+							if ($stateParams.itemId == id) {
+								$state.transitionTo('source.list');
+							}
+						}
 					}
 				}
-			);
+			)
+			.then(function() {
+				$scope.loading = false;
+			});
 		}
 	]
 );
@@ -165,28 +172,46 @@ mangroveApp
 mangroveApp
 	.controller('SourceCtrl',
 	[
-		'$scope', '$state', '$stateParams',
-		function ($scope, $state, $stateParams)
+		'$scope', '$state', '$stateParams', 'dataPersist',
+		function ($scope, $state, $stateParams, dataPersist)
 		{
 			$scope.editmode = false;
 
-			if ( $stateParams.sourceId == 0 ) {
-				$scope.editmode = true;
-
-				return;
-			} else if ( typeof $scope.sources == 'undefined' ) {
-				$state.transitionTo('sources.list');
-			}
-
-			for ( var i = 0; i < $scope.sources.length; i++ ) {
-				if ($scope.sources[i].id == $stateParams.sourceId) {
-					$scope.source = $scope.sources[i];
+			dataPersist.bindResource(
+				$scope,
+				{
+					res: 'source',
+					callback: {
+						add: function(id) { $state.go('source.detail',{itemId:id}); },
+						remove: function(id) {
+							if ($stateParams.itemId == id) {
+								$state.transitionTo('source.list');
+							}
+						}
+					}
 				}
-			}
+			)
+			.then(function() {
+				$scope.loading = false;
 
-			if ( typeof $scope.source == 'undefined' ) {
-				$state.transitionTo('sources.list');
-			}
+					if ( $stateParams.itemId == 0 ) {
+						$scope.editmode = true;
+
+						return;
+					} else if ( typeof $scope.source == 'undefined' ) {
+						$state.transitionTo('source.list');
+					}
+
+					for ( var i = 0; i < $scope.source.length; i++ ) {
+						if ($scope.source[i].id == $stateParams.itemId) {
+							$scope.source = $scope.source[i];
+						}
+					}
+
+					if ( typeof $scope.source == 'undefined' ) {
+						$state.transitionTo('source.list');
+					}
+			});
 		}
 	]
 );

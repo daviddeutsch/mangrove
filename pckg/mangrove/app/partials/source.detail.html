@@ -1,18 +1,26 @@
 <div ng-controller="SourceCtrl" ng-cloak>
 	<h2>
-		<span ng-show="source.name">{{source.name}}</span>
+		<span ng-show="item.name">{{item.name}}</span>
 		<span class="pull-right">
-			<button class="btn btn-xs btn-success" ng-click="editmode=true" ng-hide="editmode">edit</button>
-			<button class="btn btn-xs btn-warning" ng-click="editmode=false" ng-show="editmode && source.id">done</button>
-			<button class="btn btn-xs btn-warning" ng-click="editmode=false;add(source)" ng-show="editmode && !source.id">save</button>
-			<button class="btn btn-xs btn-danger" mg-confirm-click="remove(source.id)" ng-hide="editmode">remove</button>
+			<button class="btn btn-xs btn-success animate"
+					ng-click="editmode=true"
+					ng-hide="editmode || !item.id">edit</button>
+			<button class="btn btn-xs btn-warning animate"
+					ng-click="editmode=false"
+					ng-show="editmode && item.id">done</button>
+			<button class="btn btn-xs btn-warning animate"
+					ng-click="editmode=false;add(item, 'source')"
+					ng-show="editmode && !item.id">save</button>
+			<button class="btn btn-xs btn-danger animate"
+					mg-confirm-click="remove(item.id, 'source')"
+					ng-hide="editmode || !item.id">remove</button>
 		</span>
 	</h2>
 	<hr>
 	<div ng-hide="editmode">
 		<div class="row">
 			<div class="col-md-6">
-				<p>Server Url: <strong>{{source.url}}</strong></p>
+				<p>Server Url: <strong>{{item.url}}</strong></p>
 			</div>
 			<div class="col-md-6">
 			</div>
@@ -23,8 +31,8 @@
 			<div class="row">
 				<div class="col-md-6">
 					<p>
-						<label for="source-url">Server Url</label>
-						<input class="form-control" id="source-url" ng-model="source.url">
+						<label for="item-url">Server Url</label>
+						<input class="form-control" id="item-url" ng-model="item.url">
 					</p>
 				</div>
 				<div class="col-md-6">
