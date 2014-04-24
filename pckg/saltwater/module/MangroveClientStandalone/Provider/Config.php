@@ -13,12 +13,14 @@ class Config extends AbstractConfig
 	{
 		if ( empty(self::$config) ) {
 			self::$config = (object) array(
-				'type'     => ClientConfig::$db_type,
-				'host'     => ClientConfig::$db_host,
-				'name'     => ClientConfig::$db_name,
-				'user'     => ClientConfig::$db_user,
-				'password' => ClientConfig::$db_password,
-				'prefix'   => ClientConfig::$db_prefix
+				'database' => (object) (object) array(
+					'type'     => ClientConfig::$db_type,
+					'host'     => ClientConfig::$db_host,
+					'name'     => ClientConfig::$db_name,
+					'user'     => ClientConfig::$db_user,
+					'password' => ClientConfig::$db_password,
+					'prefix'   => ClientConfig::$db_prefix
+				)
 			);
 		}
 
