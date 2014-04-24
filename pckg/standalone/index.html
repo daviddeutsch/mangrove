@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mangroveApp" ng-cloak>
+<head>
+	<meta charset="utf-8">
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-animate.min.js"></script>
+	<script type="text/javascript" src="assets/js/moment.min.js"></script>
+	<script type="text/javascript" src="assets/js/autofill-event.js"></script>
+	<script type="text/javascript" src="assets/js/ngStorage.min.js"></script>
+	<script type="text/javascript" src="assets/js/spinners.min.js"></script>
+	<script type="text/javascript" src="assets/js/observe.js"></script>
+	<script type="text/javascript" src="assets/js/octobinder.js"></script>
+	<script type="text/javascript" src="assets/js/swamp.js"></script>
+	<script type="text/javascript" src="assets/js/angular-moment.min.js"></script>
+	<script type="text/javascript" src="assets/js/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="assets/js/ui-bootstrap-tpls-0.9.0.min.js"></script>
+	<script type="text/javascript" src="assets/js/mangroveServerApp.js"></script>
+
+	<link href="https://netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css" rel="stylesheet">
+	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/css/mangrove-server.css" rel="stylesheet">
+
+	<title ng-bind="'mangrove server: ' + $state.current.name">mangrove server</title>
+</head>
+<body ng-controller="mgAppCtrl">
+<div class="mangroveServerApp" ng-cloak>
+	<div class="container">
+		<div id="spinner" class="animate-calm pull-right" ng-class="{'ng-leave':loading, 'ng-enter':!loading}"></div>
+		<div ui-view="header"></div>
+		<div ui-view="main"></div>
+	</div>
+</div>
+</body>
+</html>

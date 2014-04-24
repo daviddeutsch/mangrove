@@ -2,7 +2,7 @@
 
 class MangroveShoot
 {
-	/**
+/**
 	 * Path to shoot directory
 	 *
 	 * @var string
