@@ -2,24 +2,34 @@
 	<div class="header">
 		<div class="mangrove-logo" ng-show="search"></div>
 		<div class="mangrove-logo-big" ng-hide="search"></div>
-		<div class="spinwrapper">
-			<div id="spinner" ng-show="inprogress"></div>
+		<div ng-show="application.length">
+			<div class="spinwrapper">
+				<div id="spinner" ng-show="inprogress"></div>
+			</div>
+			<div class="main-search-box col-xs-4">
+				<input type="text"
+					   class="form-control main-search"
+					   ng-model="search"
+					   ng-change="filter(search)"
+					   ng-class="{'main-search': search == '', 'top-search': search != ''}"
+					   ng-hide="ready"
+					   placeholder="What do you want to install?"
+					   autofocus/>
+			</div>
+			<hr ng-show="search" />
 		</div>
-		<div class="main-search-box col-xs-4">
-			<input type="text"
-				   class="form-control main-search"
-				   ng-model="search"
-				   ng-change="filter(search)"
-				   ng-class="{'main-search': search == '', 'top-search': search != ''}"
-				   ng-hide="ready"
-				   placeholder="What do you want to install?"
-				   autofocus/>
+		<div ng-hide="application.length" class="text-center">
+			<p>Looks like you don't have any sources set up yet.</p>
+			<br />
+			<a ui-sref="source.list" class="btn btn-primary btn-xs">let's change that</a>
 		</div>
-		<hr ng-show="search" />
 	</div>
-	<ul ng-controller="ApplicationListCtrl" ng-show="search">
-		<li ng-repeat="application in applications | filter:search | orderBy:'name' | limitTo:5">
-			<mg-application></mg-application>
-		</li>
-	</ul>
+	<div ng-show="search">
+		<div ng-repeat="item in application | filter:search | orderBy:'name' | limitTo:5" class="panel panel-primary animate-calm">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{item.name}}</h3>
+			</div>
+			<div class="panel-body">{{item.name}}</div>
+		</div>
+	</div>
 </div>

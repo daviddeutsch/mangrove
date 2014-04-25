@@ -49,7 +49,7 @@ mangroveApp
 				abstract: true,
 				views: {
 					'footer': { templateUrl: jurl('footer') },
-					'main': { templateUrl: jurl('application') }
+					'main': { templateUrl: jurl('application.list') }
 				}
 			})
 
@@ -119,7 +119,15 @@ mangroveApp
 			dataPersist.bindResource(
 				$scope,
 				{
-					res: 'application'
+					res: 'application',
+					callback: {
+						add: function(id) { $state.go('application.detail',{itemId:id}); },
+						remove: function(id) {
+							if ($stateParams.itemId == id) {
+								$state.transitionTo('source.list');
+							}
+						}
+					}
 				}
 			)
 			.then(function() {
