@@ -12,7 +12,7 @@
 				<span ng-show="item.name != ''"><strong>{{item.name}}</strong></span>
 				<span class="pull-right">
 					<a class="btn btn-xs btn-success animate"
-					   ng-click="source.detail({itemId:item.id})"
+					   ui-sref="source.detail({itemId:item.id})"
 					   ng-hide="editmode || !item.id">configure</a>
 				</span>
 			</h3>
@@ -22,5 +22,9 @@
 		</div>
 	</div>
 </div>
+<div class="col-md-6 col-md-offset-3">
+	<div class="text-center">
+		<a ui-sref="source.detail({sourceId:0})"><i class="fa fa-plus"></i> add a new source</a>
+	</div>
+</div>
 
-<a ui-sref="source.detail({sourceId:0})"><i class="fa fa-plus"></i> add a new source</a>
