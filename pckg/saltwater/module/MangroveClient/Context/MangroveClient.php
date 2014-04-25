@@ -2,7 +2,9 @@
 
 namespace MangroveClient\Context;
 
-class MangroveClient
+use Saltwater\Thing\Context;
+
+class MangroveClient extends Context
 {
 
 }
