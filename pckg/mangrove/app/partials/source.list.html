@@ -1,17 +1,26 @@
-<ul id="sources">
-	<li ng-repeat="item in source" class="animate-calm">
-		<a ui-sref="source.detail({itemId:item.id})">
-			<span ng-if="{{item.name}}">{{item.name}}</span>
-			<span ng-if="{{item.name}}">{{item.url}}</span>
-			<i class="fa fa-pencil"></i>
-		</a>
-		<span>Selected Streams: X/X</span>
-		{{source}}
-	</li>
-	<li ng-if="loading" class="text-center">
-		<i class="fa fa-spinner fa-spin"></i> Loading sources
-	</li>
-	<li class="animate-calm">
-		<a ui-sref="source.detail({sourceId:0})"><i class="fa fa-plus"></i> add a new source</a>
-	</li>
-</ul>
+<h2>All Sources</h2>
+<hr />
+<div ng-if="loading" class="text-center">
+	<span><i class="fa fa-spinner fa-spin"></i> Loading sources</span>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+	<div ng-repeat="item in source" class="panel panel-primary animate-calm">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<span ng-show="item.name == ''">Unnamed Source</span>
+				<span ng-show="item.name != ''"><strong>{{item.name}}</strong></span>
+				<span class="pull-right">
+					<a class="btn btn-xs btn-success animate"
+					   ng-click="source.detail({itemId:item.id})"
+					   ng-hide="editmode || !item.id">configure</a>
+				</span>
+			</h3>
+		</div>
+		<div class="panel-body">
+			{{item.url}}
+		</div>
+	</div>
+</div>
+
+<a ui-sref="source.detail({sourceId:0})"><i class="fa fa-plus"></i> add a new source</a>

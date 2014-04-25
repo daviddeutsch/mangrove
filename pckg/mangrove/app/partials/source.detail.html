@@ -1,5 +1,7 @@
 <div ng-controller="SourceCtrl" ng-cloak>
 	<h2>
+		<span ng-hide="item.name || item.id">New Source</span>
+		<span ng-show="item.name == '' && item.id">Unnamed Source</span>
 		<span ng-show="item.name">{{item.name}}</span>
 		<span class="pull-right">
 			<button class="btn btn-xs btn-success animate"
@@ -28,16 +30,14 @@
 	</div>
 	<div ng-show="editmode">
 		<form>
-			<div class="row">
-				<div class="col-md-6">
-					<p>
-						<label for="item-url">Server Url</label>
-						<input class="form-control" id="item-url" ng-model="item.url">
-					</p>
-				</div>
-				<div class="col-md-6">
-				</div>
-			</div>
+			<p>
+				<label for="source-name">Name</label>
+				<input class="form-control" id="source-name" ng-model="item.name">
+			</p>
+			<p>
+				<label for="source-url">URL</label>
+				<input class="form-control" id="source-url" ng-model="item.url">
+			</p>
 		</form>
 	</div>
 </div>

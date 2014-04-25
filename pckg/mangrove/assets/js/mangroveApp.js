@@ -191,27 +191,22 @@ mangroveApp
 					}
 				}
 			)
-			.then(function() {
-				$scope.loading = false;
-
-					if ( $stateParams.itemId == 0 ) {
-						$scope.editmode = true;
-
-						return;
-					} else if ( typeof $scope.source == 'undefined' ) {
-						$state.transitionTo('source.list');
-					}
-
-					for ( var i = 0; i < $scope.source.length; i++ ) {
-						if ($scope.source[i].id == $stateParams.itemId) {
-							$scope.source = $scope.source[i];
-						}
-					}
-
-					if ( typeof $scope.source == 'undefined' ) {
-						$state.transitionTo('source.list');
-					}
-			});
+			.then(function(){
+				if ( $stateParams.itemId == 0 ) {
+					$scope.editmode = true;
+				} else {
+					dataPersist.bindItem($scope, 'source', Number($stateParams.itemId))
+						.then(
+						function() {
+							$scope.loading = false;
+						},
+						function() { $state.transitionTo('source.list'); }
+					);
+				}
+			}, function() {
+				$state.transitionTo('source.list');
+			}
+		).then(function(){ $scope.loading = false; });
 		}
 	]
 );
