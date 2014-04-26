@@ -9,7 +9,8 @@ class MangroveClient extends Module
 	public $namespace = 'MangroveClient';
 
 	protected $dependencies = array(
-		'Saltwater\Root\Root'
+		'Saltwater\Root\Root',
+		'MangroveConnector\MangroveConnector'
 	);
 
 	protected $contexts = array('MangroveClient');

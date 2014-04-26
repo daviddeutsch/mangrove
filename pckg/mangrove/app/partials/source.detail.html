@@ -4,18 +4,21 @@
 		<span ng-show="item.name == '' && item.id">Unnamed Source</span>
 		<span ng-show="item.name">{{item.name}}</span>
 		<span class="pull-right">
-			<button class="btn btn-xs btn-success animate"
+			<button class="btn btn-s btn-success animate"
 					ng-click="editmode=true"
 					ng-hide="editmode || !item.id">edit</button>
-			<button class="btn btn-xs btn-warning animate"
+			<button class="btn btn-s btn-warning animate"
 					ng-click="editmode=false"
 					ng-show="editmode && item.id">done</button>
-			<button class="btn btn-xs btn-warning animate"
+			<button class="btn btn-s btn-warning animate"
 					ng-click="editmode=false;add(item, 'source')"
 					ng-show="editmode && !item.id">save</button>
-			<button class="btn btn-xs btn-danger animate"
+			<button class="btn btn-s btn-danger animate"
 					mg-confirm-click="remove(item.id, 'source')"
 					ng-hide="editmode || !item.id">remove</button>
+			<button class="btn btn-s btn-danger"
+					ui-sref="source.list"
+					ng-show="editmode && !item.id">cancel</button>
 		</span>
 	</h2>
 	<hr>

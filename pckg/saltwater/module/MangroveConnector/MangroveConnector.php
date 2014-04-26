@@ -8,11 +8,11 @@ class MangroveConnector extends Module
 {
 	public $namespace = 'MangroveConnector';
 
-	protected $dependencies = array(
-		'MangroveClient\MangroveClient'
-	);
-
 	protected $contexts = array('Connector');
+
+	protected $providers = array(
+		'db', 'pointer'
+	);
 
 	protected $services = array(
 		'application', 'source', 'stream', 'branch'
