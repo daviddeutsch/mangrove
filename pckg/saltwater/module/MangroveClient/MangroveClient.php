@@ -18,5 +18,4 @@ class MangroveClient extends Module
 	protected $services = array(
 		'application', 'source', 'stream'
 	);
-
 }

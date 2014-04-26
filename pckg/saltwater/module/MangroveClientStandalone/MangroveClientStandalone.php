@@ -15,5 +15,4 @@ class MangroveClientStandalone extends Module
 	protected $providers = array(
 		'config'
 	);
-
 }

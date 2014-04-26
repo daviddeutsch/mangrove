@@ -17,5 +17,4 @@ class MangroveConnector extends Module
 	protected $services = array(
 		'application', 'source', 'stream', 'branch'
 	);
-
 }
