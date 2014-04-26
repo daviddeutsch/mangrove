@@ -151,3 +151,204 @@ body {
 ul#sources li {
 	list-style: none;
 }
+
+
+.animate.ng-enter,
+.animate.ng-leave {
+	-webkit-transition: 4000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-moz-transition: 4000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-ms-transition: 4000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-o-transition: 4000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	transition: 4000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+}
+
+.animate.ng-enter,
+.animate.ng-leave.ng-leave-active {
+	opacity: 0;
+}
+
+.animate.ng-leave,
+.animate.ng-enter.ng-enter-active {
+	opacity: 1;
+}
+
+.animate-calm.ng-enter,
+.animate-calm.ng-leave,
+.animate-calm.ng-move,
+.animate-calm.ng-hide-add,
+.animate-calm.ng-hide-remove {
+	-webkit-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-moz-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-ms-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-o-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	position: relative;
+	display: block !important;
+	opacity: 1;
+	height: auto;
+}
+
+.animate-calm.ng-enter,
+.animate-calm.ng-leave.ng-leave-active,
+.animate-calm.ng-hide {
+	opacity: 0;
+	height: 0;
+}
+
+.animate-calm.ng-leave,
+.animate-calm.ng-enter.ng-enter-active {
+	opacity: 1;
+	height: auto;
+}
+
+.animate-very-calm.ng-enter,
+.animate-very-calm.ng-leave,
+.animate-very-calm.ng-move,
+.animate-very-calm.ng-hide-add,
+.animate-very-calm.ng-hide-remove {
+	-webkit-transition: 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-moz-transition: 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-ms-transition: 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	-o-transition: 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	transition: 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+	position: relative;
+	display: block !important;
+	opacity: 1;
+	height: auto;
+}
+
+.animate-very-calm.ng-enter,
+.animate-very-calm.ng-leave.ng-leave-active,
+.animate-very-calm.ng-hide {
+	opacity: 0;
+	height: 0 !important;
+}
+
+.animate-very-calm.ng-leave,
+.animate-very-calm.ng-enter.ng-enter-active {
+	opacity: 1;
+	height: auto !important;
+}
+
+ul#logs {
+	perspective: 2000px;
+}
+
+.animate-calm-flip.ng-enter,
+.animate-calm-flip.ng-leave,
+.animate-calm-flip.ng-move,
+.animate-calm-flip.ng-hide-add,
+.animate-calm-flip.ng-hide-remove {
+	-webkit-transition: 400ms cubic-bezier(0.785, 0.135, 0.15, 0.86) all;
+	-moz-transition: 400ms cubic-bezier(0.785, 0.135, 0.15, 0.86) all;
+	-ms-transition: 400ms cubic-bezier(0.785, 0.135, 0.15, 0.86) all;
+	-o-transition: 400ms cubic-bezier(0.785, 0.135, 0.15, 0.86) all;
+	transition: 400ms cubic-bezier(0.785, 0.135, 0.15, 0.86) all;
+	position: relative;
+	display: block;
+	transform-style: preserve-3d;
+	transform-origin: center top;
+}
+
+.animate-calm-flip.ng-enter,
+.animate-calm-flip.ng-leave.ng-leave-active,
+.animate-calm-flip.ng-hide-add,
+.animate-calm-flip.ng-hide-remove.ng-hide-remove-active {
+	transform: scaleZ(0) rotateX(-60deg);
+	height: 0;
+}
+
+.animate-calm-flip.ng-leave,
+.animate-calm-flip.ng-enter.ng-enter-active,
+.animate-calm-flip.ng-hide-add.ng-hide-add-active,
+.animate-calm-flip.ng-hide-remove {
+	transform: scaleZ(1) rotateX(0deg);
+	height: auto;
+}
+
+.animate-table-calm {
+	overflow: hidden;
+}
+
+.animate-table-calm.ng-enter,
+.animate-table-calm.ng-leave,
+.animate-table-calm.ng-move,
+.animate-table-calm.ng-hide-add,
+.animate-table-calm.ng-hide-remove,
+.animate-table-calm.ng-enter td,
+.animate-table-calm.ng-leave td,
+.animate-table-calm.ng-move td,
+.animate-table-calm.ng-hide-add td,
+.animate-table-calm.ng-hide-remove td {
+	-webkit-transition: 0.4s cubic-bezier(0.785, 0.135, 0.150, 0.860) all;
+	-moz-transition: 0.4s cubic-bezier(0.785, 0.135, 0.150, 0.860) all;
+	-ms-transition: 0.4s cubic-bezier(0.785, 0.135, 0.150, 0.860) all;
+	-o-transition: 0.4s cubic-bezier(0.785, 0.135, 0.150, 0.860) all;
+	transition: .4s cubic-bezier(0.785, 0.135, 0.150, 0.860) all;
+}
+
+.animate-table-calm.ng-enter-stagger {
+	-webkit-transition-delay: 0.2s;
+	-moz-transition-delay: 0.2s;
+	-ms-transition-delay: 0.2s;
+	-o-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+	-webkit-transition-duration: 0;
+	transition-duration: 0;
+}
+
+.animate-table-calm.ng-leave-stagger {
+	-webkit-transition-delay: 0.2s;
+	-moz-transition-delay: 0.2s;
+	-ms-transition-delay: 0.2s;
+	-o-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+	-webkit-transition-duration: 0;
+	transition-duration: 0;
+}
+
+.animate-table-calm.ng-enter,
+.animate-table-calm.ng-leave.ng-leave-active,
+.animate-table-calm.ng-hide-add,
+.animate-table-calm.ng-hide-remove.ng-hide-remove-active {
+	transform-origin: top;
+	transform: scaleY(0);
+	line-height: 0;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.animate-table-calm.ng-leave,
+.animate-table-calm.ng-enter.ng-enter-active,
+.animate-table-calm.ng-hide-add.ng-hide-add-active,
+.animate-table-calm.ng-hide-remove {
+	transform-origin: top;
+	transform: scaleY(1);
+	padding-top: 8px;
+	padding-bottom: 8px;
+	line-height: 1.42857;
+}
+
+.animate-table-calm.ng-enter td,
+.animate-table-calm.ng-leave.ng-leave-active td,
+.animate-table-calm.ng-hide-add td,
+.animate-table-calm.ng-hide-remove.ng-hide-remove-active td {
+	transform-origin: top;
+	transform: scaleY(0);
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: 0;
+	border-color: rgba(221, 221, 221, 0);
+}
+
+.animate-table-calm.ng-leave td,
+.animate-table-calm.ng-enter.ng-enter-active td,
+.animate-table-calm.ng-hide-add.ng-hide-add-active td,
+.animate-table-calm.ng-hide-remove td {
+	transform-origin: top;
+	transform: scaleY(1);
+	padding-top: 8px;
+	padding-bottom: 8px;
+	line-height: 1.42857;
+	border-color: rgba(221, 221, 221, 1);
+}
