@@ -180,8 +180,8 @@ mangroveApp
 mangroveApp
 	.controller('SourceCtrl',
 	[
-		'$scope', '$state', '$stateParams', 'dataPersist',
-		function ($scope, $state, $stateParams, dataPersist)
+		'$scope', '$state', '$stateParams', 'dataPersist', 'swHttp',
+		function ($scope, $state, $stateParams, dataPersist, swHttp)
 		{
 			$scope.editmode = false;
 
@@ -207,6 +207,15 @@ mangroveApp
 						.then(
 						function() {
 							$scope.loading = false;
+
+
+							swHttp.get('/source/'+$scope.item.id+'/connector/info')
+								.success(
+								function(data){
+									$scope.info = data;
+
+								}
+							);
 						},
 						function() { $state.transitionTo('source.list'); }
 					);
