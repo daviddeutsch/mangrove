@@ -12,6 +12,8 @@ class MangroveClient extends Module
 		'Saltwater\Root\Root'
 	);
 
+	protected $providers = array('http');
+
 	protected $contexts = array('MangroveClient');
 
 	protected $services = array(

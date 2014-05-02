@@ -2,14 +2,21 @@
 namespace MangroveClient\Service;
 
 use Saltwater\Server as S;
-use Saltwater\Thing\Service;
+use Saltwater\Root\Service\Rest;
 
-class Source extends Service
+class Source extends Rest
 {
 	public function getInit()
 	{
 		$source = $this->context->data;
 
 
+
+		if ( empty($source->token) ) {
+			$server = S::$n->http->_get($source->url.'/hook/updates');
+
+			return $server;
+		}
 	}
+
 }
