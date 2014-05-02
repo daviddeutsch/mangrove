@@ -75,6 +75,10 @@ body {
 	text-align: center;
 }
 
+.text-center {
+	text-align: center;
+}
+
 .header {
 	margin: 24px auto;
 	text-align: center;
@@ -152,6 +156,9 @@ ul#sources li {
 	list-style: none;
 }
 
+.panel-title a.btn {
+	margin-top: -2px;
+}
 
 .animate.ng-enter,
 .animate.ng-leave {

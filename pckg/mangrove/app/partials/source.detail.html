@@ -43,4 +43,33 @@
 			</p>
 		</form>
 	</div>
+	<div class="col-md-6 col-md-offset-3">
+
+		<div class="panel animate-calm" ng-class="{'panel-primary':item.status=='', 'panel-success':item.status=='ready', 'panel-warning':item.status!='ready'}">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Connection status:
+					<span ng-switch="item.status">
+						<span ng-switch-default class="animate-calm">
+							Not set up yet
+						</span>
+						<span ng-switch-when="ready" class="animate-calm">
+							Ready
+						</span>
+					</span>
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div ng-switch="item.status">
+					<div ng-switch-default class="animate-calm text-center">
+						<a class="btn btn-xs btn-success animate"
+						   ng-click="init();">initialize connection</a>
+					</div>
+					<div ng-switch-when="ready" class="animate-calm">
+						Ready
+					</div>
+			</div>
+		</div>
+		</div>
+	</div>
 </div>

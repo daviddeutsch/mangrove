@@ -180,51 +180,56 @@ mangroveApp
 mangroveApp
 	.controller('SourceCtrl',
 	[
-		'$scope', '$state', '$stateParams', 'dataPersist', 'swHttp',
-		function ($scope, $state, $stateParams, dataPersist, swHttp)
-		{
-			$scope.editmode = false;
+	'$scope', '$state', '$stateParams', 'dataPersist', 'swHttp',
+	function ($scope, $state, $stateParams, dataPersist, swHttp)
+	{
+		$scope.editmode = false;
 
-			dataPersist.bindResource(
-				$scope,
-				{
-					res: 'source',
-					callback: {
-						add: function(id) { $state.go('source.detail',{itemId:id}); },
-						remove: function(id) {
-							if ($stateParams.itemId == id) {
-								$state.transitionTo('source.list');
-							}
+		dataPersist.bindResource(
+			$scope,
+			{
+				res: 'source',
+				callback: {
+					add: function(id) { $state.go('source.detail',{itemId:id}); },
+					remove: function(id) {
+						if ($stateParams.itemId == id) {
+							$state.transitionTo('source.list');
 						}
 					}
 				}
-			)
-			.then(function(){
-				if ( $stateParams.itemId == 0 ) {
-					$scope.editmode = true;
-				} else {
-					dataPersist.bindItem($scope, 'source', Number($stateParams.itemId))
-						.then(
-						function() {
-							$scope.loading = false;
-
-
-							swHttp.get('/source/'+$scope.item.id+'/connector/info')
-								.success(
-								function(data){
-									$scope.info = data;
-
-								}
-							);
-						},
-						function() { $state.transitionTo('source.list'); }
-					);
-				}
-			}, function() {
-				$state.transitionTo('source.list');
 			}
-		).then(function(){ $scope.loading = false; });
+		)
+		.then(function(){
+			if ( $stateParams.itemId == 0 ) {
+				$scope.editmode = true;
+			} else {
+				dataPersist.bindItem($scope, 'source', Number($stateParams.itemId))
+					.then(
+					function() {
+						$scope.loading = false;
+
+
+
+					},
+					function() { $state.transitionTo('source.list'); }
+				);
+			}
+		}, function() {
+			$state.transitionTo('source.list');
 		}
+		).then(function(){ $scope.loading = false; });
+
+		$scope.init = function() {
+			swHttp.get('/source/'+$scope.item.id+'/init')
+				.success(
+				function(data){
+					$scope.info = data;
+
+				}
+			);
+		}
+
+	}
 	]
 );
 
