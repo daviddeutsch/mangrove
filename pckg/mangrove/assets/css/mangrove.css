@@ -79,6 +79,10 @@ body {
 	text-align: center;
 }
 
+.hidden-label {
+	display: none;
+}
+
 .header {
 	margin: 24px auto;
 	text-align: center;

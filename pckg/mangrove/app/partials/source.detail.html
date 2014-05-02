@@ -43,27 +43,47 @@
 			</p>
 		</form>
 	</div>
+	<br /><br /><br />
 	<div class="col-md-6 col-md-offset-3" ng-if="item.id">
 
-		<div class="panel animate-calm" ng-class="{'panel-primary':item.status=='', 'panel-success':item.status=='ready', 'panel-warning':item.status!='ready'}">
+		<div class="panel animate-calm" ng-class="{'panel-primary':status=='untainted', 'panel-success':status=='ready', 'panel-danger':status=='401'}">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					Connection status:
-					<span ng-switch="item.status">
+					<span ng-switch="status">
 						<span ng-switch-default class="animate-calm">
-							Not set up yet
+							Not Yet Connected
+						</span>
+						<span ng-switch-when="401" class="animate-calm">
+							Authentication Required
 						</span>
 						<span ng-switch-when="ready" class="animate-calm">
-							Ready
+							Connection Ready
 						</span>
 					</span>
 				</h3>
 			</div>
 			<div class="panel-body">
-				<div ng-switch="item.status">
+				<div ng-switch="status">
 					<div ng-switch-default class="animate-calm text-center">
-						<a class="btn btn-xs btn-success animate"
-						   ng-click="init();">initialize connection</a>
+						<a class="btn btn-success animate"
+						   ng-click="init();"
+						   ng-disabled="loading"
+						   >
+							<span ng-hide="loading" class="animate-calm">initialize connection</span>
+							<span ng-if="loading" class="animate-calm"><i class="fa fa-spinner fa-spin"></i> connecting...</span>
+						</a>
+					</div>
+					<div ng-switch-when="401" class="animate-calm">
+						<p>You need to provide a passphrase:</p>
+						<form>
+							<label for="passphrase" class="hidden-label">Passphrase</label>
+							<div class="input-group">
+								<input class="form-control" id="passphrase" ng-model="passphrase" placeholder="Passphrase">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-success" ng-click="authenticate(passphrase);">Submit</button>
+								</div>
+							</div>
+						</form>
 					</div>
 					<div ng-switch-when="ready" class="animate-calm">
 						Ready

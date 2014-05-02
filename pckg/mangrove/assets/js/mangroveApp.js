@@ -185,6 +185,10 @@ mangroveApp
 	{
 		$scope.editmode = false;
 
+		$scope.loading = true;
+
+		$scope.status = 'untainted';
+
 		dataPersist.bindResource(
 			$scope,
 			{
@@ -208,8 +212,9 @@ mangroveApp
 					function() {
 						$scope.loading = false;
 
-
-
+						if ( $scope.source.status ) {
+							$scope.status = $scope.source.status;
+						}
 					},
 					function() { $state.transitionTo('source.list'); }
 				);
@@ -220,11 +225,30 @@ mangroveApp
 		).then(function(){ $scope.loading = false; });
 
 		$scope.init = function() {
+			$scope.loading = true;
+
 			swHttp.get('/source/'+$scope.item.id+'/init')
 				.success(
 				function(data){
-					$scope.info = data;
+					$scope.loading = false;
 
+					$scope.status = data;
+				}
+			);
+		}
+
+		$scope.authenticate = function( passphrase ) {
+			$scope.loading = true;
+
+			swHttp.post(
+					'/source/'+$scope.item.id+'/authenticate',
+					{passphrase: passphrase}
+				)
+				.success(
+				function(data){
+					$scope.loading = false;
+
+					$scope.status = data;
 				}
 			);
 		}
