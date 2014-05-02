@@ -119,7 +119,7 @@ mangroveApp
 			dataPersist.bindResource(
 				$scope,
 				{
-					res: 'application',
+					res: 'app',
 					callback: {
 						add: function(id) { $state.go('application.detail',{itemId:id}); },
 						remove: function(id) {
