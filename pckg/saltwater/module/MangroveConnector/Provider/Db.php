@@ -14,7 +14,7 @@ class Db extends Provider
 
 	private static $pointer;
 
-	public static function get()
+	public static function getProvider()
 	{
 		if ( empty(self::$db) ) {
 			self::$db = clone S::$n->provider('db');

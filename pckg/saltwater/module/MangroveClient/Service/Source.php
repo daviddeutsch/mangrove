@@ -13,7 +13,7 @@ class Source extends Rest
 
 
 		if ( empty($source->token) ) {
-			$server = S::$n->http->_get($source->url.'/hook/updates');
+			$server = S::$n->http->get($source->url.'/hook/updates');
 
 			return $server;
 		}

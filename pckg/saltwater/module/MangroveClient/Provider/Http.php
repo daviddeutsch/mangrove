@@ -6,12 +6,12 @@ use Saltwater\Thing\Provider;
 
 class Http extends Provider
 {
-	public static function get()
+	public static function getProvider()
 	{
 		return new Http();
 	}
 
-	public function _get( $url )
+	public function get( $url )
 	{
 		return $this->connect($url);
 	}

@@ -8,7 +8,7 @@ class Pointer extends Provider
 {
 	private static $pointer;
 
-	public static function get()
+	public static function getProvider()
 	{
 		return new Pointer();
 	}
