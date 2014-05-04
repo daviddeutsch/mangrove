@@ -77,19 +77,8 @@
 						</a>
 					</div>
 					<div ng-switch-when="401" class="animate-calm">
-						<p>This source wants you authenticate with an account, a passphrase, or you can link up anonymously as a guest</p>
-						<div class="text-center">
-							<hr />
-							<p>
-								<a class="btn btn-success animate"
-								   ng-click="init();"
-								   ng-disabled="loading"
-									>
-									Thanks, I'll stay a guest for now
-								</a>
-								<br /><br />
-								<span class="text-muted">(This will only give you restricted access)</span>
-							</p>
+						<p>This source wants you to authenticate with an account, a passphrase, or to link up anonymously* as a guest</p>
+						<div class="text-center clearfix">
 							<hr />
 							<p>Authenticate with:</p>
 
@@ -100,6 +89,7 @@
 									<input class="form-control"
 										   id="passphrase"
 										   ng-model="passphrase"
+										   name="passphrase"
 										   placeholder="Passphrase">
 									<br /><br />
 									<button type="button" class="btn btn-success" ng-click="authenticate(passphrase);">Submit</button>
@@ -108,13 +98,31 @@
 
 							<div class="col-md-6">
 								<form>
-										<label for="auth-username" class="hidden-label">Username</label>
-										<input class="form-control" id="auth-username" placeholder="Username">
-										<label for="auth-password" class="hidden-label">Password</label>
-										<input class="form-control" id="auth-password" placeholder="Password">
-										<br />
-										<button type="button" class="btn btn-success" ng-click="authenticate(passphrase);">Submit</button>
+									<label for="auth-username" class="hidden-label">Username</label>
+									<input class="form-control" id="auth-username" name="username" placeholder="Username">
+									<label for="auth-password" class="hidden-label">Password</label>
+									<input class="form-control" id="auth-password" name="password" placeholder="Password">
+									<br />
+									<button type="button" class="btn btn-success" ng-click="authenticate(username, password);">Submit</button>
 								</form>
+							</div>
+
+							<br />
+
+							<div class="col-md-12">
+							<hr />
+							<p>
+								or don't:
+								<br /><br />
+								<a class="btn btn-success animate"
+								   ng-click="init();"
+								   ng-disabled="loading"
+									>
+									Thanks, I'll stay a guest for now
+								</a>
+								<br /><br />
+								<span class="text-muted">(This will only give you restricted access)</span>
+							</p>
 							</div>
 
 						</div>
@@ -123,8 +131,15 @@
 					<div ng-switch-when="ready" class="animate-calm">
 						Ready
 					</div>
+				</div>
 			</div>
 		</div>
+
+		<div ng-if="status==401" class="animate-calm">
+			<br />
+			<p class="text-muted">* In order to identify this install of mangrove, connecting to a source - no matter in which way - requires transmitting a UUID of the root URL. No further details are stored.</p>
+			<p class="text-muted">Additional choices (such as activating automatic updates), however, may require further data to be stored.</p>
+			<p class="text-muted">We value your privacy and security and will always inform you about the data we store ahead of time.</p>
 		</div>
 	</div>
 </div>
