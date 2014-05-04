@@ -45,6 +45,10 @@ body {
 	outline: none;
 }
 
+.mangroveApp .container p>a.btn {
+	color: inherit !important;
+}
+
 .mangrove-logo-big {
 	position: relative;
 	width: 100%;
