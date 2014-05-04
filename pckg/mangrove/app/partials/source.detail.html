@@ -47,7 +47,7 @@
 	<div class="col-md-6 col-md-offset-3" ng-if="item.id" ng-hide="editmode">
 
 		<div class="panel animate-calm"
-			 ng-class="{'panel-primary':status=='untainted', 'panel-primary':status=='connecting', 'panel-success':status=='ready', 'panel-danger':status=='401'}">
+			 ng-class="{'panel-primary':status=='untainted', 'panel-warning':status=='connecting', 'panel-success':status=='ready', 'panel-danger':status=='401'}">
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					{{ status=='untainted' ? 'Not Yet Connected' : '' }}
