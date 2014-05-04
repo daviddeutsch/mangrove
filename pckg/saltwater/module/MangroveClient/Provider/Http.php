@@ -11,22 +11,31 @@ class Http extends Provider
 		return new Http();
 	}
 
-	public function get( $url )
+	public function get( $url, $header=null )
 	{
-		return $this->connect($url);
+		return $this->connect($url, null, $header);
 	}
 
-	public function post( $url, $content )
+	public function post( $url, $content, $header=null )
 	{
-		return $this->connect($url, $content);
+		return $this->connect($url, $content, $header);
 	}
 
-	private function connect( $url, $content=null )
+	private function connect( $url, $content=null, $header=null )
 	{
+		if ( !empty($header) ) {
+			$header = array_merge(
+				array('Content-Type: text/json'),
+				$header
+			);
+		} else {
+			$header = array('Content-Type: text/json');
+		}
+
 		$curl_calls = array(
 			CURLOPT_URL =>            $url,
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_HTTPHEADER =>     array( 'Content-Type: text/json' ),
+			CURLOPT_HTTPHEADER =>     $header,
 			CURLOPT_HEADER =>         false
 		);
 
