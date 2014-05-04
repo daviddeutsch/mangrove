@@ -237,13 +237,19 @@ mangroveApp
 			);
 		}
 
-		$scope.authenticate = function( passphrase ) {
+		$scope.authenticate = function( one, two ) {
 			$scope.loading = true;
 
-			swHttp.post(
-					'/source/'+$scope.item.id+'/authenticate',
-					{passphrase: passphrase}
-				)
+			var details = {};
+
+			if ( typeof two == undefined ) {
+				details.passphrase = one;
+			} else {
+				details.username = one;
+				details.password = two;
+			}
+
+			swHttp.post('/source/'+$scope.item.id+'/authenticate', details)
 				.success(
 				function(data){
 					$scope.loading = false;

@@ -19,4 +19,13 @@ class Source extends Rest
 		}
 	}
 
+	public function postAuthenticate( $details )
+	{
+		if ( !empty($details->username) ) {
+
+		} elseif ( !empty($details->passphrase ) ) {
+
+		}
+	}
+
 }
