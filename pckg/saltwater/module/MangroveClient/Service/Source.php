@@ -24,21 +24,36 @@ class Source extends Rest
 		$source = $this->context->data;
 
 		// TODO: This should also take subdirectories into consideration
-		$url = $_SERVER['SERVER_NAME'];
+		$uuid = S::$n->uuid($_SERVER['SERVER_NAME']);
 
 		if ( !empty($details->username) ) {
-			$server = S::$n->http->get(
-				$source->url . '/stream',
-				array(
-					'Authorization: Basic '
-					. $details->username . ':' . $details->password
-				)
+			$auth = array(
+				'Authorization: Basic '
+				. $details->username . ':' . $details->password
 			);
-
-			return $server;
 		} elseif ( !empty($details->passphrase ) ) {
+			$auth = array(
+				'Authorization: Basic ' . $details->passphrase
+			);
+		} else {
+			return null;
+		}
+
+		S::$n->http->post(
+			$source->url . '/client',
+			$auth
+		);
+
+		$source->token = S::$n->http->get(
+			$source->url . '/session',
+			$auth
+		);
+
+		if ( $source->token ) {
 
 		}
+
+		S::$n->db->_($source);
 	}
 
 }

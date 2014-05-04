@@ -14,6 +14,8 @@ class MangroveClient extends Module
 
 	protected $providers = array('http');
 
+	protected $factories = array('uuid');
+
 	protected $contexts = array('MangroveClient');
 
 	protected $services = array(
