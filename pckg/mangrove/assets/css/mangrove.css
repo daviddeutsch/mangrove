@@ -31,24 +31,6 @@ body {
 	min-height: 400px;
 }
 
-.mangroveApp .container p>a {
-	color: #79a127;
-}
-
-.mangroveApp .container p>a:hover {
-	color: #405e1e;
-}
-
-.mangroveApp .container p>a:active,
-.mangroveApp .container p>a:focus {
-	color: #2d4513;
-	outline: none;
-}
-
-.mangroveApp .container p>a.btn {
-	color: inherit !important;
-}
-
 .mangrove-logo-big {
 	position: relative;
 	width: 100%;
