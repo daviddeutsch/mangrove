@@ -83,6 +83,21 @@ body {
 	display: none;
 }
 
+.close {
+	float: right;
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 0.6;
+	color: #eee;
+	text-shadow: 0 1px 1px #000;
+	opacity: 1;
+	margin-right: -6px;
+}
+
+.close:hover {
+	color: #aaa;
+}
+
 .header {
 	margin: 24px auto;
 	text-align: center;

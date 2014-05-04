@@ -47,20 +47,13 @@
 	<div class="col-md-6 col-md-offset-3" ng-if="item.id" ng-hide="editmode">
 
 		<div class="panel animate-calm"
-			 ng-class="{'panel-primary':status=='untainted', 'panel-success':status=='ready', 'panel-danger':status=='401'}">
+			 ng-class="{'panel-primary':status=='untainted', 'panel-primary':status=='connecting', 'panel-success':status=='ready', 'panel-danger':status=='401'}">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					<span ng-switch="status">
-						<span ng-switch-default class="animate-calm">
-							Not Yet Connected
-						</span>
-						<span ng-switch-when="401" class="animate-calm">
-							Hold up, we'll need some more info
-						</span>
-						<span ng-switch-when="ready" class="animate-calm">
-							Connection Ready
-						</span>
-					</span>
+					{{ status=='untainted' ? 'Not Yet Connected' : '' }}
+					{{ status=='connecting' ? 'Connecting...' : '' }}
+					{{ status=='401' ? 'Hold up, we\'ll need some more info' : '' }}
+					{{ status=='ready' ? 'Connection Ready' : '' }}
 				</h3>
 			</div>
 			<div class="panel-body">
@@ -88,22 +81,35 @@
 									<label for="passphrase" class="hidden-label">Passphrase</label>
 									<input class="form-control"
 										   id="passphrase"
-										   ng-model="passphrase"
+										   ng-model="details.passphrase"
 										   name="passphrase"
 										   placeholder="Passphrase">
 									<br /><br />
-									<button type="button" class="btn btn-success" ng-click="authenticate(passphrase);">Submit</button>
+									<button type="button"
+											class="btn btn-success"
+											ng-click="authenticate('passphrase');"
+											ng-disabled="loading">
+										<span ng-hide="loading" class="animate-calm">Submit</span>
+										<span ng-if="loading" class="animate-calm">
+											<i class="fa fa-spinner fa-spin"></i> sending...
+										</span>
+									</button>
 								</form>
 							</div>
 
 							<div class="col-md-6">
 								<form>
 									<label for="auth-username" class="hidden-label">Username</label>
-									<input class="form-control" id="auth-username" name="username" placeholder="Username">
+									<input class="form-control" id="auth-username" name="username" ng-model="details.username" placeholder="Username">
 									<label for="auth-password" class="hidden-label">Password</label>
-									<input class="form-control" id="auth-password" name="password" placeholder="Password">
+									<input class="form-control" id="auth-password" name="password" ng-model="details.password" placeholder="Password">
 									<br />
-									<button type="button" class="btn btn-success" ng-click="authenticate(username, password);">Submit</button>
+									<button type="button" class="btn btn-success" ng-click="authenticate('account');">
+										<span ng-hide="loading" class="animate-calm">Submit</span>
+										<span ng-if="loading" class="animate-calm">
+											<i class="fa fa-spinner fa-spin"></i> sending...
+										</span>
+									</button>
 								</form>
 							</div>
 
@@ -135,11 +141,9 @@
 			</div>
 		</div>
 
-		<div ng-if="status==401" class="animate-calm">
+		<div ng-if="status==401" class="text-center animate-calm">
 			<br />
-			<p class="text-muted">* In order to identify this install of mangrove, connecting to a source - no matter in which way - requires transmitting a UUID of the root URL. No further details are stored.</p>
-			<p class="text-muted">Additional choices (such as activating automatic updates), however, may require further data to be stored.</p>
-			<p class="text-muted">We value your privacy and security and will always inform you about the data we store ahead of time.</p>
+			<p class="text-muted">* What data is <a href data-template="partials/privacy.html" data-placement="top" data-animation="am-fade" bs-popover="">stored at the source</a>?</p>
 		</div>
 	</div>
 </div>

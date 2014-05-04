@@ -2,7 +2,7 @@ var mangroveApp = angular.module(
 	"mangroveApp",
 	[
 		'ngAnimate', 'ui.router', 'angularMoment',
-		'ui.bootstrap', 'swamp'
+		'mgcrea.ngStrap', 'swamp'
 	]
 );
 
@@ -189,6 +189,8 @@ mangroveApp
 
 		$scope.status = 'untainted';
 
+		$scope.details = {};
+
 		dataPersist.bindResource(
 			$scope,
 			{
@@ -227,6 +229,8 @@ mangroveApp
 		$scope.init = function() {
 			$scope.loading = true;
 
+			$scope.status = 'connecting';
+
 			swHttp.get('/source/'+$scope.item.id+'/init')
 				.success(
 				function(data){
@@ -235,18 +239,20 @@ mangroveApp
 					$scope.status = data;
 				}
 			);
-		}
+		};
 
-		$scope.authenticate = function( one, two ) {
+		$scope.authenticate = function( type ) {
 			$scope.loading = true;
+
+			$scope.status = 'connecting';
 
 			var details = {};
 
-			if ( typeof two == undefined ) {
-				details.passphrase = one;
+			if ( type == 'account' ) {
+				details.username = $scope.details.username;
+				details.password = $scope.details.password;
 			} else {
-				details.username = one;
-				details.password = two;
+				details.passphrase = $scope.details.passphrase;
 			}
 
 			swHttp.post('/source/'+$scope.item.id+'/authenticate', details)
@@ -257,7 +263,7 @@ mangroveApp
 					$scope.status = data;
 				}
 			);
-		}
+		};
 
 	}
 	]
