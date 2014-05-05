@@ -21,6 +21,8 @@ class Source extends Rest
 
 	public function postAuthenticate( $details )
 	{
+		$db = S::$n->db;
+
 		$source = $this->context->data;
 
 		// TODO: This should also take subdirectories into consideration
@@ -39,8 +41,23 @@ class Source extends Rest
 			return null;
 		}
 
+		$driver = $db->adapter->getDatabase();
+
+		$client = (object) array(
+			'uuid' => $uuid,
+			'tech' => (object) array(
+					'php' => PHP_VERSION,
+					'cms' => '',
+					'database' => (object) array(
+						'name' => $driver->getDatabaseType(),
+						'version' => $driver->getDatabaseVersion()
+					)
+				)
+		);
+
 		S::$n->http->post(
 			$source->url . '/client',
+			$client,
 			$auth
 		);
 
@@ -53,7 +70,7 @@ class Source extends Rest
 
 		}
 
-		S::$n->db->_($source);
+		$db->_($source);
 	}
 
 }
