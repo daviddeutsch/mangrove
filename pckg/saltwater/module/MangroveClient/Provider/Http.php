@@ -39,6 +39,10 @@ class Http extends Provider
 			CURLOPT_HEADER =>         false
 		);
 
+		if ( is_array($content) || is_object($content) ) {
+			$content = json_encode($content);
+		}
+
 		if ( !empty($content) ) {
 			$curl_calls[CURLOPT_POST]       = true;
 			$curl_calls[CURLOPT_POSTFIELDS] = $content;

@@ -10,12 +10,8 @@ class Source extends Rest
 	{
 		$source = $this->context->data;
 
-
-
-		if ( empty($source->token) ) {
-			$server = S::$n->http->get($source->url . '/hook/updates');
-
-			return $server;
+		if ( strlen($source->token) < 30 ) {
+			return '401';
 		}
 	}
 
@@ -43,34 +39,57 @@ class Source extends Rest
 
 		$driver = $db->adapter->getDatabase();
 
+		$dbversion = trim( $driver->getDatabaseVersion() );
+
+		if ( strpos($dbversion, ' ') ) {
+			$dbversion = explode(' ', $dbversion);
+
+			foreach ( $dbversion as $particle ) {
+				if ( strpos($particle, '.') === false ) continue;
+
+				$dbversion = $particle; break;
+			}
+		}
+
+		$tech = (object) array(
+			'php' => PHP_VERSION,
+			'cms' => '',
+			'database' => (object) array(
+				'name' => $driver->getDatabaseType(),
+				'version' => $dbversion
+			)
+		);
+
 		$client = (object) array(
 			'uuid' => $uuid,
-			'tech' => (object) array(
-					'php' => PHP_VERSION,
-					'cms' => '',
-					'database' => (object) array(
-						'name' => $driver->getDatabaseType(),
-						'version' => $driver->getDatabaseVersion()
-					)
-				)
+			'tech' => $tech
 		);
 
-		S::$n->http->post(
-			$source->url . '/client',
-			$client,
-			$auth
-		);
+		$tech = sha1( json_encode($tech) );
 
-		$source->token = S::$n->http->get(
+		if ( empty($source->tech) || ($source->tech != $tech) ) {
+			S::$n->http->post(
+				$source->url . '/client',
+				$client,
+				$auth
+			);
+
+			$source->tech = $tech;
+		}
+
+		$source->token = S::$n->http->post(
 			$source->url . '/session',
+			new \stdClass(),
 			$auth
 		);
 
-		if ( $source->token ) {
-
+		if ( strlen($source->token) > 30 ) {
+			$source->status = 'connected';
 		}
 
 		$db->_($source);
+
+		return $source->status;
 	}
 
 }
