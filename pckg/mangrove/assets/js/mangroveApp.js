@@ -214,9 +214,7 @@ mangroveApp
 					function() {
 						$scope.loading = false;
 
-						if ( $scope.source.status ) {
-							$scope.status = $scope.source.status;
-						}
+						$scope.status = $scope.item.status;
 					},
 					function() { $state.transitionTo('source.list'); }
 				);
