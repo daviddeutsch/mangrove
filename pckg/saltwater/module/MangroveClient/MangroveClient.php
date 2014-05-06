@@ -12,9 +12,7 @@ class MangroveClient extends Module
 		'Saltwater\Root\Root'
 	);
 
-	protected $providers = array('http');
-
-	protected $factories = array('uuid');
+	protected $providers = array('http', 'uuid');
 
 	protected $contexts = array('MangroveClient');
 
