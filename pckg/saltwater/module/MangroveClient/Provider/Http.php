@@ -6,9 +6,18 @@ use Saltwater\Thing\Provider;
 
 class Http extends Provider
 {
+	private $headers = array(
+		'Content-Type: text/json'
+	);
+
 	public static function getProvider()
 	{
 		return new Http();
+	}
+
+	public function setHeader( $header )
+	{
+		$this->headers[] = $header;
 	}
 
 	public function get( $url, $header=null )
@@ -23,19 +32,16 @@ class Http extends Provider
 
 	private function connect( $url, $content=null, $header=null )
 	{
+		$headers = $this->headers;
+
 		if ( !empty($header) ) {
-			$header = array_merge(
-				array('Content-Type: text/json'),
-				$header
-			);
-		} else {
-			$header = array('Content-Type: text/json');
+			$headers = array_merge($headers, $header);
 		}
 
 		$curl_calls = array(
 			CURLOPT_URL =>            $url,
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_HTTPHEADER =>     $header,
+			CURLOPT_HTTPHEADER =>     $headers,
 			CURLOPT_HEADER =>         false
 		);
 

@@ -11,31 +11,32 @@ class Source extends Rest
 		$source = $this->context->data;
 
 		if ( strlen($source->token) < 30 ) {
-			return '401';
+			return S::$n->http->get($source->url . '/app');
 		}
 	}
 
-	public function postAuthenticate( $details )
+	/**
+	 * @param $data
+	 * @param \Saltwater\Root\Provider\Db   $db
+	 * @param \MangroveClient\Provider\Http $http
+	 * @param \MangroveClient\Provider\Uuid $uuid
+	 *
+	 * @return null|string
+	 */
+	public function postAuthenticate( $data, $db, $http, $uuid )
 	{
-		$db = S::$n->db;
-
 		$source = $this->context->data;
 
-		// TODO: This should also take subdirectories into consideration
-		$uuid = S::$n->uuid($_SERVER['SERVER_NAME']);
-
-		if ( !empty($details->username) ) {
-			$auth = array(
-				'Authorization: Basic '
-				. $details->username . ':' . $details->password
-			);
-		} elseif ( !empty($details->passphrase ) ) {
-			$auth = array(
-				'Authorization: Basic ' . $details->passphrase
-			);
+		$auth =  'Authorization: Basic ';
+		if ( !empty($data->username) ) {
+			$auth .= $data->username . ':' . $data->password;
+		} elseif ( !empty($data->passphrase ) ) {
+			$auth .= $data->passphrase;
 		} else {
 			return null;
 		}
+
+		$http->setHeader($auth);
 
 		$driver = $db->adapter->getDatabase();
 
@@ -60,31 +61,27 @@ class Source extends Rest
 			)
 		);
 
-		$client = (object) array(
-			'uuid' => $uuid,
-			'tech' => $tech
-		);
-
-		$tech = sha1( json_encode($tech) );
-
-		if ( empty($source->tech) || ($source->tech != $tech) ) {
-			S::$n->http->post(
+		if (
+			empty($source->tech)
+			|| ( $source->tech != sha1(json_encode($tech)) )
+		) {
+			$http->post(
 				$source->url . '/client',
-				$client,
-				$auth
+				(object) array( 'uuid' => (string) $uuid, 'tech' => $tech )
 			);
 
 			$source->tech = $tech;
 		}
 
-		$source->token = S::$n->http->post(
+		$source->token = $http->post(
 			$source->url . '/session',
-			new \stdClass(),
-			$auth
+			new \stdClass()
 		);
 
 		if ( strlen($source->token) > 30 ) {
 			$source->status = 'connected';
+		} else {
+			$source->token = '';
 		}
 
 		$db->_($source);

@@ -1,7 +1,7 @@
 <?php
-namespace MangroveClient\Factory;
+namespace MangroveClient\Provider;
 
-use Saltwater\Thing\Factory;
+use Saltwater\Thing\Provider;
 
 /**
  * Class Uuid
@@ -12,9 +12,14 @@ use Saltwater\Thing\Factory;
  *
  * @package Saltwater\Root\Factory
  */
-class Uuid extends Factory
+class Uuid extends Provider
 {
-	public static function getFactory( $url, $data=null )
+	public static function getProvider()
+	{
+		return new Uuid();
+	}
+
+	public function __toString()
 	{
 		/*
 		 * http://tools.ietf.org/html/rfc4122#appendix-C
@@ -23,7 +28,7 @@ class Uuid extends Factory
 		 *
 		 * converted to decimals so we only do the last step of producing
 		 * the namespace characterstring instead of always doing the full
-		 * conversion from the UUID namespce above
+		 * conversion from the UUID namespace above
 		 */
 		$hexdec = array(
 			107, 167, 184, 17, 157, 173, 17, 209,
@@ -35,7 +40,8 @@ class Uuid extends Factory
 			$namespace = chr( $int ) . $namespace;
 		}
 
-		$hash = sha1($namespace . $url);
+		// TODO: This should also take subdirectories into consideration
+		$hash = sha1($namespace . $_SERVER['SERVER_NAME']);
 
 		return self::fromHash($hash);
 	}
