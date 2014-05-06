@@ -14,10 +14,7 @@ use Saltwater\Thing\Provider;
  */
 class Uuid extends Provider
 {
-	public static function getProvider()
-	{
-		return new Uuid();
-	}
+	public static function getProvider() { return new Uuid(); }
 
 	public function __toString()
 	{

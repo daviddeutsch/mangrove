@@ -10,10 +10,7 @@ class Http extends Provider
 		'Content-Type: text/json'
 	);
 
-	public static function getProvider()
-	{
-		return new Http();
-	}
+	public static function getProvider() { return new Http(); }
 
 	public function setHeader( $header )
 	{
