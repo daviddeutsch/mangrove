@@ -63,6 +63,10 @@ class TinyHookUtils
 		return $db->loadObject();
 	}
 
+	/**
+	 * @param string $path
+	 * @param string $callable
+	 */
 	function create( $path, $callable )
 	{
 		$db = JFactory::getDBO();

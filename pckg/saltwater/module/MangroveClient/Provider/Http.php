@@ -1,7 +1,6 @@
 <?php
 namespace MangroveClient\Provider;
 
-use Saltwater\Server as S;
 use Saltwater\Thing\Provider;
 
 class Http extends Provider
@@ -12,6 +11,9 @@ class Http extends Provider
 
 	public static function getProvider() { return new Http(); }
 
+	/**
+	 * @param string $header
+	 */
 	public function setHeader( $header )
 	{
 		$this->headers[] = $header;
@@ -22,6 +24,9 @@ class Http extends Provider
 		return $this->connect($url, null, $header);
 	}
 
+	/**
+	 * @param string $url
+	 */
 	public function post( $url, $content, $header=null )
 	{
 		return $this->connect($url, $content, $header);

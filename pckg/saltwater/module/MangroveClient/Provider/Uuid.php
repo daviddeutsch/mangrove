@@ -43,6 +43,9 @@ class Uuid extends Provider
 		return self::fromHash($hash);
 	}
 
+	/**
+	 * @param string $hash
+	 */
 	private static function fromHash( $hash )
 	{
 		// Set the version number to 5

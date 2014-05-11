@@ -65,6 +65,9 @@ class PackageModel extends RedBean_PipelineModel
 		}
 	}
 
+	/**
+	 * @param string $path
+	 */
 	private function unzip( $path, $remove=false )
 	{
 		$file = pathinfo($path);

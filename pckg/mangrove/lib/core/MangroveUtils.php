@@ -2,6 +2,9 @@
 
 class MangroveUtils
 {
+	/**
+	 * @param string $path
+	 */
 	public static function getJSON( $path )
 	{
 		return json_decode( file_get_contents($path) );
@@ -25,7 +28,7 @@ class MangroveUtils
 	/**
 	 * Adapted from http://stackoverflow.com/a/9776726
 	 *
-	 * @param $json
+	 * @param string $json
 	 *
 	 * @return string
 	 */
@@ -87,6 +90,9 @@ class MangroveUtils
 		return $result;
 	}
 
+	/**
+	 * @param string $path
+	 */
 	public static function rrmdir( $path )
 	{
 		if ( !is_dir($path) ) return;

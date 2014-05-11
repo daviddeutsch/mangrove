@@ -138,6 +138,9 @@ class MangroveShoot
 		}
 	}
 
+	/**
+	 * @param string $path
+	 */
 	private function installPackage( $path )
 	{
 		$path = $this->unzip($path);
@@ -195,11 +198,17 @@ class MangroveShoot
 		}
 	}
 
+	/**
+	 * @param string $path
+	 */
 	private static function getJSON( $path )
 	{
 		return json_decode( file_get_contents($path) );
 	}
 
+	/**
+	 * @param string $path
+	 */
 	private static function putJSON( $path, $data )
 	{
 		if ( version_compare(phpversion(), '5.4.0', '>') ) {
@@ -235,6 +244,10 @@ class MangroveShoot
 		rmdir($path);
 	}
 
+	/**
+	 * @param string $source
+	 * @param string $destination
+	 */
 	private static function rcopy( $source, $destination )
 	{
 		if ( is_dir($source) ) {
