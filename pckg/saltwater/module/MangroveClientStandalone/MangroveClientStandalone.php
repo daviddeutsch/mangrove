@@ -8,11 +8,11 @@ class MangroveClientStandalone extends Module
 {
 	public $namespace = 'MangroveClientStandalone';
 
-	protected $dependencies = array(
-		'MangroveClient\MangroveClient'
+	protected $require = array(
+		'module' => array('MangroveClient\MangroveClient')
 	);
 
-	protected $providers = array(
-		'config'
+	protected $provide = array(
+		'provider' => array('config')
 	);
 }

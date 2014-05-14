@@ -8,15 +8,14 @@ class MangroveClient extends Module
 {
 	public $namespace = 'MangroveClient';
 
-	protected $dependencies = array(
-		'Saltwater\Root\Root'
+	protected $require = array(
+		'module' => array('Saltwater\Root\Root')
 	);
 
-	protected $providers = array('http', 'uuid');
-
-	protected $contexts = array('MangroveClient');
-
-	protected $services = array(
-		'app', 'source', 'stream'
+	protected $provide = array(
+		'provider' => array('http', 'uuid'),
+		'context' => array('MangroveClient'),
+		'service' => array('app', 'source', 'stream')
 	);
+
 }
