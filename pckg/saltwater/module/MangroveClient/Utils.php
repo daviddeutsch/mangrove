@@ -1,6 +1,8 @@
 <?php
 
-class MangroveUtils
+namespace MangroveClient;
+
+class Utils
 {
 	/**
 	 * @param string $path

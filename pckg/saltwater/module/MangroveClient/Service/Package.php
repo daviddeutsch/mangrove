@@ -1,28 +1,12 @@
 <?php
+namespace MangroveClient\Service;
 
-class PackageModel extends RedBean_PipelineModel
+use Saltwater\Server as S;
+use Saltwater\Utils as U;
+use Saltwater\Thing\Service;
+
+class Package extends Service
 {
-	public function open()
-	{
-		if ( is_string($this->bean->info) ) {
-			if ( strpos($this->bean->info, '{') !== false ) {
-				$this->bean->info = json_decode($this->bean->info);
-			}
-		}
-	}
-
-	public function update()
-	{
-		if ( is_object($this->bean->info) ) {
-			$this->bean->info = json_encode($this->bean->info);
-		}
-	}
-
-	public function after_update()
-	{
-		$this->open();
-	}
-
 	public function fromSource( $source )
 	{
 		$this->source = MangroveApp::$app->temp . '/' . $source;
@@ -31,7 +15,7 @@ class PackageModel extends RedBean_PipelineModel
 			$this->source = $this->unzip($this->source . '.zip', true);
 		}
 
-		$this->info = MangroveUtils::getJSON($this->source . '/info.json');
+		$this->info = U::getJSON($this->source . '/info.json');
 
 		$this->fromInfo($this->info);
 	}
@@ -113,5 +97,4 @@ class PackageModel extends RedBean_PipelineModel
 
 		$this->r->_($entry);
 	}
-
 }

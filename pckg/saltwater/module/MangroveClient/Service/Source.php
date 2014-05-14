@@ -38,28 +38,7 @@ class Source extends Rest
 
 		$http->setHeader($auth);
 
-		$driver = $db->adapter->getDatabase();
 
-		$dbversion = trim( $driver->getDatabaseVersion() );
-
-		if ( strpos($dbversion, ' ') ) {
-			$dbversion = explode(' ', $dbversion);
-
-			foreach ( $dbversion as $particle ) {
-				if ( strpos($particle, '.') === false ) continue;
-
-				$dbversion = $particle; break;
-			}
-		}
-
-		$tech = (object) array(
-			'php' => PHP_VERSION,
-			'cms' => '',
-			'database' => (object) array(
-				'name' => $driver->getDatabaseType(),
-				'version' => $dbversion
-			)
-		);
 
 		if (
 			empty($source->tech)
