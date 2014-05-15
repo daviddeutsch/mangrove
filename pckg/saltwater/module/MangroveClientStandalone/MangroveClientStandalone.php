@@ -6,7 +6,9 @@ use Saltwater\Thing\Module;
 
 class MangroveClientStandalone extends Module
 {
-	public $namespace = 'MangroveClientStandalone';
+	public static $name = 'mangrove-client-standalone';
+
+	public static $namespace = 'MangroveClientStandalone';
 
 	protected $require = array(
 		'module' => array('MangroveClient\MangroveClient')
